@@ -25,6 +25,7 @@ import com.pocket.server.ai.AiClient
 import com.pocket.server.ai.AiConfig
 import com.pocket.server.update.Release
 import com.pocket.server.update.UpdateChecker
+import com.pocket.server.util.DownloadHelper
 import com.pocket.server.util.Prefs
 import kotlinx.coroutines.launch
 
@@ -172,7 +173,17 @@ class SettingsFragment : Fragment() {
                     MaterialAlertDialogBuilder(requireContext())
                         .setTitle("发现新版本 ${latest.tagName}")
                         .setMessage("当前版本 v${BuildConfig.VERSION_NAME}\n\n${latest.body.take(500)}")
-                        .setPositiveButton("下载 APK") { _, _ -> openUrl(latest.apkUrl ?: latest.htmlUrl) }
+                        .setPositiveButton("下载 APK") { _, _ ->
+                            DownloadHelper.download(
+                                requireContext(),
+                                latest.apkUrl ?: latest.htmlUrl,
+                                "PocketServer 更新",
+                                "正在下载版本 ${latest.tagName}",
+                                "application/vnd.android.package-archive",
+                                "PocketServer/updates"
+                            )
+                            Toast.makeText(requireContext(), "下载已开始，请在通知栏查看进度", Toast.LENGTH_LONG).show()
+                        }
                         .setNegativeButton("关闭", null)
                         .show()
                 } else {
