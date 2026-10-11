@@ -53,10 +53,10 @@ class SettingsFragment : Fragment() {
         val repo = view.findViewById<EditText>(R.id.edit_repo)
         val token = view.findViewById<EditText>(R.id.edit_github_token)
 
-        baseUrl.setText(Prefs.getStr(requireContext(), "ai_base_url"))
+        baseUrl.setText(Prefs.getStr(requireContext(), "ai_base_url", "https://api.deepseek.com/v1"))
         apiKey.setText(Prefs.getStr(requireContext(), "ai_api_key"))
-        model.setText(Prefs.getStr(requireContext(), "ai_model"))
-        repo.setText(Prefs.getStr(requireContext(), "github_repo"))
+        model.setText(Prefs.getStr(requireContext(), "ai_model", "deepseek-chat"))
+        repo.setText(Prefs.getStr(requireContext(), "github_repo", "1953187487/PocketServer"))
         token.setText(Prefs.getStr(requireContext(), "github_token"))
 
         baseUrl.setOnFocusChangeListener { _, f -> if (!f) Prefs.putStr(requireContext(), "ai_base_url", baseUrl.text.toString().trim()) }
