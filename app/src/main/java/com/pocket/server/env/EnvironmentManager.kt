@@ -9,6 +9,7 @@ import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.File
+import java.security.MessageDigest
 import java.util.concurrent.TimeUnit
 
 class EnvironmentManager private constructor() {
@@ -21,7 +22,8 @@ class EnvironmentManager private constructor() {
 
     private val client = OkHttpClient.Builder()
         .connectTimeout(30, TimeUnit.SECONDS)
-        .readTimeout(120, TimeUnit.SECONDS)
+        .readTimeout(300, TimeUnit.SECONDS)
+        .followRedirects(true)
         .build()
 
     companion object {
@@ -29,11 +31,18 @@ class EnvironmentManager private constructor() {
         fun get(): EnvironmentManager =
             instance ?: synchronized(this) { instance ?: EnvironmentManager().also { instance = it } }
 
+        // 每个条目: (baseUrl, 名称)。baseUrl 必须能直接拼 /v3.21/releases/<arch>/alpine-minirootfs-...tar.gz
         val ALPINE_MIRRORS = listOf(
-            "https://dl-cdn.alpinelinux.org/alpine",
-            "https://mirrors.tuna.tsinghua.edu.cn/alpine",
-            "https://mirrors.ustc.edu.cn/alpine"
+            "https://mirrors.aliyun.com/alpine" to "阿里云",
+            "https://mirrors.tuna.tsinghua.edu.cn/alpine" to "清华 TUNA",
+            "https://mirrors.huaweicloud.com/alpine" to "华为云",
+            "https://mirrors.cernet.edu.cn/alpine" to "CERNET",
+            "https://mirrors.bfsu.edu.cn/alpine" to "北外",
+            "https://mirror.clarkson.edu/alpine" to "Clarkson",
+            "https://dl-cdn.alpinelinux.org/alpine" to "Alpine 官方 CDN"
         )
+
+        val ALPINE_VERSIONS = listOf("3.21.8", "3.20.9", "3.19.9")
     }
 
     fun rootfsDir(ctx: Context) = File(ctx.filesDir, "rootfs")
@@ -52,7 +61,7 @@ class EnvironmentManager private constructor() {
     fun isInstalled(ctx: Context): Boolean =
         File(rootfsDir(ctx), "bin/busybox").exists() && prootBin(ctx).exists()
 
-    fun alpineVersion(ctx: Context): String = Prefs.getStr(ctx, "alpine_version", "3.20")
+    fun alpineVersion(ctx: Context): String = Prefs.getStr(ctx, "alpine_version", "3.21")
 
     fun appendLog(ctx: Context, line: String) {
         val cur = log.value ?: ""
@@ -72,52 +81,84 @@ class EnvironmentManager private constructor() {
         else -> "x86"
     }
 
+    /** 测试单个镜像是否能拿到当前架构的最新 minirootfs，返回 true/false */
+    suspend fun testMirror(ctx: Context, mirror: String): Boolean = withContext(Dispatchers.IO) {
+        val arch = arch()
+        val v = ALPINE_VERSIONS.first()
+        val branch = v.substringBeforeLast('.')
+        val url = "$mirror/v$branch/releases/$arch/alpine-minirootfs-$v-$arch.tar.gz"
+        try {
+            val r = client.newCall(Request.Builder().url(url).head().build()).execute()
+            r.use {
+                if (!it.isSuccessful) { appendLog(ctx, "[mirror] ${mirror} 不可用 (HTTP ${it.code})"); false }
+                else { appendLog(ctx, "[mirror] ${mirror} 可用"); true }
+            }
+        } catch (e: Exception) {
+            appendLog(ctx, "[mirror] ${mirror} 连接失败: ${e.message}"); false
+        }
+    }
+
     suspend fun install(ctx: Context): Unit = withContext(Dispatchers.IO) {
         state.postValue(State.INSTALLING)
+        val logFn = { line: String -> appendLog(ctx, line) }
         try {
             if (!prootBin(ctx).exists()) throw IllegalStateException("内置 proot 缺失，请重新安装应用")
             val arch = arch()
-            appendLog(ctx, "[install] 设备架构: $arch")
+            logFn("[install] 设备架构: $arch")
+
+            // 选择已手动指定的镜像优先
+            val pinned = Prefs.getStr(ctx, "alpine_mirror").takeIf { it.isNotBlank() }
+            val orderedMirrors = if (pinned != null)
+                ALPINE_MIRRORS.filter { it.first == pinned } + ALPINE_MIRRORS.filter { it.first != pinned }
+            else
+                ALPINE_MIRRORS
+
             val rootfs = rootfsDir(ctx)
             val tarFile = File(tmpDir(ctx), "rootfs.tar.gz")
 
             var downloaded = false
-            outer@ for (mirror in ALPINE_MIRRORS) {
-                for (version in listOf("3.20.3", "3.19.4")) {
+            outer@ for ((mirrorUrl, mirrorName) in orderedMirrors) {
+                for (version in ALPINE_VERSIONS) {
                     val branch = version.substringBeforeLast('.')
-                    val url = "$mirror/v$branch/releases/$arch/alpine-minirootfs-$version-$arch.tar.gz"
+                    val url = "$mirrorUrl/v$branch/releases/$arch/alpine-minirootfs-$version-$arch.tar.gz"
                     try {
-                        appendLog(ctx, "[install] 下载 Alpine 根文件系统: $url")
+                        logFn("[install] 下载 Alpine: $mirrorName ($mirrorUrl) 版本 $version")
                         downloadWithProgress(ctx, url, tarFile)
-                        appendLog(ctx, "[install] 解压根文件系统…")
+                        verifySha256(ctx, mirrorUrl, branch, version, arch, tarFile)
+                        logFn("[install] 解压根文件系统…")
+                        rootfs.deleteRecursively()
                         rootfs.mkdirs()
                         val p = ProcessBuilder("tar", "-xzf", tarFile.absolutePath, "-C", rootfs.absolutePath)
                             .redirectErrorStream(true).start()
                         val out = p.inputStream.bufferedReader().readText()
-                        p.waitFor()
-                        if (!File(rootfs, "bin/busybox").exists()) {
-                            throw IllegalStateException("解压失败: ${out.take(300)}")
+                        val code = p.waitFor()
+                        if (code != 0 || !File(rootfs, "bin/busybox").exists()) {
+                            throw IllegalStateException("解压失败 code=$code: ${out.take(300)}")
                         }
                         Prefs.putStr(ctx, "alpine_version", branch)
+                        Prefs.putStr(ctx, "alpine_mirror", mirrorUrl)
+                        logFn("[install] 下载完成，来自 $mirrorName，大小 ${tarFile.length() / 1024} KB")
                         downloaded = true
                         break@outer
                     } catch (e: Exception) {
-                        appendLog(ctx, "[install] 源失败: ${e.message}，尝试下一个…")
+                        logFn("[install] $mirrorName / $version 失败: ${e.message}")
                     }
                 }
             }
-            if (!downloaded) throw IllegalStateException("所有镜像下载失败，请检查网络后重试")
+            if (!downloaded) throw IllegalStateException("所有镜像下载失败，请到设置里手动选一个可用的镜像再重试")
             tarFile.delete()
 
-            File(rootfs, "etc/resolv.conf").writeText("nameserver 223.5.5.5\nnameserver 8.8.8.8\n")
+            // apk 源镜像跟随已选下载镜像，避免 apk add 时被 dl-cdn 卡死
             val branch = alpineVersion(ctx)
+            val mirrorBase = Prefs.getStr(ctx, "alpine_mirror", ALPINE_MIRRORS.first().first)
+            File(rootfs, "etc/resolv.conf").writeText("nameserver 223.5.5.5\nnameserver 8.8.8.8\n")
             File(rootfs, "etc/apk/repositories").writeText(
-                "https://dl-cdn.alpinelinux.org/alpine/v$branch/main\n" +
-                "https://dl-cdn.alpinelinux.org/alpine/v$branch/community\n"
+                "$mirrorBase/v$branch/main\n$mirrorBase/v$branch/community\n"
             )
+            logFn("[install] 已写入 apk repositories (镜像: $mirrorBase, 分支: $branch)")
 
             progress.postValue(Pair(70, "安装基础依赖 python3 / bash / curl …"))
-            appendLog(ctx, "[install] 安装基础依赖（python3 bash curl）…")
+            logFn("[install] 安装基础依赖（python3 bash curl）…")
             runCapture(
                 ctx,
                 "apk update && apk add --no-cache python3 bash curl tar gzip unzip zip",
@@ -125,11 +166,11 @@ class EnvironmentManager private constructor() {
             )
 
             progress.postValue(Pair(95, "完成"))
-            appendLog(ctx, "[install] 环境安装完成")
+            logFn("[install] 环境安装完成")
             state.postValue(State.READY)
             progress.postValue(null)
         } catch (e: Exception) {
-            appendLog(ctx, "[install] 失败: ${e.message}")
+            logFn("[install] 失败: ${e.message}")
             state.postValue(if (isInstalled(ctx)) State.READY else State.NOT_INSTALLED)
             progress.postValue(null)
             throw e
@@ -143,20 +184,63 @@ class EnvironmentManager private constructor() {
             val body = resp.body ?: throw IllegalStateException("空响应")
             val total = body.contentLength()
             dest.outputStream().use { out ->
-                val buf = ByteArray(64 * 1024)
+                val buf = ByteArray(256 * 1024)
                 var read = 0L
+                var last = 0L
                 while (true) {
                     val n = body.byteStream().read(buf)
                     if (n <= 0) break
                     out.write(buf, 0, n)
                     read += n
                     if (total > 0) {
-                        val pct = (read * 60 / total).toInt()
-                        progress.postValue(Pair(pct, "下载中 ${(read / 1048576)}MB / ${(total / 1048576)}MB"))
+                        val pct = (read * 100 / total).toInt()
+                        val mb = (read / 1048576.0)
+                        val tot = (total / 1048576.0)
+                        val msg = "下载中 ${"%.1f".format(mb)} / ${"%.1f".format(tot)} MB"
+                        if (read - last > 64L * 1024 || read >= total) {
+                            last = read
+                            progress.postValue(Pair(pct, msg))
+                        }
                     }
                 }
             }
         }
+    }
+
+    private fun verifySha256(ctx: Context, mirror: String, branch: String, version: String, arch: String, file: File) {
+        val sumFile = "$mirror/v$branch/releases/$arch/alpine-minirootfs-$version-$arch.tar.gz.sha256"
+        try {
+            val resp = client.newCall(Request.Builder().url(sumFile).build()).execute()
+            resp.use {
+                if (!it.isSuccessful) { ctxLog(ctx, "[install] 校验和不可用，跳过 (HTTP ${it.code})"); return }
+                val text = it.body?.string() ?: return
+                val expected = text.trim().split(' ').firstOrNull()?.lowercase()
+                if (expected.isNullOrBlank()) { ctxLog(ctx, "[install] 校验和为空，跳过"); return }
+                val actual = sha256Hex(file)
+                if (actual != expected) {
+                    throw IllegalStateException("SHA256 校验失败: 期望 $expected，实际 $actual")
+                }
+                ctxLog(ctx, "[install] SHA256 校验通过: $actual")
+            }
+        } catch (e: Exception) {
+            if (e.message?.startsWith("SHA256 校验失败") == true) throw e
+            ctxLog(ctx, "[install] 校验和请求失败: ${e.message}，跳过校验")
+        }
+    }
+
+    private fun ctxLog(ctx: Context, line: String) = appendLog(ctx, line)
+
+    private fun sha256Hex(file: File): String {
+        val d = MessageDigest.getInstance("SHA-256")
+        file.inputStream().use { ins ->
+            val buf = ByteArray(64 * 1024)
+            while (true) {
+                val n = ins.read(buf)
+                if (n <= 0) break
+                d.update(buf, 0, n)
+            }
+        }
+        return d.digest().joinToString("") { "%02x".format(it) }
     }
 
     fun buildProotCmd(
