@@ -3,6 +3,16 @@
 .gemini
 .opencode
 
+# Android
+local.properties
+*.jks
+*.keystore
+captures/
+.externalNativeBuild/
+.cxx/
+!gradle/wrapper/gradle-wrapper.jar
+!app/src/main/jniLibs/**/*.so
+
 # IDE and Editors
 **/.idea/
 **/.vscode/
