@@ -93,22 +93,22 @@
             android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_start_software"
+                android:id="@+id/btn_select_pack"
                 style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="6dp"
                 android:layout_weight="1"
-                android:text="@string/start_software_server" />
+                android:text="选择服务包" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_start_game"
+                android:id="@+id/btn_start_server"
                 style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="6dp"
                 android:layout_weight="1"
-                android:text="@string/start_game_server" />
+                android:text="@string/start_server" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_stop"
@@ -118,6 +118,13 @@
                 android:layout_weight="1"
                 android:text="@string/stop_server" />
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/text_current_pack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:textSize="12sp" />
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"

@@ -10,16 +10,17 @@
     <string name="env_status_ready">环境就绪，可启动服务器</string>
     <string name="env_status_running">服务器运行中</string>
     <string name="one_click_install">一键安装依赖</string>
-    <string name="start_software_server">启动软件服务器</string>
-    <string name="start_game_server">启动游戏服务器</string>
+    <string name="start_server">启动服务器</string>
     <string name="stop_server">停止服务器</string>
     <string name="send">发送</string>
     <string name="hint_message">向 AI 提问，或让它分析服务器 / APK…</string>
     <string name="refresh">刷新</string>
     <string name="accounts_title">服务器注册账户</string>
-    <string name="pick_apk">选择工作区 APK 分析</string>
-    <string name="install_toolchain">安装 APK 工具链（逆向 / 构建）</string>
-    <string name="analyze_server">让 AI 分析服务器状态</string>
+    <string name="pick_apk">选择 APK</string>
+    <string name="install_toolchain">装工具链</string>
+    <string name="analyze_server">AI 分析服务器</string>
+    <string name="unpack_ai">AI 解包分析</string>
+    <string name="onlinize">一键联机化</string>
     <string name="settings_theme">调节颜色</string>
     <string name="settings_ai">自定义 AI 服务商</string>
     <string name="settings_update">检查更新与历史版本</string>
@@ -37,5 +38,5 @@
     <string name="model_hint">模型名称（如 gpt-4o-mini / deepseek-chat）</string>
     <string name="repo_hint">GitHub 仓库（如 user/PocketServer）</string>
     <string name="github_token_hint">GitHub Token（可选，查私有仓库）</string>
-    <string name="home_instructions">1. 点击「一键安装依赖」，首次进入会自动询问并下载 proot 运行环境与 Alpine Linux 根文件系统，随后自动安装 Python3 等基础依赖。\n2. 「启动软件服务器」：部署内置用户系统 API（注册 / 登录 / 在线心跳 / 账户列表）并托管你的软件包，本机地址 http://127.0.0.1:8080，局域网地址见启动日志，你的 App 客户端直接对接。\n3. 「启动游戏服务器」：自动安装 OpenJDK 17，下载 PaperMC（Minecraft 服务端）并启动，客户端用 MC 版本对应地址连接。\n4. 在「AI 与用户」页可查看注册账户与在线状态、用 AI 分析服务器日志与 APK、安装逆向 / 构建工具链。\n5. 服务器进程由前台服务保活，通知栏可确认运行状态；点击「停止服务器」结束。</string>
+    <string name="home_instructions">1. 点击「一键安装依赖」，首次进入会自动询问并下载 proot 运行环境与 Alpine Linux 根文件系统，随后自动安装 Python3 等基础依赖。\n2. 「服务器功能」：选择服务包后一键启动。内置「用户系统服务包」提供注册 / 登录 / 在线心跳 / 账户列表 API 并托管你的软件包；也可把自定义服务包放入工作区 serverpack 目录（含 start.sh），例如你自己的游戏服务端。\n3. 「AI 与用户」页：查看注册账户与在线状态；AI 解包分析 APK（apktool / jadx 逆向工具链）；「一键联机化」把工作区 onlinepack 联机补丁包覆盖替换进解包工程并替换服务器联机文件，重建签名输出联机版 APK。\n4. 服务器进程由前台服务保活，通知栏可确认运行状态；点击「停止服务器」结束。</string>
 </resources>

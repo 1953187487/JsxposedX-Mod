@@ -1,0 +1,60 @@
+口袋服务器 开源协议说明
+========================
+
+本项目整体以 GPL-3.0 协议开源（见仓库 LICENSE 文件）。
+应用内打包与运行时使用了以下开源组件，感谢这些项目的作者与社区。
+
+一、随应用打包的组件
+1. proot
+   - 用途：用户态 Linux 环境（无需 root 运行根文件系统）
+   - 来源：https://github.com/proot-me/proot
+   - 协议：GPL-2.0-or-later（以 libproot.so 形式打包于应用 jniLibs）
+
+2. apksigner（Android SDK Build-Tools 组件）
+   - 用途：APK 签名（v1/v2）
+   - 来源：https://developer.android.com/studio （AOSP）
+   - 协议：Apache-2.0（以 jar 形式打包于应用 assets/tools）
+
+二、运行时在 Linux 环境内下载安装的组件
+3. Alpine Linux（根文件系统与 apk 包管理器）
+   - 协议：多数软件包为 GPL-2.0/GPL-3.0/MIT/BSD 等，详见各包元数据
+   - 来源：https://alpinelinux.org
+
+4. Python 3
+   - 协议：PSF License
+   - 来源：https://www.python.org
+
+5. OpenJDK 17
+   - 协议：GPL-2.0 with Classpath Exception
+   - 来源：https://openjdk.org
+
+6. apktool
+   - 用途：APK 反编译 / 回编译
+   - 协议：Apache-2.0
+   - 来源：https://github.com/iBotPeaches/Apktool
+
+7. jadx
+   - 用途：DEX / smali 转 Java 源码
+   - 协议：GPL-3.0
+   - 来源：https://github.com/skylot/jadx
+
+三、应用框架与库
+8. Kotlin / kotlinx-coroutines
+   - 协议：Apache-2.0
+9. AndroidX (core / appcompat / recyclerview / lifecycle / constraintlayout)
+   - 协议：Apache-2.0
+10. Material Components for Android
+   - 协议：Apache-2.0
+11. OkHttp
+   - 协议：Apache-2.0
+   - 来源：https://github.com/square/okhttp
+12. Gson
+   - 协议：Apache-2.0
+   - 来源：https://github.com/google/gson
+
+四、GPL 合规声明
+本应用打包了 GPL 许可的 proot 二进制。依据 GPL-2.0-or-later 的要求，
+本项目的完整源代码已在 https://github.com/1953187487/PocketServer 公开，
+用户可依据 GPL 条款自由使用、修改与再分发（遵循 GPL-3.0）。
+
+如认为本应用侵犯了你的权益，请联系开发者处理。

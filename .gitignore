@@ -10,8 +10,6 @@ local.properties
 captures/
 .externalNativeBuild/
 .cxx/
-!gradle/wrapper/gradle-wrapper.jar
-!app/src/main/jniLibs/**/*.so
 
 # IDE and Editors
 **/.idea/
@@ -184,3 +182,8 @@ captures/
 *.lz
 *.lzma
 *.iso
+
+# Android exceptions (must be last: later rules override earlier)
+!gradle/wrapper/gradle-wrapper.jar
+!app/src/main/assets/tools/apksigner.jar
+!app/src/main/jniLibs/**/*.so
