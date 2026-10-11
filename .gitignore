@@ -187,3 +187,6 @@ captures/
 !gradle/wrapper/gradle-wrapper.jar
 !app/src/main/assets/tools/apksigner.jar
 !app/src/main/jniLibs/**/*.so
+
+# 发布用 APK 产物（须放在未被目录级规则排除的目录下）
+!release/*.apk
