@@ -1,0 +1,1602 @@
+{
+  "@@locale": "en",
+  "appName": "JSXPOSEDX",
+  "@appName": {
+    "description": "Application name"
+  },
+  "desktopNavDeviceConnection": "Device Connection",
+  "@desktopNavDeviceConnection": {
+    "description": "PC sidebar - device connection"
+  },
+  "desktopNavWorkbench": "Workbench",
+  "@desktopNavWorkbench": {
+    "description": "PC sidebar - workbench"
+  },
+  "desktopNavSettings": "Settings",
+  "@desktopNavSettings": {
+    "description": "PC sidebar - settings"
+  },
+  "desktopThemeSwitchToLight": "Light Mode",
+  "@desktopThemeSwitchToLight": {
+    "description": "PC - switch to light mode"
+  },
+  "desktopThemeSwitchToDark": "Dark Mode",
+  "@desktopThemeSwitchToDark": {
+    "description": "PC - switch to dark mode"
+  },
+  "desktopFeatureTodo": "Feature coming soon",
+  "@desktopFeatureTodo": {
+    "description": "PC - feature placeholder"
+  },
+  "desktopUpdateCheck": "Check for Updates",
+  "@desktopUpdateCheck": {
+    "description": "PC - manually check for updates"
+  },
+  "desktopUpdateCheckDescription": "Check whether a new JsxposedX version is available",
+  "@desktopUpdateCheckDescription": {
+    "description": "PC - update setting description"
+  },
+  "desktopCurrentVersion": "Current version {version} ({buildNumber})",
+  "@desktopCurrentVersion": {
+    "description": "PC - show the version shared with mobile",
+    "placeholders": {
+      "version": {
+        "type": "String"
+      },
+      "buildNumber": {
+        "type": "String"
+      }
+    }
+  },
+  "desktopUpdateLatest": "You're up to date",
+  "@desktopUpdateLatest": {
+    "description": "PC - no update available"
+  },
+  "desktopUpdateCheckFailed": "Failed to check for updates. Try again later.",
+  "@desktopUpdateCheckFailed": {
+    "description": "PC - update check failure"
+  },
+  "desktopConnectionConnected": "Connected",
+  "@desktopConnectionConnected": {
+    "description": "PC - device connection status - connected"
+  },
+  "homeDesktopCardTitle": "PC Connection",
+  "@homeDesktopCardTitle": {
+    "description": "Phone - home tab - PC connection card title"
+  },
+  "homeDesktopCardDisconnected": "Waiting for desktop connection",
+  "@homeDesktopCardDisconnected": {
+    "description": "Phone - home tab - no desktop connection"
+  },
+  "homeDesktopCardDeviceCount": "{count} device(s)",
+  "@homeDesktopCardDeviceCount": {
+    "description": "Phone - home tab - connected desktop device count",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "desktopConnectionConnecting": "Connecting…",
+  "@desktopConnectionConnecting": {
+    "description": "PC - device connection status - connecting"
+  },
+  "desktopConnectionDisconnected": "Disconnected",
+  "@desktopConnectionDisconnected": {
+    "description": "PC - device connection status - disconnected"
+  },
+  "desktopConnectionAdbActive": "Connected to {device} via ADB",
+  "@desktopConnectionAdbActive": {
+    "description": "PC - app connection completed through ADB",
+    "placeholders": {
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "desktopConnectionConnect": "Connect",
+  "@desktopConnectionConnect": {
+    "description": "PC - device connect button"
+  },
+  "desktopConnectionDisconnect": "Disconnect",
+  "@desktopConnectionDisconnect": {
+    "description": "PC - device disconnect button"
+  },
+  "desktopConnectionAddressHint": "Phone address",
+  "@desktopConnectionAddressHint": {
+    "description": "PC - device connection address hint"
+  },
+  "desktopConnectionAdb": "ADB",
+  "@desktopConnectionAdb": {
+    "description": "PC - connect through ADB port forwarding"
+  },
+  "desktopConnectionWifi": "Wi-Fi",
+  "@desktopConnectionWifi": {
+    "description": "PC - connect through Wi-Fi address"
+  },
+  "desktopConnectionRefresh": "Refresh devices",
+  "@desktopConnectionRefresh": {
+    "description": "PC - refresh ADB device list"
+  },
+  "desktopConnectionDeviceUnauthorized": "Device unauthorized. Allow USB debugging on the phone.",
+  "@desktopConnectionDeviceUnauthorized": {
+    "description": "PC - unauthorized ADB device message"
+  },
+  "desktopDeviceListTitle": "Devices",
+  "@desktopDeviceListTitle": {
+    "description": "PC - device list title"
+  },
+  "desktopDeviceListEmpty": "No devices found. Connect a phone or tap refresh.",
+  "@desktopDeviceListEmpty": {
+    "description": "PC - empty device list message"
+  },
+  "desktopConnectionPairAddressHint": "Pairing address, e.g. 192.168.1.2:37099",
+  "@desktopConnectionPairAddressHint": {
+    "description": "PC - ADB wireless pairing address hint"
+  },
+  "desktopConnectionPairCodeHint": "Pairing code",
+  "@desktopConnectionPairCodeHint": {
+    "description": "PC - ADB wireless pairing code hint"
+  },
+  "desktopConnectionPair": "Pair",
+  "@desktopConnectionPair": {
+    "description": "PC - run ADB wireless pairing"
+  },
+  "desktopConnectionAdbAddressHint": "Connection address, e.g. 192.168.1.2:5555",
+  "@desktopConnectionAdbAddressHint": {
+    "description": "PC - ADB wireless connection address hint"
+  },
+  "desktopConnectionAdbConnect": "Connect ADB",
+  "@desktopConnectionAdbConnect": {
+    "description": "PC - run ADB wireless connection"
+  },
+  "desktopConnectionAdbSettings": "ADB Settings",
+  "@desktopConnectionAdbSettings": {
+    "description": "PC - open ADB pairing and wireless connection settings"
+  },
+  "desktopConnectionConfigureAdb": "Configure ADB Pairing & Wireless",
+  "@desktopConnectionConfigureAdb": {
+    "description": "PC - open ADB configuration"
+  },
+  "desktopConnectionConnectAdb": "Connect via ADB",
+  "@desktopConnectionConnectAdb": {
+    "description": "PC - complete device connection through ADB"
+  },
+  "desktopConnectionConnectWifi": "Connect via Wi-Fi",
+  "@desktopConnectionConnectWifi": {
+    "description": "PC - connect phone service through Wi-Fi"
+  },
+  "desktopConnectionPairSection": "Wireless Debugging Pairing",
+  "@desktopConnectionPairSection": {
+    "description": "PC - ADB pairing section title"
+  },
+  "desktopConnectionWirelessSection": "Wireless Connection",
+  "@desktopConnectionWirelessSection": {
+    "description": "PC - ADB wireless connection section title"
+  },
+  "desktopConnectionPairNextStep": "Pairing succeeded. Pairing alone does not add the device to the list. Find the IP address and port on the phone's Wireless debugging screen, enter it below, then select Connect ADB. The connection port is usually different from the pairing port.",
+  "@desktopConnectionPairNextStep": {
+    "description": "PC - next step after successful ADB pairing"
+  },
+  "desktopSettingsAppearance": "Appearance",
+  "desktopSettingsColorTheme": "Color theme",
+  "desktopSettingsThemeDark": "Dark",
+  "desktopSettingsThemeLight": "Light",
+  "desktopSettingsDisplayLanguage": "Display language",
+  "desktopSettingsApplication": "Application",
+  "desktopSettingsCommunity": "Community",
+  "desktopSettingsCommunityDescription": "Get tutorials and community support",
+  "desktopSettingsCommunityForum": "Muxue AI",
+  "desktopSettingsOfficialMirror": "Official Mirror",
+  "desktopSettingsJoinDiscord": "Join Discord",
+  "desktopSettingsJoinQQGroup": "Join QQ Group",
+  "desktopSettingsTargetRange": "Target Range",
+  "desktopSettingsFollowAuthor": "Follow the Author",
+  "desktopSettingsMorePlatforms": "More platforms",
+  "desktopSettingsAbout": "About",
+  "desktopSettingsOfficialSite": "Site",
+  "desktopSettingsOfficialSiteHint": "Latest tutorials",
+  "desktopSettingsRepository": "Repository",
+  "desktopSettingsWechat": "WeChat Channel",
+  "desktopDeviceDefaultName": "Android device",
+  "desktopDeviceSummary": "{manufacturer} · API {api} · {abi}",
+  "@desktopDeviceSummary": {
+    "placeholders": {
+      "manufacturer": {"type": "String"},
+      "api": {"type": "String"},
+      "abi": {"type": "String"}
+    }
+  },
+  "desktopDeviceCapabilities": "Capabilities",
+  "desktopExplorerTitle": "EXPLORER",
+  "desktopExplorerNewScript": "New script",
+  "desktopExplorerLocalScripts": "Local scripts",
+  "desktopExplorerDescription": "Scripts are stored locally and run on the selected device.",
+  "desktopExplorerFridaScripts": "Frida scripts",
+  "desktopExplorerXposedScripts": "Xposed scripts",
+  "desktopExplorerNoScripts": "No scripts yet",
+  "desktopEditorSaveAndRun": "Save and run (Ctrl/Cmd+S)",
+  "desktopEditorRunning": "Saved and running on device",
+  "desktopEditorRestartApp": "Restart the target app after saving",
+  "desktopEditorRunScript": "Run this script on device",
+  "desktopEditorOptions": "Script settings",
+  "desktopEditorUntitled": "No script selected",
+  "desktopEditorLoadFailed": "Failed to read script",
+  "desktopEditorCreateScript": "Create or open a local script",
+  "desktopEditorConnectDevice": "Connect a device to start",
+  "desktopEditorDescription": "Scripts stay on PC and sync to the selected device for execution.",
+  "desktopOutputTitle": "OUTPUT",
+  "desktopOutputEmpty": "Runtime logs will appear here in real time.",
+  "desktopOutputRequestCompleted": "Request {requestId} completed",
+  "@desktopOutputRequestCompleted": {
+    "placeholders": {"requestId": {"type": "String"}}
+  },
+  "desktopOutputExpand": "Expand output panel",
+  "desktopOutputCollapse": "Collapse output panel",
+  "desktopShellHint": "Enter shell command… (↑ for history)",
+  "desktopShellSuTooltip": "Run with su (root)",
+  "desktopShellRunTooltip": "Run command",
+  "desktopShellStatusNoDevice": "No device connected, cannot run command",
+  "desktopShellDisconnected": "Connection to device lost",
+  "desktopShellSessionClosed": "Session closed",
+  "desktopConsoleLogs": "Logs",
+  "desktopConsoleTerminal": "Terminal",
+  "desktopStatusNoDevice": "No device",
+  "desktopStatusQuickConnect": "Refresh and auto-connect",
+  "desktopStatusConnecting": "Connecting…",
+  "desktopStatusDeviceInfo": "API {api} · {abi}",
+  "@desktopStatusDeviceInfo": {
+    "placeholders": {
+      "api": {"type": "String"},
+      "abi": {"type": "String"}
+    }
+  },
+  "appSubtitle": "Cross-platform Hook debugging tool based on Xposed Frida",
+  "@appSubtitle": {
+    "description": "Application subtitle"
+  },
+  "home": "Home",
+  "@home": {
+    "description": "Home page title"
+  },
+  "project": "Project",
+  "@project": {
+    "description": "Project"
+  },
+  "repository": "Repository",
+  "@repository": {
+    "description": "Repository"
+  },
+  "news": "News",
+  "@news": {
+    "description": "News tab"
+  },
+  "star": "Star",
+  "@star": {
+    "description": "Star tab"
+  },
+  "repositoryAccountInfo": "Account Info",
+  "@repositoryAccountInfo": {
+    "description": "Repository token login account info title"
+  },
+  "repositoryTokenLogin": "Token Login",
+  "@repositoryTokenLogin": {
+    "description": "Repository token login title"
+  },
+  "repositoryReplaceToken": "Replace Token",
+  "@repositoryReplaceToken": {
+    "description": "Repository replace token button"
+  },
+  "repositoryTokenHint": "Enter token",
+  "@repositoryTokenHint": {
+    "description": "Repository token input hint"
+  },
+  "repositoryTokenEmpty": "Token cannot be empty",
+  "@repositoryTokenEmpty": {
+    "description": "Repository empty token prompt"
+  },
+  "repositoryVerifyAndLogin": "Verify & Login",
+  "@repositoryVerifyAndLogin": {
+    "description": "Repository token login confirm button"
+  },
+  "repositoryTokenLoginSuccess": "Token login successful",
+  "@repositoryTokenLoginSuccess": {
+    "description": "Repository token login success prompt"
+  },
+  "repositoryTokenInvalid": "Invalid or expired token",
+  "@repositoryTokenInvalid": {
+    "description": "Repository token login failed prompt"
+  },
+  "repositoryUnnamedUser": "Unnamed User",
+  "@repositoryUnnamedUser": {
+    "description": "Repository unnamed user placeholder"
+  },
+  "repositoryMxid": "MXID",
+  "@repositoryMxid": {
+    "description": "Repository user MXID label"
+  },
+  "repositoryVip": "VIP",
+  "@repositoryVip": {
+    "description": "Repository user VIP label"
+  },
+  "repositoryVipActive": "Active",
+  "@repositoryVipActive": {
+    "description": "Repository user VIP active status"
+  },
+  "repositoryVipInactive": "Inactive",
+  "@repositoryVipInactive": {
+    "description": "Repository user VIP inactive status"
+  },
+  "repositoryFavoriteLoginRequired": "Login Required",
+  "@repositoryFavoriteLoginRequired": {
+    "description": "Repository favorites page login required title"
+  },
+  "repositoryFavoriteLoginHint": "Log in to view your favorites",
+  "@repositoryFavoriteLoginHint": {
+    "description": "Repository favorites page login required hint"
+  },
+  "settings": "Settings",
+  "@settings": {
+    "description": "Settings page"
+  },
+  "language": "Language",
+  "@language": {
+    "description": "Language settings"
+  },
+  "theme": "Theme",
+  "@theme": {
+    "description": "Theme settings"
+  },
+  "lightTheme": "Light Theme",
+  "@lightTheme": {
+    "description": "Light theme"
+  },
+  "darkTheme": "Dark Theme",
+  "@darkTheme": {
+    "description": "Dark theme"
+  },
+  "chinese": "简体中文",
+  "@chinese": {
+    "description": "Chinese"
+  },
+  "english": "English",
+  "@english": {
+    "description": "English"
+  },
+  "confirm": "Confirm",
+  "@confirm": {
+    "description": "Confirm button"
+  },
+  "cancel": "Cancel",
+  "@cancel": {
+    "description": "Cancel button"
+  },
+  "save": "Save",
+  "@save": {
+    "description": "Save button"
+  },
+  "delete": "Delete",
+  "@delete": {
+    "description": "Delete button"
+  },
+  "edit": "Edit",
+  "@edit": {
+    "description": "Edit button"
+  },
+  "add": "Add",
+  "refresh": "Refresh",
+  "@add": {
+    "description": "Add button"
+  },
+  "search": "Search",
+  "@search": {
+    "description": "Search"
+  },
+  "loading": "Loading...",
+  "@loading": {
+    "description": "Loading message"
+  },
+  "success": "Success",
+  "@success": {
+    "description": "Success message"
+  },
+  "error": "Error",
+  "@error": {
+    "description": "Error message"
+  },
+  "warning": "Warning",
+  "@warning": {
+    "description": "Warning message"
+  },
+  "info": "Info",
+  "@info": {
+    "description": "Info message"
+  },
+  "hookStatus": "Hook Status",
+  "@hookStatus": {
+    "description": "Hook status"
+  },
+  "hookEnabled": "Hook Enabled",
+  "@hookEnabled": {
+    "description": "Hook enabled"
+  },
+  "hookDisabled": "Hook Disabled",
+  "@hookDisabled": {
+    "description": "Hook disabled"
+  },
+  "moduleInfo": "Module Info",
+  "@moduleInfo": {
+    "description": "Module information"
+  },
+  "version": "Version",
+  "@version": {
+    "description": "Version number"
+  },
+  "about": "About",
+  "@about": {
+    "description": "About page"
+  },
+  "disclaimer": "Disclaimer",
+  "@disclaimer": {
+    "description": "Disclaimer entry title"
+  },
+  "disclaimerSubtitle": "Legal use, AI output, and responsibility terms",
+  "@disclaimerSubtitle": {
+    "description": "Disclaimer entry subtitle"
+  },
+  "disclaimerDialogIntro": "The following content is extracted from the project README. Continued use of this project means you have read and agreed to this statement.",
+  "@disclaimerDialogIntro": {
+    "description": "Disclaimer dialog intro"
+  },
+  "disclaimerLegalTitle": "Legal Use",
+  "@disclaimerLegalTitle": {
+    "description": "Disclaimer legal-use title"
+  },
+  "disclaimerLegalBody": "This project is an open source technical research tool and may only be used for lawful purposes such as software debugging, program analysis, memory mechanism learning, development testing, and authorized environment research. It is published to promote technical exchange and learning, and does not target any specific game, platform, software, or online service. It provides no support for cheating, bypassing protections, or illegal use guidance.",
+  "@disclaimerLegalBody": {
+    "description": "Disclaimer legal-use body"
+  },
+  "disclaimerProhibitedTitle": "Prohibited Use",
+  "@disclaimerProhibitedTitle": {
+    "description": "Disclaimer prohibited-use title"
+  },
+  "disclaimerProhibitedBody": "Do not use this project for online game cheating, plug-in creation, automated violations, interference with servers or clients, unauthorized modification of third-party program data, undermining fair competition, or any purpose that violates laws, regulations, or platform rules.",
+  "@disclaimerProhibitedBody": {
+    "description": "Disclaimer prohibited-use body"
+  },
+  "disclaimerResponsibilityTitle": "Responsibility",
+  "@disclaimerResponsibilityTitle": {
+    "description": "Disclaimer responsibility title"
+  },
+  "disclaimerResponsibilityBody": "Users must ensure their use complies with local laws, regulations, and relevant service terms. Any direct or indirect consequences arising from use, distribution, or secondary development of this project are borne by the user and are unrelated to the author.",
+  "@disclaimerResponsibilityBody": {
+    "description": "Disclaimer responsibility body"
+  },
+  "disclaimerAiTitle": "AI Feature Notice",
+  "@disclaimerAiTitle": {
+    "description": "Disclaimer AI feature title"
+  },
+  "disclaimerAiBody": "The built-in AI features are only general assistance modules for data analysis, content explanation, result filtering, information organization, operation guidance, learning, and research. AI output may contain errors, omissions, or may not apply to specific scenarios. It is for reference only, and users must make their own judgments and bear final responsibility.",
+  "@disclaimerAiBody": {
+    "description": "Disclaimer AI feature body"
+  },
+  "community": "Community",
+  "@community": {
+    "description": "Community section title"
+  },
+  "officialCommunity": "Get tutorials and community support",
+  "@officialCommunity": {
+    "description": "Official community description"
+  },
+  "forum": "Forum",
+  "@forum": {
+    "description": "Forum"
+  },
+  "visitForum": "Visit Muxue AI",
+  "@visitForum": {
+    "description": "Visit Muxue AI button"
+  },
+  "joinDiscord": "Join Discord",
+  "@joinDiscord": {
+    "description": "Join Discord button"
+  },
+  "joinQQGroup": "Join QQ Group",
+  "@joinQQGroup": {
+    "description": "Join QQ group button"
+  },
+  "targetRange": "Target Range",
+  "@targetRange": {
+    "description": "Target range button"
+  },
+  "followAuthor": "Follow the Author",
+  "@followAuthor": {
+    "description": "Follow author section title"
+  },
+  "creatorPlatforms": "Get Tutorials",
+  "@creatorPlatforms": {
+    "description": "Creator platforms entry"
+  },
+  "morePlatforms": "More Platforms",
+  "@morePlatforms": {
+    "description": "More platforms"
+  },
+  "pageNotFound": "Page Not Found: {error}",
+  "@pageNotFound": {
+    "description": "404 page title",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "backToHome": "Back to Home",
+  "@backToHome": {
+    "description": "Back to home button"
+  },
+  "retry": "Retry",
+  "@retry": {
+    "description": "Retry button"
+  },
+  "loadFailedMessage": "Load failed, please retry",
+  "@loadFailedMessage": {
+    "description": "Load failed message"
+  },
+  "activated": "Activated",
+  "@activated": {
+    "description": "Activated status"
+  },
+  "notActivated": "Not Activated",
+  "@notActivated": {
+    "description": "Not activated status"
+  },
+  "fridaPartial": "Partial",
+  "@fridaPartial": {
+    "description": "Frida partial status"
+  },
+  "fridaGlobal": "Global",
+  "@fridaGlobal": {
+    "description": "Frida global status"
+  },
+  "fridaUnknown": "Unknown",
+  "@fridaUnknown": {
+    "description": "Unknown status"
+  },
+  "fridaNotInstalledShort": "Not installed",
+  "@fridaNotInstalledShort": {
+    "description": "Short Frida not installed status"
+  },
+  "fridaInitAbnormal": "Initialization error",
+  "@fridaInitAbnormal": {
+    "description": "Frida initialization abnormal state"
+  },
+  "fridaStatusEnabled": "Enabled",
+  "@fridaStatusEnabled": {
+    "description": "Frida enabled status"
+  },
+  "fridaStatusDisabled": "Disabled",
+  "@fridaStatusDisabled": {
+    "description": "Frida disabled status"
+  },
+  "fridaTargetDisabled": "Target disabled",
+  "@fridaTargetDisabled": {
+    "description": "Frida target disabled state"
+  },
+  "fridaEffective": "Active",
+  "@fridaEffective": {
+    "description": "Frida effective status"
+  },
+  "zygiskFridaModuleNotInstalled": "Zygisk Frida module is not installed",
+  "@zygiskFridaModuleNotInstalled": {
+    "description": "Prompt when Zygisk Frida module is missing"
+  },
+  "systemVersion": "System Version",
+  "sdkVersion": "SDK Version",
+  "deviceModel": "Device Model",
+  "systemStorage": "System Storage",
+  "cpuArchitecture": "CPU Architecture",
+  "frameworkPackageName": "Framework Package Name",
+  "copy": "Copy",
+  "selectAll": "Select All",
+  "cut": "Cut",
+  "paste": "Paste",
+  "comment": "Comment",
+  "codeCopied": "Code copied to clipboard",
+  "totalStorage": "Total",
+  "available": "Available",
+  "softwareIcon": "Software Icon",
+  "needRootPermission": "You must grant Root permission",
+  "pleaseActivateXposed": "Please activate Xposed first",
+  "initFrida": "Initialize Frida",
+
+  "homeTitleAI": "AI",
+  "homeTitleRoot": "Root",
+  "homeTitleXposed": "Xposed",
+  "homeTitleFrida": "Frida",
+  "themeColor": "Theme Color",
+  "selectThemeColor": "Select Theme Color",
+  "aiConfig": "AI Configuration",
+  "aiConfigTitle": "AI Settings",
+  "aiBaseUrl": "API Base URL",
+  "aiBaseUrlHint": "Enter API Base URL",
+  "aiApiKeyHint": "Enter API Key",
+  "aiMaxTokens": "Max Tokens",
+  "aiMaxTokensHint": "Enter maximum tokens",
+  "aiModelName": "Model Name",
+  "aiModelNameHint": "Enter model name",
+  "aiTemperature": "Temperature",
+  "aiMemoryRounds": "Memory Rounds",
+  "cannotBeEmpty": "{field} cannot be empty",
+  "saveSuccess": "Save Success",
+  "test": "Test",
+  "selectApp": "Select App",
+  "showSystemApps": "Show System Apps",
+  "searchAppsPlaceholder": "Global search app name or package...",
+  "loadedCount": "Loaded: {loaded} / Match: {total}",
+  "@loadedCount": {
+    "placeholders": {
+      "loaded": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "systemAppLabel": "System",
+  "alreadySelected": "Selected: {name}",
+  "notice": "Notice",
+  "updateAvailableTitle": "New Version Available",
+  "updateContentTitle": "What's New",
+  "updateNow": "Update Now",
+  "updateContentFallback": "• Fix known issues\n• Improve user experience\n• Enhance app performance",
+  "noRelatedApps": "No related apps found",
+  "projectListEmpty": "No projects yet, create one from the home page",
+  "projectLoadFailed": "Load failed: {error}",
+  "confirmDelete": "Confirm delete?",
+  "xposedProject": "Xposed Project",
+  "fridaProject": "Frida Project",
+  "quickFunctions": "Quick Functions",
+  "aiReverse": "AI Cracker",
+
+  "qfPageTitle": "Quick Functions",
+  "qfSectionBasic": "Basic",
+  "qfSectionEnv": "Environment",
+  "qfSectionCrypto": "Crypto Analysis",
+
+  "qfRemoveDialogs": "Remove Dialogs",
+  "qfRemoveScreenshotDetection": "Bypass Screenshot/Recording Detection",
+  "qfRemoveCaptureDetection": "Bypass Capture Detection",
+  "qfInjectTip": "Injection Tip",
+  "qfModifiedVersion": "Remove Updates",
+
+  "qfHideXposed": "Hide Xposed",
+  "qfHideRoot": "Hide Root",
+  "qfHideApps": "Hide App List",
+
+  "qfAlgorithmicTracking": "Algorithm Tracking",
+  "keywordManagement": "Keyword Management",
+  "addKeyword": "Add Keyword",
+  "keywordPlaceholder": "Enter keyword...",
+  "noKeywords": "No keywords",
+  "noData": "No data",
+  "encrypt": "Encrypt",
+  "decrypt": "Decrypt",
+  "detailInfo": "Detail Info",
+  "inputLabel": "Input",
+  "outputLabel": "Output",
+  "algorithmLabel": "Algorithm",
+  "keyLabel": "Key",
+  "ivLabel": "IV Vector",
+  "stackLabel": "Stack",
+  "plaintextLabel": "Plaintext",
+  "hexLabel": "HEX",
+  "base64Label": "Base64",
+  "fingerprintLabel": "Fingerprint",
+  "clear": "Clear",
+  "clearConfirm": "Are you sure you want to clear all algorithm tracking logs? This action cannot be undone.",
+  "searchPlaceholder": "Search algorithm, content or stack...",
+  "visualRulesTab": "Visual Rules",
+  "codeSourceTab": "Code Source",
+  "noVisualRules": "No visual rules configured",
+  "addRuleBtn": "Add Intercept Rule",
+  "ruleConfig": "Rule Configuration",
+  "targetFingerprint": "Target Fingerprint",
+  "interceptDirection": "Intercept Direction",
+  "directionInput": "Pre-encryption (Input)",
+  "directionOutput": "Post-decryption (Output)",
+  "specifyAlgorithm": "Specify Algorithm",
+  "anyAlgorithm": "Any Algorithm (All)",
+  "replaceData": "Replace With (Plaintext)",
+  "replaceDataHint": "Enter the data you want to mutate...",
+  "aiNotActivated": "AI not activated. Please configure AI model.",
+  "aiSwitchSession": "Switch Session",
+  "aiNewSession": "New Session",
+  "aiSessionName": "Session Name",
+  "aiSessionNameHint": "Enter session name...",
+  "aiDeleteHistory": "Clear History",
+  "aiDeleteConfirmTitle": "Confirm Delete",
+  "aiDeleteConfirmContent": "This will permanently delete all chat history for this app. Are you sure?",
+  "aiIdentifying": "Identifying...",
+  "aiGetInfo": "Fetching info...",
+  "aiChatInputHint": "Ask me anything...",
+  "aiReverseSessionInitializingHint": "Reverse session is initializing…",
+  "aiReverseSessionInitFailedHint": "Reverse session initialization failed. Sending is unavailable.",
+  "aiReverseSessionInitializingBanner": "Reverse session is initializing. Sending is disabled until it completes.",
+  "aiReverseSessionInitFailedBanner": "Reverse session initialization failed. Sending is currently unavailable.",
+  "aiStopGeneration": "Stop generation",
+  "aiCompressContext": "Compress context",
+  "aiContext": "Context",
+  "aiContextTitle": "Context",
+  "aiContextBudget": "Context budget",
+  "aiContextUsage": "Usage",
+  "aiContextMemoryEntries": "Memory entries",
+  "aiContextHighWatermark": "High watermark",
+  "aiContextHighWatermarkReached": "Reached",
+  "aiContextHighWatermarkNotReached": "Not reached",
+  "aiContextHighWatermarkAlert": "Context is near its capacity limit; history was compacted automatically",
+  "aiContextRemaining": "Remaining budget",
+  "aiContextLayers": "Assembled layers",
+  "aiContextRecentRounds": "Recent raw rounds",
+  "aiContextCheckpoint": "Latest checkpoint",
+  "aiContextNoCheckpoint": "No checkpoint yet",
+  "aiContextCheckpointTime": "Updated at",
+  "aiContextCheckpointPrompt": "Latest user input",
+  "aiContextCheckpointMode": "Recovery mode",
+  "aiContextLastError": "Last error",
+  "aiContextNoError": "No error",
+  "aiContextMigration": "Session migration",
+  "aiContextMigrationDone": "Migrated from legacy session",
+  "aiContextMigrationNone": "This session already uses the new structure",
+  "aiContextCompression": "Compression",
+  "aiContextCompactReasonBudget": "Budget limit reached",
+  "aiContextCompactReasonManual": "Manual compression",
+  "aiContextCompactReasonNone": "No compression",
+  "aiContextToolTrace": "Tool trace",
+  "aiContextToolTracePending": "Pending tool phase exists",
+  "aiContextToolTraceClear": "Tool chain is complete",
+  "aiContextMemory": "Structured summary",
+  "aiContextGoals": "User goals",
+  "aiContextFacts": "Confirmed facts",
+  "aiContextHypotheses": "Open hypotheses",
+  "aiContextFindings": "Tool findings",
+  "aiContextTaskCurrent": "Current step",
+  "aiContextTaskNext": "Next step",
+  "aiContextTaskBlockers": "Blockers / errors",
+  "aiViewSummary": "View summary",
+  "aiSummaryTitle": "Session summary",
+  "aiSummaryEmpty": "No summary content is available yet.",
+  "aiContextCompressed": "Context compressed",
+  "aiContextAlreadyCompact": "Context is already compact",
+  "aiRetryLastTurn": "Retry last turn",
+  "aiRetryInitialization": "Retry initialization",
+  "aiContinue": "Continue",
+  "aiResumeToolPhase": "Resume tool phase",
+  "aiRecoveryModeRetry": "Retry last turn",
+  "aiRecoveryModeContinue": "Continue generation",
+  "aiRecoveryModeTool": "Resume tool phase",
+  "aiUnavailableToSend": "Unavailable",
+  "aiReverseTabChat": "Chat",
+  "aiReverseTabAnalysis": "Analysis",
+  "aiReverseOpenAnalysis": "APK Files",
+  "aiReverseBackToChat": "Back to chat",
+  "aiAssistantTitle": "I am your AI Reverse Assistant",
+  "aiAssistantSubtitle": "You can ask about manifest analysis, hardening detection, etc.",
+  "aiMessageSendFailed": "Message failed to send. Please check your network or configuration.",
+  "aiCodeCopied": "Code copied to clipboard",
+  "aiOneClickCopy": "Copy Code",
+  "aiBubbleActionsTitle": "Bubble Actions",
+  "aiBubbleCopyCurrent": "Copy current content",
+  "aiBubbleSelectText": "Select text",
+  "aiBubbleUserTextTitle": "User Message",
+  "aiBubbleAssistantTextTitle": "AI Reply",
+  "aiBubbleThinkingTitle": "Thinking",
+  "aiBubbleAnswerTitle": "Answer",
+  "aiTestConnecting": "Testing connection...",
+  "aiTestSuccess": "Test successful! Received reply: \n{result}",
+  "aiTestFailed": "Test failed: {error}",
+  "aiSavingAndTesting": "Saving and testing connectivity...",
+  "aiSaveFailed": "Save failed (Connection test failed): \n{error}",
+  "aiShowMoreMessages": "Show earlier messages ({count})",
+  "aiSearchInConversation": "Search in conversation",
+  "aiSearchMessagesHint": "Search message content...",
+  "aiSearchNoResults": "No matching messages",
+  "aiSearchResultCount": "{count} matches",
+  "@aiSearchResultCount": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "aiSearchRoleUser": "Me",
+  "aiSearchRoleAssistant": "AI",
+  "aiSearchRoleSystem": "System",
+  "aiSearchRoleTool": "Tool",
+  "aiSearchMessageNotFound": "This message is not in the loaded conversation",
+  "aiToolUnknown": "Unknown tool: {toolName}",
+  "@aiToolUnknown": {
+    "placeholders": { "toolName": { "type": "String" } }
+  },
+  "aiToolCallFailed": "Tool call failed. Please send keyword 'continue' to retry",
+  "aiToolCalling": "Calling tool...",
+  "aiToolReading": "Reading {toolName}...",
+  "@aiToolReading": {
+    "placeholders": { "toolName": { "type": "String" } }
+  },
+  "aiToolNameManifest": "Manifest",
+  "aiToolNameDecompile": "Decompile",
+  "aiToolNameSmali": "Smali",
+  "aiToolNameSearch": "Search",
+  "aiToolNamePackages": "Packages",
+  "aiToolNameClasses": "Classes",
+  "aiContinueKeyword": "continue",
+  "projectCreate": "Create",
+  "projectCreated": "Project created: {name}",
+  "projectName": "Project Name",
+  "projectNameHint": "Please enter project name",
+  "projectType": "Project Type",
+  "newProject": "Create Project",
+  "visualType": "Visual",
+  "traditionalType": "Traditional",
+  "xposedScripts": "Xposed Scripts",
+  "projectNameEmpty": "Project name cannot be empty",
+  "formatCode": "Format Code",
+  "find": "Find",
+  "replace": "Replace",
+  "replaceWith": "Replace with...",
+  "matchCase": "Match Case",
+  "regex": "Regex",
+  "prevMatch": "Previous",
+  "nextMatch": "Next",
+  "close": "Close",
+  "replaceAll": "Replace All",
+  "searchCode": "Search code...",
+  "toggleReplace": "Toggle Replace",
+  "aiConfigList": "Config List",
+  "aiConfigNew": "New",
+  "aiConfigCurrent": "Current",
+  "aiConfigEmpty": "No config yet, fill in the form below to save",
+  "aiConfigEditTitle": "Edit Config",
+  "aiConfigNewTitle": "New Config",
+  "aiConfigName": "Config Name",
+  "aiConfigNameHint": "e.g. OpenAI GPT-4",
+  "aiConfigSwitch": "Switch to this config",
+  "aiConfigDelete": "Delete config",
+  "aiConfigDeleteConfirm": "Delete config '{name}'?",
+  "@aiConfigDeleteConfirm": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "aiApiType": "API Type",
+  "aiApiTypeOpenAI": "OpenAI Compatible",
+  "aiApiTypeOpenAIResponses": "OpenAI Responses",
+  "aiApiTypeAnthropic": "Anthropic Claude",
+  "aiTutorial": "Tutorial",
+  "aiBuiltinConfigName": "Muxue API",
+  "aiBuiltinUseConfig": "Use Muxue Endpoint",
+  "aiBuiltinSwitching": "Switching to the built-in Muxue endpoint",
+  "aiBuyCardSecret": "Buy Access Code",
+  "aiApiKeyConfigured": "API Key configured",
+  "aiApiKeyNotConfigured": "API Key not configured",
+  "aiCurrentStatus": "Status: {status}",
+  "@aiCurrentStatus": {
+    "placeholders": {
+      "status": { "type": "String" }
+    }
+  },
+  "aiCurrentInterface": "Current endpoint: {name}",
+  "@aiCurrentInterface": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "terminal": "Terminal",
+  "terminalFilterHint": "Secondary Filter...",
+  "autoScroll": "Auto Scroll",
+  "clearPanel": "Clear view",
+  "consoleClearViewTooltip": "Clears the current view only; persisted logs are kept",
+  "noLogs": "No output yet",
+  "noLogsFiltered": "No matching logs",
+  "logcatFullscreen": "Fullscreen",
+  "consoleSourceSession": "Session",
+  "consoleSourceFrida": "Frida",
+  "consoleSourceXposed": "Xposed",
+  "consoleSourceApp": "App",
+  "consoleSourceCore": "Core",
+  "consoleSourceSystem": "System",
+  "consoleLevelDebug": "Debug",
+  "consoleLevelInfo": "Info",
+  "consoleLevelWarn": "Warn",
+  "consoleLevelError": "Error",
+  "consoleAll": "All",
+  "consoleHistory": "Persisted script logs",
+  "consolePauseOutput": "Pause output",
+  "consoleResumeOutput": "Resume output",
+  "consoleActions": "Console actions",
+  "consoleCopyVisible": "Copy visible logs",
+  "consoleExportVisible": "Export visible logs",
+  "consoleCopied": "{count} logs copied",
+  "consoleCopiedTruncated": "Too many logs; copied the latest {count} of {total}. Use export for the full set.",
+  "consoleRegexSearch": "Regex search",
+  "consoleCaseSensitive": "Case sensitive",
+  "consoleExpandStack": "Expand stack",
+  "consoleCollapseStack": "Collapse stack",
+  "consoleExportDialogTitle": "Export console logs",
+  "consoleNoHistory": "No persisted script logs",
+  "consoleLiveBelow": "Live output below",
+  "consoleLoadOlder": "Load older logs",
+  "consoleLogCopied": "Log copied",
+  "consoleDeleteHistory": "Delete this conversation's logs",
+  "consoleDeleteHistoryConfirmTitle": "Delete history logs?",
+  "consoleDeleteHistoryConfirmMessage": "Persisted script logs for this conversation will be permanently deleted. This cannot be undone.",
+  "consoleDeleteHistoryDone": "History logs deleted for this conversation",
+  "consoleDeleteHistoryUnavailable": "No persisted records are linked to this session",
+  "apiManual": "Manual",
+  "aiApiManualTitle": "API AI Assistant",
+  "aiApiManualSubtitle": "Ask me about JsxposedX API usage",
+
+  "visualEditorTab": "Visual",
+  "codeEditorTab": "Code",
+  "addBlock": "Add Block",
+  "noBlocks": "No hook blocks yet",
+  "noBlocksHint": "Tap the button below to add your first block",
+
+  "blockHookMethod": "Hook Method",
+  "blockHookMethodDesc": "Hook a method with before/after/replace callback",
+  "blockHookConstructor": "Hook Constructor",
+  "blockHookConstructorDesc": "Hook a class constructor",
+  "blockReturnConst": "Return Constant",
+  "blockReturnConstDesc": "Force a method to return a constant value",
+  "blockLogParams": "Log Params",
+  "blockLogParamsDesc": "Log all parameters and return value of a method",
+  "blockSetField": "Set Field",
+  "blockSetFieldDesc": "Modify a field value (static or instance)",
+  "blockCustomCode": "Custom Code",
+  "blockCustomCodeDesc": "Write free-form JavaScript code",
+
+  "blockClassName": "Class Name",
+  "blockClassNameHint": "e.g. com.example.MyClass",
+  "blockMethodName": "Method Name",
+  "blockMethodNameHint": "e.g. login",
+  "blockParamTypes": "Parameter Types",
+  "blockParamTypesHint": "comma-separated, e.g. int, java.lang.String, boolean",
+  "blockTiming": "Timing",
+  "blockTimingBefore": "Before",
+  "blockTimingAfter": "After",
+  "blockTimingReplace": "Replace",
+  "blockConstValue": "Return Value",
+  "blockConstValueHint": "e.g. true",
+  "blockConstType": "Value Type",
+  "blockFieldName": "Field Name",
+  "blockFieldNameHint": "e.g. isVip",
+  "blockFieldValue": "Field Value",
+  "blockFieldValueHint": "e.g. true",
+  "blockIsStaticField": "Static Field",
+  "blockCustomJs": "JavaScript Code",
+  "blockCustomJsHint": "Jx.log(\"hello\");",
+  "blockSelectType": "Select Block Type",
+  "blockHookBefore": "Hook Before",
+  "blockHookAfter": "Hook After",
+  "blockHookReplace": "Hook Replace",
+  "blockBeforeConstructor": "Before Constructor",
+  "blockAfterConstructor": "After Constructor",
+  "blockLog": "Log",
+  "blockLogException": "Log Exception",
+  "blockConsoleLog": "Console Log",
+  "blockStackTrace": "Stack Trace",
+  "blockGetField": "Get Field",
+  "blockGetInt": "Get Int",
+  "blockSetInt": "Set Int",
+  "blockGetBool": "Get Bool",
+  "blockSetBool": "Set Bool",
+  "blockGetArg": "Get Arg",
+  "blockSetArg": "Set Arg",
+  "blockGetResult": "Get Result",
+  "blockSetResult": "Set Result",
+  "blockCallMethod": "Call Method",
+  "blockCallStatic": "Call Static",
+  "blockNewInstance": "New Instance",
+  "blockIf": "If / Else",
+  "blockForLoop": "For Loop",
+  "blockVarAssign": "Variable",
+  "blockToast": "Toast",
+  "blockGetApplication": "Get Application",
+  "blockGetPackageName": "Get Package Name",
+  "blockGetSharedPrefs": "Get SharedPrefs",
+  "blockGetPrefString": "Get Pref String",
+  "blockGetBuild": "Get Build Info",
+  "blockStartActivity": "Start Activity",
+  "blockFindClass": "Find Class",
+  "blockMessage": "Message",
+  "blockMessageHint": "Log content",
+  "blockTag": "Tag",
+  "blockTagHint": "e.g. Net.request",
+  "blockValue": "Value",
+  "blockValueHint": "e.g. true",
+  "blockIndex": "Index",
+  "blockIndexHint": "e.g. 0",
+  "blockVarName": "Var Name",
+  "blockVarNameHint": "e.g. result",
+  "blockArgs": "Args",
+  "blockArgsHint": "comma-separated, e.g. arg0, \"hello\", 123",
+  "blockCondition": "Condition",
+  "blockConditionHint": "e.g. x > 0",
+  "blockFrom": "From",
+  "blockFromHint": "e.g. 0",
+  "blockTo": "To",
+  "blockToHint": "e.g. 10",
+  "blockConstTypeHint": "Select type",
+  "blockPrefsName": "Prefs Name",
+  "blockPrefsNameHint": "e.g. app_config",
+  "blockPrefKey": "Key",
+  "blockPrefKeyHint": "e.g. token",
+  "blockSlotBody": "Body",
+  "blockSlotBefore": "Before",
+  "blockSlotAfter": "After",
+  "blockSlotThen": "Then",
+  "blockSlotElse": "Else",
+  "blockConsoleWarn": "Console Warn",
+  "blockConsoleError": "Console Error",
+  "blockGetClassName": "Get Class Name",
+  "blockCallMethodTyped": "Call Method (Typed)",
+  "blockCallStaticAuto": "Call Static (Auto)",
+  "blockNewInstanceTyped": "New Instance (Typed)",
+  "blockGetPrefInt": "Get Pref Int",
+  "blockGetPrefBool": "Get Pref Bool",
+  "blockGetSystemProp": "Get System Property",
+  "blockLoadClass": "Load Class",
+  "blockHookAllMethods": "Hook All Overloads",
+  "blockHookAllConstructors": "Hook All Constructors",
+  "blockUnhook": "Remove Hook",
+  "blockGetLong": "Get Long",
+  "blockSetLong": "Set Long",
+  "blockGetFloat": "Get Float",
+  "blockSetFloat": "Set Float",
+  "blockGetDouble": "Get Double",
+  "blockSetDouble": "Set Double",
+  "blockGetThrowable": "Get Throwable",
+  "blockSetThrowable": "Set Throwable",
+  "blockGetMethods": "Get Methods",
+  "blockGetFields": "Get Fields",
+  "blockInstanceOf": "Instance Of",
+  "blockSetExtra": "Set Extra Data",
+  "blockGetExtra": "Get Extra Data",
+  "pickVariable": "Pick Variable",
+  "contextVariables": "Context Variables",
+  "userVariables": "User Variables",
+  "noVariablesAvailable": "No variables available",
+  "collapseAll": "Collapse All",
+  "expandAll": "Expand All",
+  "importScript": "Import",
+  "selectScriptType": "Select Script Type",
+  "traditionalScriptDesc": "Traditional Hook Script",
+  "visualScriptDesc": "Visual Script",
+  "saveScript": "Save",
+  "exportScript": "Export",
+  "scriptSaved": "Script saved",
+  "scriptExported": "Script exported",
+  "reservedScriptFileName": "Reserved internal file name. Please use a different file name",
+  "aiScriptSavedTo": "Saved to {target}: {name}",
+  "@aiScriptSavedTo": {
+    "description": "Toast shown when saving a script from AI bubble succeeds",
+    "placeholders": {
+      "target": { "type": "String" },
+      "name": { "type": "String" }
+    }
+  },
+  "runScript": "Run",
+  "@runScript": {
+    "description": "Run script button"
+  },
+  "aiScriptRunning": "{target} script enabled: {name}",
+  "@aiScriptRunning": {
+    "description": "AI script running success message",
+    "placeholders": {
+      "target": {
+        "type": "String"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "exportConversation": "Export",
+  "@exportConversation": {
+    "description": "Export conversation button"
+  },
+  "exportingConversation": "Exporting conversation...",
+  "@exportingConversation": {
+    "description": "Exporting conversation message"
+  },
+  "conversationExported": "Conversation exported to {path}",
+  "@conversationExported": {
+    "description": "Conversation export success message",
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    }
+  },
+  "exportFailed": "Export failed: {error}",
+  "@exportFailed": {
+    "description": "Export failed message",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "exportFormat": "Export Format",
+  "@exportFormat": {
+    "description": "Export format label"
+  },
+  "exportOptions": "Export Options",
+  "@exportOptions": {
+    "description": "Export options label"
+  },
+  "includeToolCalls": "Include Tool Calls",
+  "@includeToolCalls": {
+    "description": "Include tool calls option"
+  },
+  "includeToolCallsDesc": "Export AI tool invocations and parameters",
+  "@includeToolCallsDesc": {
+    "description": "Include tool calls description"
+  },
+  "includeThinking": "Include Thinking Process",
+  "@includeThinking": {
+    "description": "Include thinking process option"
+  },
+  "includeThinkingDesc": "Export AI reasoning and thought content",
+  "@includeThinkingDesc": {
+    "description": "Include thinking process description"
+  },
+  "preview": "Preview",
+  "@preview": {
+    "description": "Preview button"
+  },
+  "previewTruncated": "Preview content truncated",
+  "@previewTruncated": {
+    "description": "Preview truncated message"
+  },
+  "copyToClipboard": "Copy",
+  "@copyToClipboard": {
+    "description": "Copy to clipboard button"
+  },
+  "copiedToClipboard": "Copied to clipboard",
+  "@copiedToClipboard": {
+    "description": "Copy success message"
+  },
+  "share": "Share",
+  "@share": {
+    "description": "Share button"
+  },
+  "conversationExport": "Conversation Export",
+  "@conversationExport": {
+    "description": "Conversation export title"
+  },
+  "exportToFile": "Save File",
+  "@exportToFile": {
+    "description": "Export to file button"
+  },
+  "aiScriptSaveFailed": "Save failed: {error}",
+  "@aiScriptSaveFailed": {
+    "description": "Toast shown when saving a script from AI bubble fails",
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+
+  "manifestBasicInfo": "Basic Info",
+  "manifestPackage": "Package",
+  "manifestMinSdk": "Min SDK",
+  "manifestTargetSdk": "Target SDK",
+  "manifestDebuggable": "Debuggable",
+  "manifestAllowBackup": "Allow Backup",
+  "manifestPermissions": "Permissions ({count})",
+  "@manifestPermissions": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "manifestNoPermissions": "No permissions",
+  "manifestActivities": "Activities",
+  "manifestServices": "Services",
+  "manifestReceivers": "Receivers",
+  "manifestProviders": "Providers",
+  "manifestNoItems": "No {name}",
+  "@manifestNoItems": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "manifestExported": "exported",
+
+  "apkNoAiSession": "No AI session linked",
+  "apkAiAnalyze": "AI Analyze",
+  "apkSentToAi": "Sent to AI: analyzing {name}",
+  "@apkSentToAi": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "apkAnalyzeSmaliPrompt": "Please analyze the Smali code of {className}, explain the logic and suggest possible Hook points.",
+  "@apkAnalyzeSmaliPrompt": {
+    "placeholders": { "className": { "type": "String" } }
+  },
+  "apkAnalyzeJavaPrompt": "Please analyze the decompiled Java code of {className}, explain the logic and suggest possible Hook points.",
+  "@apkAnalyzeJavaPrompt": {
+    "placeholders": { "className": { "type": "String" } }
+  },
+  "undo": "Undo",
+  "redo": "Redo",
+  "sendToAi": "Send to AI",
+  "pressBackAgainToExit": "Press back again to exit",
+  "apkAnalyzeSelectedCode": "The following is a {language} code snippet from {className}, please help me analyze it:\n\n{code}",
+  "@apkAnalyzeSelectedCode": {
+    "placeholders": {
+      "className": { "type": "String" },
+      "language": { "type": "String" },
+      "code": { "type": "String" }
+    }
+  },
+  "dexSearchHint": "Search class name...",
+  "dexNoClassFound": "No class found containing \"{keyword}\"",
+  "@dexNoClassFound": {
+    "placeholders": { "keyword": { "type": "String" } }
+  },
+  "dexCopied": "Copied: {name}",
+  "@dexCopied": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "dexCopyShortName": "Copy Class Name",
+  "dexCopyFullName": "Copy Fully Qualified Name",
+  "soAskAi": "Ask AI",
+  "soSentToAi": "Sent to AI: analyzing {name}",
+  "@soSentToAi": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "lsposedNotAvailable": "LSPosed service unavailable. Make sure the module is activated in LSPosed and restart the app.",
+  "lsposedAddingScope": "Requesting to add {name} to scope...",
+  "@lsposedAddingScope": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "lsposedScopeRequestedCheckNotification": "Scope request sent for {name}. Check your notification bar to approve.",
+  "@lsposedScopeRequestedCheckNotification": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "lsposedAddFailed": "Failed to add {name}",
+  "@lsposedAddFailed": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "lsposedAddFailedService": "Add failed: LSPosed service unavailable",
+  "aiMethodDetail": "Method Details",
+  "aiMethodName": "Method Name",
+  "aiMethodModifier": "Modifier",
+  "aiMethodReturnType": "Return Type",
+  "aiMethodParams": "Parameters",
+  "aiMethodClass": "Class",
+  "aiMethodHookHint": "Hook Hint",
+  "aiMethodCopyFull": "Copy Full Path",
+  "overlayMemoryToolTitle": "Memory Tool",
+  "overlayFloatingToolWindow": "Floating tool window",
+  "overlayWindowNotificationContent": "Overlay is running",
+  "overlayWindowFallbackTitle": "Overlay Window",
+  "overlayWindowUnknownSceneTitle": "Overlay scene unavailable",
+  "overlayWindowUnknownSceneDescription": "The requested overlay scene is not registered, so rendering was stopped.",
+  "overlayQuickWorkspace": "Quick Workspace",
+  "overlayQuickWorkspaceDescription": "Tap the floating bubble to open this panel. Use the top-right buttons to minimize or close it.",
+  "overlayBubbleFeatureTitle": "Floating Bubble",
+  "overlayBubbleFeatureDescription": "Single tap opens the panel.",
+  "overlayPanelFeatureTitle": "Stable Panel",
+  "overlayPanelFeatureDescription": "Uses plain Material rendering to reduce visual artifacts.",
+  "overlayConnected": "Overlay connected",
+  "memoryToolTabSearch": "Search",
+  "memoryToolTabBrowse": "Browse",
+  "memoryToolTabPointer": "Pointer",
+  "memoryToolTabEdit": "Edit",
+  "memoryToolTabSaved": "Saved",
+  "memoryToolTabWatch": "Watch",
+  "memoryToolSearchTabTitle": "Search Parameters",
+  "memoryToolSearchTabSubtitle": "Use this area for first scan, narrowing, and read entry points.",
+  "memoryToolSearchModeLabel": "Mode",
+  "memoryToolActionPanelTitle": "Action Panel",
+  "memoryToolActionPanelSubtitle": "Reserved for first scan, next scan, and read operations.",
+  "memoryToolFieldValue": "Value",
+  "memoryToolFieldValuePlaceholder": "100.0",
+  "memoryToolFieldValueHint": "Enter the value to search",
+  "memoryToolFieldType": "Type",
+  "memoryToolFieldTypePlaceholder": "Int32",
+  "memoryToolFieldScope": "Scope",
+  "memoryToolFieldScopePlaceholder": "All memory",
+  "memoryToolFieldSearchMode": "Search Mode",
+  "memoryToolFieldFuzzyMode": "Fuzzy Filter",
+  "memoryToolFieldValueCategory": "Search Type",
+  "memoryToolFieldValueTypeOption": "Search Format",
+  "memoryToolFieldRangeSection": "Custom Sections",
+  "memoryToolTextEncodingLabel": "Text Encoding",
+  "memoryToolTextEncodingUtf8": "UTF-8",
+  "memoryToolTextEncodingUtf16Le": "UTF-16LE",
+  "memoryToolSearchExact": "Exact Scan",
+  "memoryToolSearchFuzzy": "Fuzzy Scan",
+  "memoryToolSearchFuzzyUnknown": "Unknown Initial",
+  "memoryToolSearchFuzzyUnchanged": "Unchanged",
+  "memoryToolSearchFuzzyChanged": "Changed",
+  "memoryToolSearchFuzzyIncreased": "Increased",
+  "memoryToolSearchFuzzyDecreased": "Decreased",
+  "memoryToolSearchFuzzyHint": "Fuzzy first scan can start without a value. Enter the current value when filtering next.",
+  "memoryToolSearchFuzzyUnsupportedHint": "Fuzzy scan currently supports fixed-width numeric types only.",
+  "memoryToolSearchBytesHint": "Example: 12 34 AB CD",
+  "memoryToolSearchTextHint": "Enter the text to search",
+  "memoryToolSearchTypePendingHint": "This search type is not wired to the scan core yet.",
+  "memoryToolRangePresetPendingHint": "Current scans still use all readable memory. Range presets are UI-only for now.",
+  "memoryToolEndianLabel": "Little Endian",
+  "memoryToolValueCategoryInteger": "Integer",
+  "memoryToolValueCategoryDecimal": "Decimal",
+  "memoryToolValueCategoryBytes": "Bytes",
+  "memoryToolValueCategoryText": "Text",
+  "memoryToolValueCategoryGroup": "Group",
+  "memoryToolValueCategoryAdvanced": "Advanced",
+  "memoryToolValueTypeI8": "I8",
+  "memoryToolValueTypeI16": "I16",
+  "memoryToolValueTypeI32": "I32",
+  "memoryToolValueTypeI64": "I64",
+  "memoryToolValueTypeF32": "F32",
+  "memoryToolValueTypeF64": "F64",
+  "memoryToolValueTypeBytes": "AOB",
+  "memoryToolValueTypeXor": "XOR",
+  "memoryToolValueTypeAuto": "AUTO",
+  "memoryToolValueTypeText": "TEXT",
+  "memoryToolValueTypeGroup": "GROUP",
+  "memoryToolRangePresetCommon": "Common",
+  "memoryToolRangePresetJava": "Java",
+  "memoryToolRangePresetNative": "Native",
+  "memoryToolRangePresetCode": "Code",
+  "memoryToolRangePresetAll": "All",
+  "memoryToolRangePresetCustom": "Custom",
+  "memoryToolRangeSectionAnonymous": "Anonymous",
+  "memoryToolRangeSectionJava": "Java",
+  "memoryToolRangeSectionJavaHeap": "Java Heap",
+  "memoryToolRangeSectionCAlloc": "C Alloc",
+  "memoryToolRangeSectionCHeap": "C Heap",
+  "memoryToolRangeSectionCData": "C Data",
+  "memoryToolRangeSectionCBss": "C Bss",
+  "memoryToolRangeSectionCodeApp": "App Code",
+  "memoryToolRangeSectionCodeSys": "System Code",
+  "memoryToolRangeSectionStack": "Stack",
+  "memoryToolRangeSectionAshmem": "Ashmem",
+  "memoryToolRangeSectionOther": "Other",
+  "memoryToolRangeSectionBad": "Bad",
+  "memoryToolActionFirstScan": "First Scan",
+  "memoryToolActionNextScan": "Next Scan",
+  "memoryToolActionRead": "Read",
+  "memoryToolActionReset": "Reset Session",
+  "memoryToolEditTabTitle": "Edit Workspace",
+  "memoryToolEditTabSubtitle": "A good place for address writes, batch edits, and freeze entry points.",
+  "memoryToolEditActionWriteValue": "Write a new value to the target address",
+  "memoryToolEditActionFreezeValue": "Add the result to the freeze list and keep it stable",
+  "memoryToolEditActionBatchWrite": "Apply a batch write to filtered results",
+  "memoryToolPatchTabTitle": "Patches & Scripts",
+  "memoryToolPatchTabSubtitle": "Suitable for hex patches, asm edits, and restore actions.",
+  "memoryToolPatchActionHex": "Hex patch entry",
+  "memoryToolPatchActionAsm": "Assembly edit entry",
+  "memoryToolPatchActionRestore": "Restore original values and patches",
+  "memoryToolWatchTabTitle": "Watch List",
+  "memoryToolWatchTabSubtitle": "Use this tab for persistent watch values and freeze states.",
+  "memoryToolSessionTitle": "Search Session",
+  "memoryToolSessionEmpty": "No active session yet. Start with a first scan.",
+  "memoryToolSessionMismatch": "The current session belongs to another process. Run first scan again.",
+  "memoryToolSessionPid": "Session PID",
+  "memoryToolSessionRegionCount": "Regions",
+  "memoryToolSessionResultCount": "Results",
+  "memoryToolSessionSelectedCount": "Selected",
+  "memoryToolSessionPageCount": "Pages",
+  "memoryToolSessionRenderedCount": "Rendered",
+  "memoryToolSessionBoundToCurrent": "Bound to current process",
+  "memoryToolTaskFirstScanTitle": "First Scan In Progress",
+  "memoryToolTaskNextScanTitle": "Next Scan In Progress",
+  "memoryToolTaskRunningHint": "Reading the target process memory. You can cancel the scan at any time.",
+  "memoryToolTaskElapsedLabel": "Elapsed",
+  "memoryToolTaskRegionsLabel": "Regions",
+  "memoryToolTaskEntriesLabel": "Candidates",
+  "memoryToolTaskBytesLabel": "Bytes",
+  "memoryToolTaskResultCountLabel": "Results",
+  "memoryToolTaskCancelAction": "Cancel Scan",
+  "memoryToolTaskCancelled": "Scan cancelled.",
+  "memoryToolTaskFailedFallback": "Scan failed. Please try again.",
+  "memoryToolResultTitle": "Matched Results",
+  "memoryToolResultEmpty": "There are no matched results yet.",
+  "memoryToolResultInactiveHint": "Run a first scan and matched addresses will appear here.",
+  "memoryToolResultAddress": "Address",
+  "memoryToolResultRegion": "Region",
+  "memoryToolResultType": "Type",
+  "memoryToolResultValue": "Value",
+  "memoryToolResultPreviousValue": "Previous",
+  "memoryToolFrozenBadge": "Frozen",
+  "memoryToolResultDetailTitle": "Result Details",
+  "memoryToolResultDetailActionsLabel": "Quick Actions",
+  "memoryToolResultDetailActionEdit": "Edit",
+  "memoryToolResultDetailActionWatch": "Add to Watch",
+  "memoryToolResultDetailActionCopyAddress": "Copy Address",
+  "memoryToolResultDetailActionCopyValue": "Copy Value",
+  "memoryToolResultActionPointerScan": "Pointer Scan",
+  "memoryToolResultActionAutoChaseStatic": "Auto Locate",
+  "memoryToolResultActionJumpToPointer": "Jump to Pointer",
+  "memoryToolResultActionPreviewMemoryBlock": "Preview Memory Block",
+  "memoryToolResultActionOffsetPreview": "Calculate Offset",
+  "memoryToolJumpAddressTitle": "Address Jump",
+  "memoryToolJumpAddressFieldLabel": "Target Address",
+  "memoryToolJumpAddressAction": "Jump to Target Address",
+  "memoryToolJumpAddressInvalid": "Invalid address",
+  "memoryToolResultActionCopyHex": "Copy Hexadecimal",
+  "memoryToolResultActionCopyReverseHex": "Copy Reverse Hexadecimal",
+  "memoryToolPointerScanTitle": "Pointer Scan",
+  "memoryToolPointerAutoChaseTitle": "Auto Locate",
+  "memoryToolPointerTargetAddressLabel": "Target Address",
+  "memoryToolPointerWidthLabel": "Pointer Width",
+  "memoryToolPointerMaxOffsetLabel": "Max Offset",
+  "memoryToolPointerMaxDepthLabel": "Pointer Depth",
+  "memoryToolPointerAlignmentLabel": "Alignment",
+  "memoryToolPointerAlignmentPointerWidth": "Use Pointer Width",
+  "memoryToolPointerInvalidMaxOffset": "Enter a valid offset.",
+  "memoryToolPointerInvalidMaxDepth": "Enter a depth from 1 to 12.",
+  "memoryToolPointerActionContinueSearch": "Continue Searching Upper Pointer",
+  "memoryToolPointerActionJumpToTarget": "Jump to Pointer Target",
+  "memoryToolPointerActionCopyPointerAddress": "Copy Pointer Address",
+  "memoryToolPointerActionCopyPointedAddress": "Copy Pointed Address",
+  "memoryToolPointerActionCopyTargetAddress": "Copy Target Address",
+  "memoryToolPointerActionCopyExpression": "Copy Expression",
+  "memoryToolPointerOffsetLabel": "Offset",
+  "memoryToolPointerBaseAddressLabel": "Base Address",
+  "memoryToolPointerPointerAddressLabel": "Pointer Address",
+  "memoryToolPointerBadgeAuto": "Recommended",
+  "memoryToolPointerBadgeStatic": "Static",
+  "memoryToolPointerEmpty": "Long press a search, browse, or saved result and choose Pointer Scan.",
+  "memoryToolPointerLoadedCount": "Loaded {loaded} / Total {total}",
+  "@memoryToolPointerLoadedCount": {
+    "placeholders": {
+      "loaded": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "memoryToolPointerTaskRunningTitle": "Pointer Scan Running",
+  "memoryToolPointerStopReasonStaticReached": "Static region reached",
+  "memoryToolPointerStopReasonNoMorePointers": "No more upper pointers",
+  "memoryToolPointerStopReasonMaxDepth": "Pointer depth reached",
+  "memoryToolPointerStopReasonCancelled": "Cancelled",
+  "memoryToolPointerStopReasonFailed": "Scan failed",
+  "memoryToolOffsetPreviewTitle": "Offset Preview",
+  "memoryToolOffsetPreviewOffsetLabel": "Offset",
+  "memoryToolOffsetPreviewHexLabel": "HEX",
+  "memoryToolOffsetPreviewTargetAddress": "Target Address",
+  "memoryToolOffsetPreviewTargetValue": "Target Value",
+  "memoryToolOffsetPreviewInvalid": "Enter a valid offset.",
+  "memoryToolOffsetPreviewUnreadable": "Target address is unreadable.",
+  "memoryToolBrowseEmpty": "Long press a search result and choose Preview Memory Block.",
+  "memoryToolResultActionTitle": "More Actions",
+  "memoryToolResultActionSelectCurrent": "Select Current",
+  "memoryToolResultActionSelectCurrentHint": "Add the current result to the selection set for later unified actions.",
+  "memoryToolResultActionStartMultiSelect": "Enter Multi-Select",
+  "memoryToolResultActionStartMultiSelectHint": "Start multi-select and batch operations from the current result.",
+  "memoryToolResultActionBatchEdit": "Batch Edit",
+  "memoryToolResultActionBatchEditHint": "Reserve an entry point for future batch write and filtered edit flows.",
+  "memoryToolBatchEditIncrementUnsupported": "Increment mode only supports numeric types.",
+  "memoryToolBatchEditNoReadableResults": "No readable selected results.",
+  "memoryToolBatchEditIncrementLabel": "Increment",
+  "memoryToolBatchEditStepLabel": "Step",
+  "memoryToolBatchEditPreviewLabel": "Preview",
+  "memoryToolResultActionSaveToSaved": "Save to Saved",
+  "memoryToolResultActionSaveToSavedHint": "Add the current result to the saved list for later edits and freeze actions.",
+  "memoryToolSavedToSavedMessage": "Added {count} item(s) to Saved",
+  "@memoryToolSavedToSavedMessage": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "memoryToolDebugAccessRead": "Read",
+  "memoryToolDebugAccessWrite": "Write",
+  "memoryToolDebugAccessReadWrite": "Read/Write",
+  "memoryToolDebugBreakpointsTitle": "Breakpoints",
+  "memoryToolDebugBreakpointsTab": "Breakpoints",
+  "memoryToolDebugWritersTitle": "Writers",
+  "memoryToolDebugDetailTitle": "Detail",
+  "memoryToolDebugEmptyBreakpoints": "No breakpoints yet",
+  "memoryToolDebugEnabled": "Enabled",
+  "memoryToolDebugDisabled": "Disabled",
+  "memoryToolDebugPauseOnHit": "Pause On Hit",
+  "memoryToolDebugRecordOnly": "Record Only",
+  "memoryToolDebugHitCountUnit": "hits",
+  "memoryToolDebugLastHitPrefix": "Last hit",
+  "memoryToolDebugEmptyWriters": "No writer groups for the selected breakpoint",
+  "memoryToolDebugThreadCountUnit": "threads",
+  "memoryToolDebugEmptyDetail": "Select a writer group to inspect details",
+  "memoryToolDebugCurrentValue": "Current Value",
+  "memoryToolDebugNoHitYet": "No hit yet",
+  "memoryToolDebugBreakpointAddress": "Breakpoint Address",
+  "memoryToolDebugPointer": "Pointer",
+  "memoryToolDebugAnonymousModule": "[anonymous]",
+  "memoryToolDebugModuleOffset": "Module Offset",
+  "memoryToolDebugInstruction": "Instruction",
+  "memoryToolDebugCommonRewrite": "Common Rewrite",
+  "memoryToolDebugRecentHits": "Recent Hits",
+  "memoryToolDebugStatBreakpoints": "Breakpoints",
+  "memoryToolDebugStatActive": "Active",
+  "memoryToolDebugStatWriters": "Writers",
+  "memoryToolDebugStatCurrentHits": "Hits",
+  "memoryToolDebugStatPending": "Pending",
+  "memoryToolDebugStatLength": "Length",
+  "memoryToolDebugSelectProcessFirst": "Select a process first",
+  "memoryToolDebugSelectProcessHint": "Create a watchpoint from a long-press result to inspect hit records here.",
+  "memoryToolDebugActionCopyValue": "Copy Value",
+  "memoryToolDebugActionCopyHex": "Copy Hex",
+  "memoryToolDebugActionCopyReverseHex": "Copy Reverse Hex",
+  "memoryToolDebugActionBrowseAddress": "Browse Address",
+  "memoryToolDebugActionPointerScan": "Pointer Scan",
+  "memoryToolDebugActionAutoChase": "Auto Chase",
+  "memoryToolDebugActionCopyAddress": "Copy Address",
+  "memoryToolDebugActionBrowseHitPointer": "Browse Hit Pointer",
+  "memoryToolDebugActionCopyModuleOffset": "Copy Module Offset",
+  "memoryToolDebugActionCopyInstruction": "Copy Instruction",
+  "memoryToolDebugActionCopyRewrite": "Copy Rewrite",
+  "memoryToolResultActionAddWatch": "Add to Watch List",
+  "memoryToolResultActionAddWatchHint": "Add the current result to the watch area for continuous observation.",
+  "memoryToolResultActionFreeze": "Add to Freeze Queue",
+  "memoryToolResultActionFreezeHint": "Reserve an entry point for future freeze and keep-value-stable actions.",
+  "memoryToolSavedEmpty": "No saved items",
+  "memoryToolResultCalculatorTitle": "Offset / XOR",
+  "memoryToolResultCalculatorSummary": "{selectedCount} selected, {pairCount} pairs",
+  "@memoryToolResultCalculatorSummary": {
+    "placeholders": {
+      "selectedCount": {},
+      "pairCount": {}
+    }
+  },
+  "memoryToolResultCalculatorNeedAtLeastTwo": "Select at least 2 integer results.",
+  "memoryToolResultCalculatorValues": "Values",
+  "memoryToolResultCalculatorCombinations": "Combinations",
+  "memoryToolResultCalculatorOffset": "Offset",
+  "memoryToolResultCalculatorXor": "XOR",
+  "memoryToolAssemblyPreviewTitle": "Assembly Preview",
+  "memoryToolAssemblyPreviewCount": "{count} addresses",
+  "@memoryToolAssemblyPreviewCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "memoryToolAssemblyPreviewEmpty": "No assembly can be rendered.",
+  "memoryToolResultSelectionDialogTitle": "Result List Settings",
+  "memoryToolResultSelectionSearchDescription": "Controls how many search results are rendered now and also caps multi-select, save, and batch actions.",
+  "memoryToolResultSelectionBrowseDescription": "Controls browse-page selection capacity and page stats without clearing already loaded memory results.",
+  "memoryToolResultSelectionFieldLabel": "Item limit",
+  "memoryToolResultSelectionHelperText": "Recommended range: 50 - 200. Larger values make rendering and batch actions heavier.",
+  "memoryToolResultSelectionPresetLabel": "Quick presets",
+  "memoryToolResultSelectionUnit": "items",
+  "memoryToolResultSelectionRequired": "Enter an integer greater than 0.",
+  "memoryToolResultSelectionInvalid": "Enter an integer greater than 0.",
+  "memoryToolResultSelectionCurrent": "Current value: {count} items",
+  "@memoryToolResultSelectionCurrent": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "memoryToolTargetProcess": "Target Process",
+  "memoryToolValidationValueRequired": "Enter a search value first.",
+  "memoryToolValidationBytesInvalid": "Invalid byte pattern. Use even-length hex such as 12 34 AB.",
+  "memoryToolValidationIntegerInvalid": "Integer types only accept whole numbers.",
+  "memoryToolValidationIntegerOutOfRange": "The integer value is outside the supported range for this type.",
+  "memoryToolValidationDecimalInvalid": "Enter a valid decimal number for this type.",
+  "memoryToolValidationGroupInvalid": "Invalid group search format. Example: i32:100;i32:200::32",
+  "memoryToolValidationGroupMissingWindow": "Group search is missing ::window. Example: i32:100;i32:200::32",
+  "memoryToolValidationGroupInvalidWindow": "Group search window must be an integer greater than 0.",
+  "memoryToolValidationGroupWindowTooLarge": "Group search window supports at most 4096 bytes.",
+  "memoryToolValidationGroupTooFewConditions": "Group search requires at least two conditions.",
+  "memoryToolValidationTypeUnsupported": "This search type is not wired to the scan core yet.",
+  "memoryToolProcessTerminatedTitle": "Target Process Closed",
+  "memoryToolProcessTerminatedDescription": "The selected target process has exited. The current search session and selections were cleared. Please pick a process again before continuing.",
+  "memoryToolProcessTerminatedAction": "OK",
+  "create": "Create",
+  "createScript": "Create Script",
+  "scriptName": "Script Name",
+  "newScript": "New Script",
+  "createSuccess": "Created successfully",
+  "createFailed": "Creation failed",
+  "importSuccess": "Imported successfully",
+  "importFailed": "Import failed",
+  "shareSuccess": "Shared successfully",
+  "shareFailed": "Share failed",
+  "deleteScriptHint": "Confirm deletion of this script?",
+  "deleteSuccess": "Deleted successfully",
+  "deleteFailed": "Deletion failed"
+}

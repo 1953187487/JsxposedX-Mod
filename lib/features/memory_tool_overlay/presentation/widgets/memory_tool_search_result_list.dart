@@ -1,0 +1,481 @@
+import 'package:JsxposedX/common/pages/toast.dart';
+import 'package:JsxposedX/core/extensions/context_extensions.dart';
+import 'package:JsxposedX/features/memory_tool_overlay/presentation/models/memory_tool_entry_kind.dart';
+import 'package:JsxposedX/features/memory_tool_overlay/presentation/providers/memory_breakpoint_provider.dart';
+import 'package:JsxposedX/features/memory_tool_overlay/presentation/providers/memory_query_provider.dart';
+import 'package:JsxposedX/features/memory_tool_overlay/presentation/providers/memory_tool_saved_items_provider.dart';
+import 'package:JsxposedX/features/memory_tool_overlay/presentation/utils/memory_tool_pointer_utils.dart';
+import 'package:JsxposedX/features/memory_tool_overlay/presentation/utils/memory_tool_search_result_presenter.dart';
+import 'package:JsxposedX/features/memory_tool_overlay/presentation/widgets/memory_tool_breakpoint_config_dialog.dart';
+import 'package:JsxposedX/features/memory_tool_overlay/presentation/widgets/memory_tool_copy_value_dialog.dart';
+import 'package:JsxposedX/features/memory_tool_overlay/presentation/widgets/memory_tool_offset_preview_dialog.dart';
+import 'package:JsxposedX/features/memory_tool_overlay/presentation/widgets/memory_tool_pointer_scan_dialog.dart';
+import 'package:JsxposedX/features/memory_tool_overlay/presentation/widgets/memory_tool_search_result_action_dialog.dart';
+import 'package:JsxposedX/features/memory_tool_overlay/presentation/widgets/memory_tool_search_result_dialog.dart';
+import 'package:JsxposedX/features/memory_tool_overlay/presentation/widgets/memory_tool_search_result_tile.dart';
+import 'package:JsxposedX/features/overlay_window/presentation/providers/overlay_window_host_runtime_provider.dart';
+import 'package:JsxposedX/generated/memory_tool.g.dart'
+    show MemoryValuePreview, PointerScanRequest, SearchResult, SearchValueType;
+import 'package:flutter/material.dart';
+import 'package:flutter_overlay_window/flutter_overlay_window.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+class MemoryToolSearchResultList extends HookConsumerWidget {
+  const MemoryToolSearchResultList({
+    super.key,
+    required this.listStorageKey,
+    required this.results,
+    required this.isSelected,
+    required this.onToggleSelection,
+    required this.onDeleteResult,
+    required this.livePreviewsAsync,
+    required this.previousValueByAddress,
+    this.processPid,
+    this.initialFrozenStateByAddress = const <int, bool>{},
+    this.highlightedAddress,
+    this.scrollController,
+    this.onPreviewMemoryBlock,
+    this.onNavigateToAddress,
+    this.onJumpToPointer,
+    this.onStartAutoChase,
+    this.onStartPointerScan,
+    this.onOpenDebugTab,
+    this.onOpenSavedTab,
+    this.showPreviewMemoryBlockAction = true,
+    this.itemKeyBuilder,
+  });
+
+  final PageStorageKey<String> listStorageKey;
+  final List<SearchResult> results;
+  final bool Function(int address) isSelected;
+  final void Function(SearchResult result) onToggleSelection;
+  final void Function(SearchResult result) onDeleteResult;
+  final AsyncValue<Map<int, MemoryValuePreview>> livePreviewsAsync;
+  final Map<int, String> previousValueByAddress;
+  final int? processPid;
+  final Map<int, bool> initialFrozenStateByAddress;
+  final int? highlightedAddress;
+  final ScrollController? scrollController;
+  final Key? Function(SearchResult result)? itemKeyBuilder;
+  final Future<void> Function(
+    SearchResult result,
+    MemoryValuePreview? preview,
+    String displayValue,
+  )?
+  onPreviewMemoryBlock;
+  final Future<void> Function(
+    SearchResult result,
+    MemoryValuePreview? preview,
+    String displayValue,
+    int targetAddress,
+  )?
+  onNavigateToAddress;
+  final Future<void> Function(
+    SearchResult result,
+    MemoryValuePreview? preview,
+    String displayValue,
+  )?
+  onJumpToPointer;
+  final Future<void> Function(PointerScanRequest request, int maxDepth)?
+  onStartAutoChase;
+  final Future<void> Function(PointerScanRequest request)? onStartPointerScan;
+  final VoidCallback? onOpenDebugTab;
+  final VoidCallback? onOpenSavedTab;
+  final bool showPreviewMemoryBlockAction;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final activeResultDialog =
+        useState<({SearchResult result, String displayValue})?>(null);
+    final activeResultActionDialog =
+        useState<({SearchResult result, String displayValue})?>(null);
+    final activeCopyValueDialog =
+        useState<({SearchResult result, String displayValue})?>(null);
+    final activeOffsetPreviewDialog =
+        useState<({SearchResult result, String displayValue})?>(null);
+    final activeAutoChaseDialog = useState<SearchResult?>(null);
+    final activePointerScanDialog = useState<SearchResult?>(null);
+    final activeBreakpointDialog = useState<SearchResult?>(null);
+    final savedItemsNotifier = ref.read(memoryToolSavedItemsProvider.notifier);
+
+    Future<void> copyText(String value) async {
+      final copied = await FlutterOverlayWindow.setClipboardData(value);
+      ref
+          .read(overlayWindowHostRuntimeProvider.notifier)
+          .showToast(copied ? context.l10n.codeCopied : context.l10n.error);
+    }
+
+    Future<void> saveResultToSaved(SearchResult result) async {
+      final selectedPid = ref.read(memoryToolSelectedProcessProvider)?.pid;
+      if (selectedPid == null) {
+        return;
+      }
+
+      savedItemsNotifier.saveEntry(
+        pid: selectedPid,
+        result: result,
+        preview: livePreviewsAsync.asData?.value[result.address],
+        isFrozen: initialFrozenStateByAddress[result.address] ?? false,
+        entryKind: MemoryToolEntryKind.value,
+      );
+      onOpenSavedTab?.call();
+      await ToastOverlayMessage.show(
+        context.l10n.memoryToolSavedToSavedMessage(1),
+        duration: const Duration(milliseconds: 1200),
+      );
+    }
+
+    Future<void> saveResultAsInstructionToSaved(SearchResult result) async {
+      final selectedPid = ref.read(memoryToolSelectedProcessProvider)?.pid;
+      if (selectedPid == null) {
+        return;
+      }
+
+      final previews = await ref
+          .read(memoryQueryRepositoryProvider)
+          .disassembleMemory(pid: selectedPid, addresses: <int>[result.address]);
+      if (previews.isEmpty) {
+        throw StateError(
+          context.isZh ? '未读取到指令预览' : 'Instruction preview unavailable',
+        );
+      }
+
+      final preview = previews.first;
+      savedItemsNotifier.saveEntry(
+        pid: selectedPid,
+        result: SearchResult(
+          address: result.address,
+          regionStart: result.regionStart,
+          regionTypeKey: result.regionTypeKey,
+          type: SearchValueType.bytes,
+          rawBytes: preview.rawBytes,
+          displayValue: preview.instructionText,
+        ),
+        isFrozen: false,
+        entryKind: MemoryToolEntryKind.instruction,
+        instructionText: preview.instructionText,
+      );
+      onOpenSavedTab?.call();
+      await ToastOverlayMessage.show(
+        context.isZh ? '已按汇编保存到暂存区' : 'Saved to saved list as ASM',
+        duration: const Duration(milliseconds: 1200),
+      );
+    }
+
+    MemoryValuePreview? resolvePreview(SearchResult result) {
+      return livePreviewsAsync.asData?.value[result.address];
+    }
+
+    return Stack(
+      children: <Widget>[
+        ListView.separated(
+          key: listStorageKey,
+          controller: scrollController,
+          padding: EdgeInsets.zero,
+          itemCount: results.length,
+          separatorBuilder: (_, index) =>
+              SizedBox(height: index == results.length - 1 ? 6.r : 4.r),
+          itemBuilder: (BuildContext context, int index) {
+            final result = results[index];
+            final displayValue = resolveMemoryToolSearchResultDisplayValue(
+              result: result,
+              livePreviewsAsync: livePreviewsAsync,
+            );
+            return MemoryToolSearchResultTile(
+              key: itemKeyBuilder?.call(result),
+              result: result,
+              displayValue: displayValue,
+              previousDisplayValue: previousValueByAddress[result.address],
+              isFrozen: initialFrozenStateByAddress[result.address] ?? false,
+              isAnchor: highlightedAddress == result.address,
+              isSelected: isSelected(result.address),
+              onToggleSelection: () {
+                onToggleSelection(result);
+              },
+              onDeleteRecord: () {
+                onDeleteResult(result);
+              },
+              onTap: () {
+                activeResultActionDialog.value = null;
+                activeResultDialog.value = (
+                  result: result,
+                  displayValue: displayValue,
+                );
+              },
+              onLongProcess: () {
+                activeResultDialog.value = null;
+                activeResultActionDialog.value = (
+                  result: result,
+                  displayValue: displayValue,
+                );
+              },
+            );
+          },
+        ),
+        if (activeResultDialog.value case final dialog?)
+          Positioned.fill(
+            child: MemoryToolSearchResultDialog(
+              result: dialog.result,
+              displayValue: dialog.displayValue,
+              livePreviewsAsync: livePreviewsAsync,
+              processPid: processPid,
+              initialFrozenState:
+                  initialFrozenStateByAddress[dialog.result.address],
+              onClose: () {
+                activeResultDialog.value = null;
+              },
+            ),
+          ),
+        if (activeResultActionDialog.value case final dialog?)
+          Positioned.fill(
+            child: MemoryToolSearchResultActionDialog(
+              actions: <MemoryToolSearchResultActionItemData>[
+                if (onStartAutoChase != null && processPid != null)
+                  MemoryToolSearchResultActionItemData(
+                    icon: Icons.auto_mode_rounded,
+                    title: context.l10n.memoryToolResultActionAutoChaseStatic,
+                    onTap: () async {
+                      activeResultActionDialog.value = null;
+                      activeAutoChaseDialog.value = dialog.result;
+                    },
+                  ),
+                if (onStartPointerScan != null && processPid != null)
+                  MemoryToolSearchResultActionItemData(
+                    icon: Icons.account_tree_rounded,
+                    title: context.l10n.memoryToolResultActionPointerScan,
+                    onTap: () async {
+                      activeResultActionDialog.value = null;
+                      activePointerScanDialog.value = dialog.result;
+                    },
+                  ),
+                if (processPid != null)
+                  MemoryToolSearchResultActionItemData(
+                    icon: Icons.bug_report_rounded,
+                    title: context.isZh ? '断点调试' : 'Breakpoint Debug',
+                    onTap: () async {
+                      activeResultActionDialog.value = null;
+                      activeBreakpointDialog.value = dialog.result;
+                    },
+                  ),
+                if (onJumpToPointer != null &&
+                    canInterpretMemoryToolPointer(
+                      resolvePreview(dialog.result)?.rawBytes ??
+                          dialog.result.rawBytes,
+                    ))
+                  MemoryToolSearchResultActionItemData(
+                    icon: Icons.subdirectory_arrow_right_rounded,
+                    title: context.l10n.memoryToolResultActionJumpToPointer,
+                    onTap: () async {
+                      activeResultActionDialog.value = null;
+                      await onJumpToPointer!(
+                        dialog.result,
+                        resolvePreview(dialog.result),
+                        dialog.displayValue,
+                      );
+                    },
+                  ),
+                if (showPreviewMemoryBlockAction &&
+                    onPreviewMemoryBlock != null)
+                  MemoryToolSearchResultActionItemData(
+                    icon: Icons.preview_rounded,
+                    title:
+                        context.l10n.memoryToolResultActionPreviewMemoryBlock,
+                    onTap: () async {
+                      await onPreviewMemoryBlock!(
+                        dialog.result,
+                        resolvePreview(dialog.result),
+                        dialog.displayValue,
+                      );
+                      activeResultActionDialog.value = null;
+                    },
+                  ),
+                if (onNavigateToAddress != null)
+                  MemoryToolSearchResultActionItemData(
+                    icon: Icons.calculate_rounded,
+                    title: context.l10n.memoryToolResultActionOffsetPreview,
+                    onTap: () async {
+                      activeResultActionDialog.value = null;
+                      activeOffsetPreviewDialog.value = (
+                        result: dialog.result,
+                        displayValue: dialog.displayValue,
+                      );
+                    },
+                  ),
+                MemoryToolSearchResultActionItemData(
+                  icon: Icons.save_alt_rounded,
+                  title: context.l10n.memoryToolResultActionSaveToSaved,
+                  onTap: () async {
+                    activeResultActionDialog.value = null;
+                    await saveResultToSaved(dialog.result);
+                  },
+                ),
+                if (processPid != null)
+                  MemoryToolSearchResultActionItemData(
+                    icon: Icons.developer_board_rounded,
+                    title: context.isZh ? '按汇编保存' : 'Save as ASM',
+                    onTap: () async {
+                      activeResultActionDialog.value = null;
+                      try {
+                        await saveResultAsInstructionToSaved(dialog.result);
+                      } catch (error) {
+                        await ToastOverlayMessage.show(
+                          error.toString().replaceFirst('Exception: ', ''),
+                          duration: const Duration(milliseconds: 1400),
+                        );
+                      }
+                    },
+                  ),
+                MemoryToolSearchResultActionItemData(
+                  icon: Icons.tune_rounded,
+                  title: context.l10n.memoryToolResultDetailActionCopyValue,
+                  onTap: () async {
+                    activeResultActionDialog.value = null;
+                    activeCopyValueDialog.value = (
+                      result: dialog.result,
+                      displayValue: dialog.displayValue,
+                    );
+                  },
+                ),
+                MemoryToolSearchResultActionItemData(
+                  icon: Icons.copy_all_rounded,
+                  title:
+                      '${context.l10n.memoryToolResultDetailActionCopyAddress}: ${formatMemoryToolSearchResultAddress(dialog.result.address)}',
+                  onTap: () async {
+                    await copyText(
+                      formatMemoryToolSearchResultAddress(
+                        dialog.result.address,
+                      ),
+                    );
+                    activeResultActionDialog.value = null;
+                  },
+                ),
+                MemoryToolSearchResultActionItemData(
+                  icon: Icons.data_array_rounded,
+                  title:
+                      '${context.l10n.memoryToolResultActionCopyHex}: ${formatMemoryToolSearchResultHex(resolvePreview(dialog.result)?.rawBytes ?? dialog.result.rawBytes)}',
+                  onTap: () async {
+                    final preview = resolvePreview(dialog.result);
+                    await copyText(
+                      formatMemoryToolSearchResultHex(
+                        preview?.rawBytes ?? dialog.result.rawBytes,
+                      ),
+                    );
+                    activeResultActionDialog.value = null;
+                  },
+                ),
+                MemoryToolSearchResultActionItemData(
+                  icon: Icons.swap_horiz_rounded,
+                  title:
+                      '${context.l10n.memoryToolResultActionCopyReverseHex}: ${formatMemoryToolSearchResultReverseHex(resolvePreview(dialog.result)?.rawBytes ?? dialog.result.rawBytes)}',
+                  onTap: () async {
+                    final preview = resolvePreview(dialog.result);
+                    await copyText(
+                      formatMemoryToolSearchResultReverseHex(
+                        preview?.rawBytes ?? dialog.result.rawBytes,
+                      ),
+                    );
+                    activeResultActionDialog.value = null;
+                  },
+                ),
+              ],
+              onClose: () {
+                activeResultActionDialog.value = null;
+              },
+            ),
+          ),
+        if (activeAutoChaseDialog.value case final result?)
+          Positioned.fill(
+            child: MemoryToolPointerScanDialog(
+              pid: processPid!,
+              targetAddress: result.address,
+              showMaxDepthField: true,
+              onConfirmAutoChase: (request, maxDepth) async {
+                await onStartAutoChase!(request, maxDepth);
+              },
+              onClose: () {
+                activeAutoChaseDialog.value = null;
+              },
+            ),
+          ),
+        if (activePointerScanDialog.value case final result?)
+          Positioned.fill(
+            child: MemoryToolPointerScanDialog(
+              pid: processPid!,
+              targetAddress: result.address,
+              onConfirm: (request) async {
+                await onStartPointerScan!(request);
+              },
+              onClose: () {
+                activePointerScanDialog.value = null;
+              },
+            ),
+          ),
+        if (activeBreakpointDialog.value case final result?)
+          Positioned.fill(
+            child: MemoryToolBreakpointConfigDialog(
+              pid: processPid!,
+              result: result,
+              preview: resolvePreview(result),
+              onConfirm: (request) async {
+                final created = await ref
+                    .read(memoryBreakpointActionProvider.notifier)
+                    .addMemoryBreakpoint(request: request);
+                if (processPid != null) {
+                  ref.invalidate(
+                    getMemoryBreakpointsProvider(pid: processPid!),
+                  );
+                  ref.invalidate(
+                    getMemoryBreakpointStateProvider(pid: processPid!),
+                  );
+                  ref.invalidate(
+                    getMemoryBreakpointHitsProvider(pid: processPid!),
+                  );
+                }
+                ref
+                    .read(memoryBreakpointSelectedIdProvider.notifier)
+                    .set(created.id);
+                onOpenDebugTab?.call();
+                activeBreakpointDialog.value = null;
+              },
+              onClose: () {
+                activeBreakpointDialog.value = null;
+              },
+            ),
+          ),
+        if (activeOffsetPreviewDialog.value case final dialog?)
+          Positioned.fill(
+            child: MemoryToolOffsetPreviewDialog(
+              result: dialog.result,
+              displayValue: dialog.displayValue,
+              livePreviewsAsync: livePreviewsAsync,
+              onConfirm: (targetAddress) async {
+                activeOffsetPreviewDialog.value = null;
+                await onNavigateToAddress!(
+                  dialog.result,
+                  resolvePreview(dialog.result),
+                  dialog.displayValue,
+                  targetAddress,
+                );
+              },
+              onClose: () {
+                activeOffsetPreviewDialog.value = null;
+              },
+            ),
+          ),
+        if (activeCopyValueDialog.value case final dialog?)
+          Positioned.fill(
+            child: MemoryToolCopyValueDialog(
+              result: dialog.result,
+              displayValue: dialog.displayValue,
+              livePreviewsAsync: livePreviewsAsync,
+              onClose: () {
+                activeCopyValueDialog.value = null;
+              },
+            ),
+          ),
+      ],
+    );
+  }
+}

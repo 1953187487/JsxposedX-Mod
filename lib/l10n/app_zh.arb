@@ -1,0 +1,1610 @@
+{
+  "@@locale": "zh",
+  "appName": "JSXPOSEDX",
+  "@appName": {
+    "description": "应用名称"
+  },
+  "desktopNavDeviceConnection": "设备连接",
+  "@desktopNavDeviceConnection": {
+    "description": "PC 端侧边栏-设备连接"
+  },
+  "desktopNavWorkbench": "工作台",
+  "@desktopNavWorkbench": {
+    "description": "PC 端侧边栏-工作台"
+  },
+  "desktopNavSettings": "设置",
+  "@desktopNavSettings": {
+    "description": "PC 端侧边栏-设置"
+  },
+  "desktopThemeSwitchToLight": "浅色模式",
+  "@desktopThemeSwitchToLight": {
+    "description": "PC 端-切换到浅色模式"
+  },
+  "desktopThemeSwitchToDark": "深色模式",
+  "@desktopThemeSwitchToDark": {
+    "description": "PC 端-切换到深色模式"
+  },
+  "desktopFeatureTodo": "功能待实现",
+  "@desktopFeatureTodo": {
+    "description": "PC 端-功能待实现占位"
+  },
+  "desktopUpdateCheck": "检查更新",
+  "@desktopUpdateCheck": {
+    "description": "PC 端-手动检查更新"
+  },
+  "desktopUpdateCheckDescription": "检查 JsxposedX 是否有新版本",
+  "@desktopUpdateCheckDescription": {
+    "description": "PC 端-检查更新设置项说明"
+  },
+  "desktopCurrentVersion": "当前版本 {version} ({buildNumber})",
+  "@desktopCurrentVersion": {
+    "description": "PC 端-显示与手机版统一的当前版本",
+    "placeholders": {
+      "version": {
+        "type": "String"
+      },
+      "buildNumber": {
+        "type": "String"
+      }
+    }
+  },
+  "desktopUpdateLatest": "当前已是最新版本",
+  "@desktopUpdateLatest": {
+    "description": "PC 端-没有可用更新提示"
+  },
+  "desktopUpdateCheckFailed": "检查更新失败，请稍后重试",
+  "@desktopUpdateCheckFailed": {
+    "description": "PC 端-检查更新失败提示"
+  },
+  "desktopConnectionConnected": "已连接",
+  "@desktopConnectionConnected": {
+    "description": "PC 端-设备连接状态-已连接"
+  },
+  "homeDesktopCardTitle": "电脑连接",
+  "@homeDesktopCardTitle": {
+    "description": "手机端-首页-电脑连接卡片标题"
+  },
+  "homeDesktopCardDisconnected": "等待电脑端连接",
+  "@homeDesktopCardDisconnected": {
+    "description": "手机端-首页-未连接电脑端"
+  },
+  "homeDesktopCardDeviceCount": "{count} 台设备",
+  "@homeDesktopCardDeviceCount": {
+    "description": "手机端-首页-已连接电脑端设备数量",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "desktopConnectionConnecting": "连接中…",
+  "@desktopConnectionConnecting": {
+    "description": "PC 端-设备连接状态-连接中"
+  },
+  "desktopConnectionDisconnected": "未连接",
+  "@desktopConnectionDisconnected": {
+    "description": "PC 端-设备未连接状态"
+  },
+  "desktopConnectionAdbActive": "已通过 ADB 连接 {device}",
+  "@desktopConnectionAdbActive": {
+    "description": "PC 端-通过 ADB 完成应用连接",
+    "placeholders": {
+      "device": {
+        "type": "String"
+      }
+    }
+  },
+  "desktopConnectionConnect": "连接",
+  "@desktopConnectionConnect": {
+    "description": "PC 端-设备连接按钮"
+  },
+  "desktopConnectionDisconnect": "断开",
+  "@desktopConnectionDisconnect": {
+    "description": "PC 端-设备断开按钮"
+  },
+  "desktopConnectionAddressHint": "手机端地址",
+  "@desktopConnectionAddressHint": {
+    "description": "PC 端-设备连接地址输入提示"
+  },
+  "desktopConnectionAdb": "ADB",
+  "@desktopConnectionAdb": {
+    "description": "PC 端-通过 ADB 端口转发连接"
+  },
+  "desktopConnectionWifi": "Wi-Fi",
+  "@desktopConnectionWifi": {
+    "description": "PC 端-通过 Wi-Fi 地址连接"
+  },
+  "desktopConnectionRefresh": "刷新设备",
+  "@desktopConnectionRefresh": {
+    "description": "PC 端-刷新 ADB 设备列表"
+  },
+  "desktopConnectionDeviceUnauthorized": "设备未授权，请在手机上允许 USB 调试",
+  "@desktopConnectionDeviceUnauthorized": {
+    "description": "PC 端-ADB 设备未授权提示"
+  },
+  "desktopDeviceListTitle": "设备列表",
+  "@desktopDeviceListTitle": {
+    "description": "PC 端-设备列表标题"
+  },
+  "desktopDeviceListEmpty": "未发现设备，请连接手机或点击刷新",
+  "@desktopDeviceListEmpty": {
+    "description": "PC 端-设备列表为空提示"
+  },
+  "desktopConnectionPairAddressHint": "配对地址，例如 192.168.1.2:37099",
+  "@desktopConnectionPairAddressHint": {
+    "description": "PC 端-ADB 无线配对地址输入提示"
+  },
+  "desktopConnectionPairCodeHint": "配对码",
+  "@desktopConnectionPairCodeHint": {
+    "description": "PC 端-ADB 无线配对码输入提示"
+  },
+  "desktopConnectionPair": "配对",
+  "@desktopConnectionPair": {
+    "description": "PC 端-执行 ADB 无线配对"
+  },
+  "desktopConnectionAdbAddressHint": "连接地址，例如 192.168.1.2:5555",
+  "@desktopConnectionAdbAddressHint": {
+    "description": "PC 端-ADB 无线连接地址输入提示"
+  },
+  "desktopConnectionAdbConnect": "连接 ADB",
+  "@desktopConnectionAdbConnect": {
+    "description": "PC 端-执行 ADB 无线连接"
+  },
+  "desktopConnectionAdbSettings": "ADB 设置",
+  "@desktopConnectionAdbSettings": {
+    "description": "PC 端-打开 ADB 配对和无线连接设置"
+  },
+  "desktopConnectionConfigureAdb": "配置 ADB 配对与无线连接",
+  "@desktopConnectionConfigureAdb": {
+    "description": "PC 端-打开 ADB 配置入口"
+  },
+  "desktopConnectionConnectAdb": "通过 ADB 连接",
+  "@desktopConnectionConnectAdb": {
+    "description": "PC 端-通过 ADB 完成设备连接"
+  },
+  "desktopConnectionConnectWifi": "通过 Wi-Fi 连接",
+  "@desktopConnectionConnectWifi": {
+    "description": "PC 端-通过 Wi-Fi 连接手机服务"
+  },
+  "desktopConnectionPairSection": "无线调试配对",
+  "@desktopConnectionPairSection": {
+    "description": "PC 端-ADB 配对设置分组标题"
+  },
+  "desktopConnectionWirelessSection": "无线连接",
+  "@desktopConnectionWirelessSection": {
+    "description": "PC 端-ADB 无线连接设置分组标题"
+  },
+  "desktopConnectionPairNextStep": "配对成功。配对不会让设备直接出现在列表中，请在手机无线调试页面查看“IP 地址和端口”，填入下方连接地址后点击“连接 ADB”。注意：连接端口通常与配对端口不同。",
+  "@desktopConnectionPairNextStep": {
+    "description": "PC 端-ADB 配对成功后的下一步提示"
+  },
+  "desktopSettingsAppearance": "外观",
+  "desktopSettingsColorTheme": "颜色主题",
+  "desktopSettingsThemeDark": "深色",
+  "desktopSettingsThemeLight": "浅色",
+  "desktopSettingsDisplayLanguage": "显示语言",
+  "desktopSettingsApplication": "应用",
+  "desktopSettingsCommunity": "社区",
+  "desktopSettingsCommunityDescription": "获取教程与社区支持",
+  "desktopSettingsCommunityForum": "沐雪 AI",
+  "desktopSettingsOfficialMirror": "官方中转站",
+  "desktopSettingsJoinDiscord": "加入 Discord",
+  "desktopSettingsJoinQQGroup": "加入 QQ 群",
+  "desktopSettingsTargetRange": "靶场",
+  "desktopSettingsFollowAuthor": "关注作者",
+  "desktopSettingsMorePlatforms": "查看更多平台",
+  "desktopSettingsAbout": "关于",
+  "desktopSettingsOfficialSite": "官网",
+  "desktopSettingsOfficialSiteHint": "获取最新教程",
+  "desktopSettingsRepository": "仓库",
+  "desktopSettingsWechat": "微信公众号",
+  "desktopDeviceDefaultName": "Android 设备",
+  "desktopDeviceSummary": "{manufacturer} · API {api} · {abi}",
+  "@desktopDeviceSummary": {
+    "placeholders": {
+      "manufacturer": {"type": "String"},
+      "api": {"type": "String"},
+      "abi": {"type": "String"}
+    }
+  },
+  "desktopDeviceCapabilities": "设备能力",
+  "desktopExplorerTitle": "资源管理器",
+  "desktopExplorerNewScript": "新建脚本",
+  "desktopExplorerLocalScripts": "本地脚本",
+  "desktopExplorerDescription": "脚本保存在电脑本地，并在所选设备上运行。",
+  "desktopExplorerFridaScripts": "Frida 脚本",
+  "desktopExplorerXposedScripts": "Xposed 脚本",
+  "desktopExplorerNoScripts": "暂无脚本",
+  "desktopEditorSaveAndRun": "保存并运行（Ctrl/Cmd+S）",
+  "desktopEditorRunning": "已保存并在设备上运行",
+  "desktopEditorRestartApp": "保存后重启目标应用",
+  "desktopEditorRunScript": "在设备上运行此脚本",
+  "desktopEditorOptions": "脚本设置",
+  "desktopEditorUntitled": "未选择脚本",
+  "desktopEditorLoadFailed": "脚本读取失败",
+  "desktopEditorCreateScript": "新建或打开本地脚本",
+  "desktopEditorConnectDevice": "连接设备后开始",
+  "desktopEditorDescription": "脚本保留在电脑中，并同步到所选设备执行。",
+  "desktopOutputTitle": "输出",
+  "desktopOutputEmpty": "运行日志将实时显示在此处。",
+  "desktopOutputRequestCompleted": "请求 {requestId} 已完成",
+  "@desktopOutputRequestCompleted": {
+    "placeholders": {"requestId": {"type": "String"}}
+  },
+  "desktopOutputExpand": "展开输出面板",
+  "desktopOutputCollapse": "收起输出面板",
+  "desktopShellHint": "输入 shell 命令，↑ 切换历史",
+  "desktopShellSuTooltip": "以 su（root）执行",
+  "desktopShellRunTooltip": "执行命令",
+  "desktopShellStatusNoDevice": "未连接设备，无法执行命令",
+  "desktopShellDisconnected": "与设备的连接已断开",
+  "desktopShellSessionClosed": "会话已结束",
+  "desktopConsoleLogs": "日志",
+  "desktopConsoleTerminal": "终端",
+  "desktopStatusNoDevice": "未连接设备",
+  "desktopStatusQuickConnect": "刷新并自动连接",
+  "desktopStatusConnecting": "连接中…",
+  "desktopStatusDeviceInfo": "API {api} · {abi}",
+  "@desktopStatusDeviceInfo": {
+    "placeholders": {
+      "api": {"type": "String"},
+      "abi": {"type": "String"}
+    }
+  },
+  "appSubtitle": "基于 Xposed Frida 的跨平台Hook调试工具",
+  "@appSubtitle": {
+    "description": "应用副标题"
+  },
+  "home": "首页",
+  "@home": {
+    "description": "首页标题"
+  },
+  "project": "项目",
+  "@project": {
+    "description": "项目"
+  },
+  "repository": "仓库",
+  "@repository": {
+    "description": "仓库"
+  },
+  "news": "最新",
+  "@news": {
+    "description": "最新标签"
+  },
+  "star": "收藏",
+  "@star": {
+    "description": "收藏标签"
+  },
+  "repositoryAccountInfo": "账号信息",
+  "@repositoryAccountInfo": {
+    "description": "仓库 Token 登录账号信息标题"
+  },
+  "repositoryTokenLogin": "Token 登录",
+  "@repositoryTokenLogin": {
+    "description": "仓库 Token 登录标题"
+  },
+  "repositoryReplaceToken": "更换 Token",
+  "@repositoryReplaceToken": {
+    "description": "仓库更换 Token 按钮"
+  },
+  "repositoryTokenHint": "请输入 Token",
+  "@repositoryTokenHint": {
+    "description": "仓库 Token 输入框提示"
+  },
+  "repositoryTokenEmpty": "Token 不能为空",
+  "@repositoryTokenEmpty": {
+    "description": "仓库 Token 为空提示"
+  },
+  "repositoryVerifyAndLogin": "验证并登录",
+  "@repositoryVerifyAndLogin": {
+    "description": "仓库 Token 登录确认按钮"
+  },
+  "repositoryTokenLoginSuccess": "Token 登录成功",
+  "@repositoryTokenLoginSuccess": {
+    "description": "仓库 Token 登录成功提示"
+  },
+  "repositoryTokenInvalid": "Token 无效或已失效",
+  "@repositoryTokenInvalid": {
+    "description": "仓库 Token 登录失败提示"
+  },
+  "repositoryUnnamedUser": "未命名用户",
+  "@repositoryUnnamedUser": {
+    "description": "仓库未命名用户占位"
+  },
+  "repositoryMxid": "MXID",
+  "@repositoryMxid": {
+    "description": "仓库用户 MXID 标签"
+  },
+  "repositoryVip": "VIP",
+  "@repositoryVip": {
+    "description": "仓库用户 VIP 标签"
+  },
+  "repositoryVipActive": "已开通",
+  "@repositoryVipActive": {
+    "description": "仓库用户 VIP 已开通状态"
+  },
+  "repositoryVipInactive": "未开通",
+  "@repositoryVipInactive": {
+    "description": "仓库用户 VIP 未开通状态"
+  },
+  "repositoryFavoriteLoginRequired": "请先登录",
+  "@repositoryFavoriteLoginRequired": {
+    "description": "仓库收藏页未登录提示标题"
+  },
+  "repositoryFavoriteLoginHint": "登录后才能查看收藏内容",
+  "@repositoryFavoriteLoginHint": {
+    "description": "仓库收藏页未登录提示说明"
+  },
+  "settings": "设置",
+  "@settings": {
+    "description": "设置页面"
+  },
+  "language": "语言",
+  "@language": {
+    "description": "语言设置"
+  },
+  "theme": "主题",
+  "@theme": {
+    "description": "主题设置"
+  },
+  "lightTheme": "浅色主题",
+  "@lightTheme": {
+    "description": "浅色主题"
+  },
+  "darkTheme": "深色主题",
+  "@darkTheme": {
+    "description": "深色主题"
+  },
+  "chinese": "简体中文",
+  "@chinese": {
+    "description": "中文"
+  },
+  "english": "English",
+  "@english": {
+    "description": "英文"
+  },
+  "confirm": "确认",
+  "@confirm": {
+    "description": "确认按钮"
+  },
+  "cancel": "取消",
+  "@cancel": {
+    "description": "取消按钮"
+  },
+  "save": "保存",
+  "@save": {
+    "description": "保存按钮"
+  },
+  "delete": "删除",
+  "@delete": {
+    "description": "删除按钮"
+  },
+  "edit": "编辑",
+  "@edit": {
+    "description": "编辑按钮"
+  },
+  "add": "添加",
+  "@add": {
+    "description": "添加按钮"
+  },
+  "refresh": "刷新",
+  "@refresh": {
+    "description": "刷新按钮"
+  },
+  "search": "搜索",
+  "@search": {
+    "description": "搜索"
+  },
+  "loading": "加载中...",
+  "@loading": {
+    "description": "加载提示"
+  },
+  "success": "成功",
+  "@success": {
+    "description": "成功提示"
+  },
+  "error": "错误",
+  "@error": {
+    "description": "错误提示"
+  },
+  "warning": "警告",
+  "@warning": {
+    "description": "警告提示"
+  },
+  "info": "信息",
+  "@info": {
+    "description": "信息提示"
+  },
+  "hookStatus": "Hook 状态",
+  "@hookStatus": {
+    "description": "Hook状态"
+  },
+  "hookEnabled": "Hook 已启用",
+  "@hookEnabled": {
+    "description": "Hook已启用"
+  },
+  "hookDisabled": "Hook 未启用",
+  "@hookDisabled": {
+    "description": "Hook未启用"
+  },
+  "moduleInfo": "模块信息",
+  "@moduleInfo": {
+    "description": "模块信息"
+  },
+  "version": "版本",
+  "@version": {
+    "description": "版本号"
+  },
+  "about": "关于",
+  "@about": {
+    "description": "关于页面"
+  },
+  "disclaimer": "免责声明",
+  "@disclaimer": {
+    "description": "免责声明入口标题"
+  },
+  "disclaimerSubtitle": "合法用途、AI 输出与责任说明",
+  "@disclaimerSubtitle": {
+    "description": "免责声明入口副标题"
+  },
+  "disclaimerDialogIntro": "以下内容提取自项目 README，继续使用本项目即视为已阅读并同意本声明。",
+  "@disclaimerDialogIntro": {
+    "description": "免责声明弹窗导语"
+  },
+  "disclaimerLegalTitle": "合法用途",
+  "@disclaimerLegalTitle": {
+    "description": "免责声明合法用途标题"
+  },
+  "disclaimerLegalBody": "本项目为开源技术研究工具，仅用于软件调试、程序分析、内存机制学习、开发测试及授权环境研究等合法用途。作者公开本项目旨在促进技术交流与学习，不针对任何特定游戏、平台、软件或在线服务，不提供作弊、绕过保护或违规使用指导。",
+  "@disclaimerLegalBody": {
+    "description": "免责声明合法用途正文"
+  },
+  "disclaimerProhibitedTitle": "禁止用途",
+  "@disclaimerProhibitedTitle": {
+    "description": "免责声明禁止用途标题"
+  },
+  "disclaimerProhibitedBody": "严禁用于网络游戏作弊、外挂制作、自动化违规操作、干扰服务器或客户端正常运行、未经授权修改第三方程序数据、破坏公平竞争环境，或任何违反法律法规及平台规则的用途。",
+  "@disclaimerProhibitedBody": {
+    "description": "免责声明禁止用途正文"
+  },
+  "disclaimerResponsibilityTitle": "责任归属",
+  "@disclaimerResponsibilityTitle": {
+    "description": "免责声明责任归属标题"
+  },
+  "disclaimerResponsibilityBody": "使用者应自行确保使用行为符合所在地法律法规及相关服务条款。因使用、传播、二次开发本项目产生的任何直接或间接后果，由使用者自行承担，与作者无关。",
+  "@disclaimerResponsibilityBody": {
+    "description": "免责声明责任归属正文"
+  },
+  "disclaimerAiTitle": "AI 功能说明",
+  "@disclaimerAiTitle": {
+    "description": "免责声明 AI 功能标题"
+  },
+  "disclaimerAiBody": "内置 AI 功能仅作为通用智能辅助模块，用于数据分析、内容解释、结果筛选、信息整理、操作指引及学习研究等场景。AI 输出可能存在误差、遗漏或不适用于特定场景，仅供参考；用户应自行判断并承担最终使用责任。",
+  "@disclaimerAiBody": {
+    "description": "免责声明 AI 功能正文"
+  },
+  "community": "社区",
+  "@community": {
+    "description": "社区分组标题"
+  },
+  "officialCommunity": "获取教程与社区支持",
+  "@officialCommunity": {
+    "description": "官方社区说明"
+  },
+  "forum": "论坛",
+  "@forum": {
+    "description": "论坛"
+  },
+  "visitForum": "进入沐雪 AI",
+  "@visitForum": {
+    "description": "进入沐雪 AI 按钮"
+  },
+  "joinDiscord": "加入 Discord",
+  "@joinDiscord": {
+    "description": "加入 Discord 按钮"
+  },
+  "joinQQGroup": "加入 QQ 群",
+  "@joinQQGroup": {
+    "description": "加入 QQ 群按钮"
+  },
+  "targetRange": "靶场",
+  "@targetRange": {
+    "description": "靶场按钮"
+  },
+  "followAuthor": "关注作者",
+  "@followAuthor": {
+    "description": "关注作者分组标题"
+  },
+  "creatorPlatforms": "获取教程",
+  "@creatorPlatforms": {
+    "description": "作者平台入口"
+  },
+  "morePlatforms": "查看更多平台",
+  "@morePlatforms": {
+    "description": "查看更多平台"
+  },
+  "pageNotFound": "页面未找到: {error}",
+  "@pageNotFound": {
+    "description": "404页面标题",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "backToHome": "返回首页",
+  "@backToHome": {
+    "description": "返回首页按钮"
+  },
+  "retry": "重试",
+  "@retry": {
+    "description": "重试按钮"
+  },
+  "loadFailedMessage": "加载失败，请重试",
+  "@loadFailedMessage": {
+    "description": "加载失败提示"
+  },
+  "activated": "已激活",
+  "@activated": {
+    "description": "已激活状态"
+  },
+  "notActivated": "未激活",
+  "@notActivated": {
+    "description": "未激活状态"
+  },
+  "fridaPartial": "局部",
+  "@fridaPartial": {
+    "description": "Frida 局部状态"
+  },
+  "fridaGlobal": "全局",
+  "@fridaGlobal": {
+    "description": "Frida 全局状态"
+  },
+  "fridaUnknown": "未知",
+  "@fridaUnknown": {
+    "description": "未知状态"
+  },
+  "fridaNotInstalledShort": "未安装",
+  "@fridaNotInstalledShort": {
+    "description": "Frida 未安装简短状态"
+  },
+  "fridaInitAbnormal": "初始化异常",
+  "@fridaInitAbnormal": {
+    "description": "Frida 初始化异常状态"
+  },
+  "fridaStatusEnabled": "已启用",
+  "@fridaStatusEnabled": {
+    "description": "Frida 启用状态"
+  },
+  "fridaStatusDisabled": "已禁用",
+  "@fridaStatusDisabled": {
+    "description": "Frida 禁用状态"
+  },
+  "fridaTargetDisabled": "目标关闭",
+  "@fridaTargetDisabled": {
+    "description": "Frida 目标关闭状态"
+  },
+  "fridaEffective": "已生效",
+  "@fridaEffective": {
+    "description": "Frida 已生效状态"
+  },
+  "zygiskFridaModuleNotInstalled": "Zygisk Frida 模块未安装",
+  "@zygiskFridaModuleNotInstalled": {
+    "description": "Zygisk Frida 模块未安装提示"
+  },
+  "systemVersion": "系统版本",
+  "sdkVersion": "SDK版本",
+  "deviceModel": "设备型号",
+  "systemStorage": "系统存储",
+  "cpuArchitecture": "CPU架构",
+  "frameworkPackageName": "框架包名",
+  "copy": "复制",
+  "selectAll": "全选",
+  "cut": "剪切",
+  "paste": "粘贴",
+  "comment": "注释",
+  "codeCopied": "代码已复制到剪贴板",
+  "totalStorage": "总存",
+  "available": "可用",
+  "softwareIcon": "软件图标",
+  "needRootPermission": "你必须授予Root权限",
+  "pleaseActivateXposed": "请先激活Xposed,随意勾选一个模块即可",
+  "initFrida": "初始化Frida",
+  "homeTitleAI": "AI",
+  "homeTitleRoot": "Root",
+  "homeTitleXposed": "Xposed",
+  "homeTitleFrida": "Frida",
+  "themeColor": "主题配色",
+  "selectThemeColor": "选择皮肤颜色",
+  "aiConfig": "AI 配置",
+  "aiConfigTitle": "AI 设置",
+  "aiBaseUrl": "API 地址",
+  "aiBaseUrlHint": "请输入 API 地址",
+  "aiApiKeyHint": "请输入 API Key",
+  "aiMaxTokens": "最大 Token",
+  "aiMaxTokensHint": "请输入最大 Token 数量",
+  "aiModelName": "模型名称",
+  "aiModelNameHint": "请输入模型名称",
+  "aiTemperature": "温度 (Temperature)",
+  "aiMemoryRounds": "对话记忆轮数",
+  "cannotBeEmpty": "{field}不能为空",
+  "saveSuccess": "保存成功",
+  "test": "测试",
+  "selectApp": "选择应用",
+  "showSystemApps": "显示系统应用",
+  "searchAppsPlaceholder": "全局搜索应用名称或包名...",
+  "loadedCount": "加载: {loaded} / 符合: {total}",
+  "@loadedCount": {
+    "placeholders": {
+      "loaded": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "systemAppLabel": "系统",
+  "alreadySelected": "已选择: {name}",
+  "notice": "公告",
+  "updateAvailableTitle": "发现新版本",
+  "updateContentTitle": "更新内容",
+  "updateNow": "立即更新",
+  "updateContentFallback": "• 修复已知问题\n• 优化用户体验\n• 提升应用性能",
+  "noRelatedApps": "没有找到相关应用",
+  "projectListEmpty": "暂无项目，去首页创建一个吧",
+  "projectLoadFailed": "加载失败: {error}",
+  "confirmDelete": "确认删除?",
+  "xposedProject": "Xposed 项目",
+  "fridaProject": "Frida 项目",
+  "quickFunctions": "快捷功能",
+  "aiReverse": "AI 逆向",
+
+  "qfPageTitle": "快捷功能",
+  "qfSectionBasic": "基础功能",
+  "qfSectionEnv": "环境功能",
+  "qfSectionCrypto": "加密分析",
+
+  "qfRemoveDialogs": "去除弹窗",
+  "qfRemoveScreenshotDetection": "去除截屏/录屏检测",
+  "qfRemoveCaptureDetection": "去除抓包检测",
+  "qfInjectTip": "注入提示",
+  "qfModifiedVersion": "去除更新",
+
+  "qfHideXposed": "隐藏 Xposed",
+  "qfHideRoot": "隐藏 Root",
+  "qfHideApps": "隐藏应用列表",
+
+  "qfAlgorithmicTracking": "算法追踪",
+  "keywordManagement": "关键词管理",
+  "addKeyword": "添加关键词",
+  "keywordPlaceholder": "输入关键词...",
+  "noKeywords": "暂无关键词",
+  "noData": "暂无数据",
+  "encrypt": "加密",
+  "decrypt": "解密",
+  "detailInfo": "详情信息",
+  "inputLabel": "输入",
+  "outputLabel": "输出",
+  "algorithmLabel": "算法",
+  "keyLabel": "密钥",
+  "ivLabel": "IV 向量",
+  "stackLabel": "方法堆栈",
+  "plaintextLabel": "明文",
+  "hexLabel": "HEX",
+  "base64Label": "Base64",
+  "fingerprintLabel": "指纹",
+  "clear": "清空",
+  "clearConfirm": "确定要清空所有算法追踪日志吗？此操作不可恢复。",
+  "searchPlaceholder": "搜索算法、内容或堆栈...",
+  "visualRulesTab": "可视化规则 (Visual)",
+  "codeSourceTab": "底层源码 (Code)",
+  "noVisualRules": "暂无可视化规则",
+  "addRuleBtn": "添加新拦截规则",
+  "ruleConfig": "拦截配置项",
+  "targetFingerprint": "目标指纹 (Fingerprint)",
+  "interceptDirection": "拦截方向 (Direction)",
+  "directionInput": "加密前 (Input)",
+  "directionOutput": "解密后 (Output)",
+  "specifyAlgorithm": "指定算法 (可选)",
+  "anyAlgorithm": "全部算法 (Any)",
+  "replaceData": "替换为 (明文)",
+  "replaceDataHint": "填入你期望篡改的数据...",
+  "aiNotActivated": "AI未激活，请先配置AI大模型",
+  "aiSwitchSession": "切换会话",
+  "aiNewSession": "新建会话",
+  "aiSessionName": "会话名称",
+  "aiSessionNameHint": "请输入会话名称...",
+  "aiDeleteHistory": "清除历史",
+  "aiDeleteConfirmTitle": "确认删除",
+  "aiDeleteConfirmContent": "这将永久删除该应用的所有聊天记录，确定吗？",
+  "aiIdentifying": "正在识别...",
+  "aiGetInfo": "正在获取信息...",
+  "aiChatInputHint": "有问题尽管问我...",
+  "aiReverseSessionInitializingHint": "逆向会话初始化中…",
+  "aiReverseSessionInitFailedHint": "逆向会话初始化失败，当前不可发送",
+  "aiReverseSessionInitializingBanner": "逆向会话初始化中，完成前将阻止发送。",
+  "aiReverseSessionInitFailedBanner": "逆向会话初始化失败，当前不可发送。",
+  "aiStopGeneration": "停止生成",
+  "aiCompressContext": "压缩上下文",
+  "aiContext": "上下文",
+  "aiContextTitle": "上下文",
+  "aiContextBudget": "上下文预算",
+  "aiContextUsage": "占用率",
+  "aiContextMemoryEntries": "记忆条目",
+  "aiContextHighWatermark": "高水位",
+  "aiContextHighWatermarkReached": "已触发",
+  "aiContextHighWatermarkNotReached": "未触发",
+  "aiContextHighWatermarkAlert": "上下文接近容量上限，已自动压缩历史摘要",
+  "aiContextRemaining": "剩余预算",
+  "aiContextLayers": "装配层",
+  "aiContextRecentRounds": "最近原始轮次",
+  "aiContextCheckpoint": "最近检查点",
+  "aiContextNoCheckpoint": "暂无检查点",
+  "aiContextCheckpointTime": "更新时间",
+  "aiContextCheckpointPrompt": "最近用户输入",
+  "aiContextCheckpointMode": "恢复模式",
+  "aiContextLastError": "最近错误",
+  "aiContextNoError": "暂无错误",
+  "aiContextMigration": "会话迁移",
+  "aiContextMigrationDone": "已从旧会话迁移",
+  "aiContextMigrationNone": "当前会话已使用新结构",
+  "aiContextCompression": "压缩状态",
+  "aiContextCompactReasonBudget": "达到预算上限",
+  "aiContextCompactReasonManual": "手动压缩",
+  "aiContextCompactReasonNone": "未触发压缩",
+  "aiContextToolTrace": "工具轨迹",
+  "aiContextToolTracePending": "存在未完成工具阶段",
+  "aiContextToolTraceClear": "工具链完整",
+  "aiContextMemory": "结构化摘要",
+  "aiContextGoals": "用户目标",
+  "aiContextFacts": "已确认事实",
+  "aiContextHypotheses": "未确认假设",
+  "aiContextFindings": "工具发现",
+  "aiContextTaskCurrent": "当前步骤",
+  "aiContextTaskNext": "下一步",
+  "aiContextTaskBlockers": "阻塞/错误",
+  "aiViewSummary": "查看摘要",
+  "aiSummaryTitle": "会话摘要",
+  "aiSummaryEmpty": "当前还没有可展示的摘要内容",
+  "aiContextCompressed": "已压缩上下文",
+  "aiContextAlreadyCompact": "当前上下文已经较精简",
+  "aiRetryLastTurn": "重试上一轮",
+  "aiRetryInitialization": "重试初始化",
+  "aiContinue": "继续",
+  "aiResumeToolPhase": "恢复工具阶段",
+  "aiRecoveryModeRetry": "重试上一轮",
+  "aiRecoveryModeContinue": "继续生成",
+  "aiRecoveryModeTool": "恢复工具阶段",
+  "aiUnavailableToSend": "不可发送",
+  "aiReverseTabChat": "对话",
+  "aiReverseTabAnalysis": "分析",
+  "aiReverseOpenAnalysis": "APK目录",
+  "aiReverseBackToChat": "返回对话",
+  "aiAssistantTitle": "我是你的 AI 逆向助手",
+  "aiAssistantSubtitle": "您可以询问清单分析、加固检测等专业问题",
+  "aiMessageSendFailed": "消息发送失败，请检查网络或配置",
+  "aiCodeCopied": "代码已复制到剪贴板",
+  "aiOneClickCopy": "一键复制",
+  "aiBubbleActionsTitle": "气泡操作",
+  "aiBubbleCopyCurrent": "复制当前内容",
+  "aiBubbleSelectText": "选择文本",
+  "aiBubbleUserTextTitle": "用户消息",
+  "aiBubbleAssistantTextTitle": "AI 回复",
+  "aiBubbleThinkingTitle": "思考过程",
+  "aiBubbleAnswerTitle": "回答内容",
+  "aiTestConnecting": "正在测试连接...",
+  "aiTestSuccess": "测试成功！收到回复: \n{result}",
+  "aiTestFailed": "测试失败: {error}",
+  "aiSavingAndTesting": "正在保存并测试连通性...",
+  "aiSaveFailed": "配置保存失败（连接测试未通过）: \n{error}",
+  "aiShowMoreMessages": "显示更早的消息 ({count})",
+  "aiSearchInConversation": "搜索当前会话",
+  "aiSearchMessagesHint": "搜索消息内容...",
+  "aiSearchNoResults": "没有找到匹配的消息",
+  "aiSearchResultCount": "{count} 条匹配",
+  "@aiSearchResultCount": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "aiSearchRoleUser": "我",
+  "aiSearchRoleAssistant": "AI",
+  "aiSearchRoleSystem": "系统",
+  "aiSearchRoleTool": "工具",
+  "aiSearchMessageNotFound": "该消息不在当前已加载的会话中",
+  "aiToolUnknown": "未知工具: {toolName}",
+  "@aiToolUnknown": {
+    "placeholders": { "toolName": { "type": "String" } }
+  },
+  "aiToolCallFailed": "工具调用失败，请发送关键词\"继续\"重试",
+  "aiToolCalling": "正在调用工具...",
+  "aiToolReading": "正在读取 {toolName}...",
+  "@aiToolReading": {
+    "placeholders": { "toolName": { "type": "String" } }
+  },
+  "aiToolNameManifest": "清单",
+  "aiToolNameDecompile": "反编译",
+  "aiToolNameSmali": "Smali",
+  "aiToolNameSearch": "搜索",
+  "aiToolNamePackages": "包信息",
+  "aiToolNameClasses": "类信息",
+  "aiContinueKeyword": "继续",
+  "projectCreate": "创建",
+  "projectCreated": "项目已创建: {name}",
+  "projectName": "项目名称",
+  "projectNameHint": "请输入项目名称",
+  "projectType": "项目类型",
+  "newProject": "创建项目",
+  "visualType": "可视化",
+  "traditionalType": "传统",
+  "xposedScripts": "Xposed 脚本列表",
+  "projectNameEmpty": "项目名称不能为空",
+  "formatCode": "格式化代码",
+  "find": "查找",
+  "replace": "替换",
+  "replaceWith": "替换为...",
+  "matchCase": "区分大小写",
+  "regex": "正则表达式",
+  "prevMatch": "上一个",
+  "nextMatch": "下一个",
+  "close": "关闭",
+  "replaceAll": "全部替换",
+  "searchCode": "搜索代码...",
+  "toggleReplace": "切换替换模式",
+  "aiConfigList": "配置列表",
+  "aiConfigNew": "新建",
+  "aiConfigCurrent": "当前",
+  "aiConfigEmpty": "暂无配置，请填写下方表单保存",
+  "aiConfigEditTitle": "编辑配置",
+  "aiConfigNewTitle": "新建配置",
+  "aiConfigName": "配置名称",
+  "aiConfigNameHint": "例如：OpenAI GPT-4",
+  "aiConfigSwitch": "切换到此配置",
+  "aiConfigDelete": "删除配置",
+  "aiConfigDeleteConfirm": "确认删除 '{name}' 配置？",
+  "@aiConfigDeleteConfirm": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "aiApiType": "API 类型",
+  "aiApiTypeOpenAI": "OpenAI",
+  "aiApiTypeOpenAIResponses": "OpenAI Responses",
+  "aiApiTypeAnthropic": "Anthropic Claude",
+  "aiTutorial": "教程",
+  "aiBuiltinConfigName": "沐雪接口",
+  "aiBuiltinUseConfig": "使用沐雪接口",
+  "aiBuiltinSwitching": "正在切换到沐雪内置接口",
+  "aiBuyCardSecret": "购买卡密",
+  "aiApiKeyConfigured": "API Key 已配置",
+  "aiApiKeyNotConfigured": "API Key 未配置",
+  "aiCurrentStatus": "当前状态：{status}",
+  "@aiCurrentStatus": {
+    "placeholders": {
+      "status": { "type": "String" }
+    }
+  },
+  "aiCurrentInterface": "当前接口：{name}",
+  "@aiCurrentInterface": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "terminal": "控制台",
+  "terminalFilterHint": "二次过滤...",
+  "autoScroll": "自动滚屏",
+  "clearPanel": "清空视图",
+  "consoleClearViewTooltip": "仅清空当前视图，已持久化的日志不受影响",
+  "noLogs": "暂无日志",
+  "noLogsFiltered": "过滤后无匹配",
+  "logcatFullscreen": "全屏",
+  "consoleSourceSession": "会话",
+  "consoleSourceFrida": "Frida",
+  "consoleSourceXposed": "Xposed",
+  "consoleSourceApp": "应用",
+  "consoleSourceCore": "核心",
+  "consoleSourceSystem": "系统",
+  "consoleLevelDebug": "调试",
+  "consoleLevelInfo": "信息",
+  "consoleLevelWarn": "警告",
+  "consoleLevelError": "错误",
+  "consoleAll": "全部",
+  "consoleHistory": "持久化脚本日志",
+  "consolePauseOutput": "暂停输出",
+  "consoleResumeOutput": "继续输出",
+  "consoleActions": "控制台操作",
+  "consoleCopyVisible": "复制可见日志",
+  "consoleExportVisible": "导出可见日志",
+  "consoleCopied": "已复制 {count} 条日志",
+  "consoleCopiedTruncated": "日志过多，已复制最近 {count} 条（共 {total} 条），完整内容请用导出",
+  "consoleRegexSearch": "正则检索",
+  "consoleCaseSensitive": "区分大小写",
+  "consoleExpandStack": "展开堆栈",
+  "consoleCollapseStack": "收起堆栈",
+  "consoleExportDialogTitle": "导出控制台日志",
+  "consoleNoHistory": "暂无持久化脚本日志",
+  "consoleLiveBelow": "以下为实时输出",
+  "consoleLoadOlder": "加载更早日志",
+  "consoleLogCopied": "日志已复制",
+  "consoleDeleteHistory": "删除该会话历史日志",
+  "consoleDeleteHistoryConfirmTitle": "删除历史日志？",
+  "consoleDeleteHistoryConfirmMessage": "将永久删除当前会话已持久化的脚本日志，该操作不可撤销。",
+  "consoleDeleteHistoryDone": "已删除该会话的历史日志",
+  "consoleDeleteHistoryUnavailable": "当前会话没有关联的持久化记录",
+  "apiManual": "手册",
+  "aiApiManualTitle": "API AI 助手",
+  "aiApiManualSubtitle": "向我提问 JsxposedX API 用法",
+
+  "visualEditorTab": "可视化",
+  "codeEditorTab": "代码",
+  "addBlock": "添加 Block",
+  "noBlocks": "暂无 Hook Block",
+  "noBlocksHint": "点击下方按钮添加第一个 Block",
+
+  "blockHookMethod": "Hook 方法",
+  "blockHookMethodDesc": "Hook 一个方法，支持 before/after/replace 回调",
+  "blockHookConstructor": "Hook 构造函数",
+  "blockHookConstructorDesc": "Hook 一个类的构造函数",
+  "blockReturnConst": "返回常量",
+  "blockReturnConstDesc": "强制方法返回一个固定值",
+  "blockLogParams": "打印参数",
+  "blockLogParamsDesc": "打印方法的所有参数和返回值",
+  "blockSetField": "修改字段",
+  "blockSetFieldDesc": "修改字段值（静态或实例）",
+  "blockCustomCode": "自定义代码",
+  "blockCustomCodeDesc": "编写自由 JavaScript 代码",
+
+  "blockClassName": "类名",
+  "blockClassNameHint": "如 com.example.MyClass",
+  "blockMethodName": "方法名",
+  "blockMethodNameHint": "如 login",
+  "blockParamTypes": "参数类型",
+  "blockParamTypesHint": "逗号分隔，如 int, java.lang.String, boolean",
+  "blockTiming": "时机",
+  "blockTimingBefore": "之前",
+  "blockTimingAfter": "之后",
+  "blockTimingReplace": "替换",
+  "blockConstValue": "返回值",
+  "blockConstValueHint": "如 true",
+  "blockConstType": "值类型",
+  "blockFieldName": "字段名",
+  "blockFieldNameHint": "如 isVip",
+  "blockFieldValue": "字段值",
+  "blockFieldValueHint": "如 true",
+  "blockIsStaticField": "静态字段",
+  "blockCustomJs": "JavaScript 代码",
+  "blockCustomJsHint": "Jx.log(\"hello\");",
+  "blockSelectType": "选择 Block 类型",
+  "blockHookBefore": "Hook Before",
+  "blockHookAfter": "Hook After",
+  "blockHookReplace": "Hook Replace",
+  "blockBeforeConstructor": "构造前",
+  "blockAfterConstructor": "构造后",
+  "blockLog": "日志",
+  "blockLogException": "异常日志",
+  "blockConsoleLog": "Console 日志",
+  "blockStackTrace": "调用栈",
+  "blockGetField": "读取字段",
+  "blockGetInt": "读取 Int",
+  "blockSetInt": "设置 Int",
+  "blockGetBool": "读取 Bool",
+  "blockSetBool": "设置 Bool",
+  "blockGetArg": "获取参数",
+  "blockSetArg": "修改参数",
+  "blockGetResult": "获取返回值",
+  "blockSetResult": "修改返回值",
+  "blockCallMethod": "调用方法",
+  "blockCallStatic": "调用静态方法",
+  "blockNewInstance": "创建实例",
+  "blockIf": "条件判断",
+  "blockForLoop": "循环",
+  "blockVarAssign": "变量赋值",
+  "blockToast": "Toast 提示",
+  "blockGetApplication": "获取 Application",
+  "blockGetPackageName": "获取包名",
+  "blockGetSharedPrefs": "获取 SharedPrefs",
+  "blockGetPrefString": "读取 Pref 字符串",
+  "blockGetBuild": "获取 Build 信息",
+  "blockStartActivity": "启动 Activity",
+  "blockFindClass": "查找类",
+  "blockMessage": "消息",
+  "blockMessageHint": "日志内容",
+  "blockTag": "标签",
+  "blockTagHint": "如 Net.request",
+  "blockValue": "值",
+  "blockValueHint": "如 true",
+  "blockIndex": "索引",
+  "blockIndexHint": "如 0",
+  "blockVarName": "变量名",
+  "blockVarNameHint": "如 result",
+  "blockArgs": "参数",
+  "blockArgsHint": "逗号分隔，如 arg0, \"hello\", 123",
+  "blockCondition": "条件",
+  "blockConditionHint": "如 x > 0",
+  "blockFrom": "起始",
+  "blockFromHint": "如 0",
+  "blockTo": "结束",
+  "blockToHint": "如 10",
+  "blockConstTypeHint": "选择类型",
+  "blockPrefsName": "Prefs 名",
+  "blockPrefsNameHint": "如 app_config",
+  "blockPrefKey": "Key",
+  "blockPrefKeyHint": "如 token",
+  "blockSlotBody": "执行体",
+  "blockSlotBefore": "之前",
+  "blockSlotAfter": "之后",
+  "blockSlotThen": "满足条件",
+  "blockSlotElse": "否则",
+  "blockConsoleWarn": "Console 警告",
+  "blockConsoleError": "Console 错误",
+  "blockGetClassName": "获取类名",
+  "blockCallMethodTyped": "调用方法 (指定类型)",
+  "blockCallStaticAuto": "调用静态方法 (自动推断)",
+  "blockNewInstanceTyped": "创建实例 (指定类型)",
+  "blockGetPrefInt": "读取 Pref 整数",
+  "blockGetPrefBool": "读取 Pref 布尔",
+  "blockGetSystemProp": "获取系统属性",
+  "blockLoadClass": "加载类",
+  "blockHookAllMethods": "Hook 所有重载",
+  "blockHookAllConstructors": "Hook 所有构造",
+  "blockUnhook": "移除 Hook",
+  "blockGetLong": "读取 Long",
+  "blockSetLong": "设置 Long",
+  "blockGetFloat": "读取 Float",
+  "blockSetFloat": "设置 Float",
+  "blockGetDouble": "读取 Double",
+  "blockSetDouble": "设置 Double",
+  "blockGetThrowable": "获取异常",
+  "blockSetThrowable": "设置异常",
+  "blockGetMethods": "获取方法列表",
+  "blockGetFields": "获取字段列表",
+  "blockInstanceOf": "类型检查",
+  "blockSetExtra": "设置附加数据",
+  "blockGetExtra": "获取附加数据",
+  "pickVariable": "选择变量",
+  "contextVariables": "上下文变量",
+  "userVariables": "用户变量",
+  "noVariablesAvailable": "暂无可用变量",
+  "collapseAll": "全部折叠",
+  "expandAll": "全部展开",
+  "importScript": "导入",
+  "selectScriptType": "选择脚本类型",
+  "traditionalScriptDesc": "传统Hook脚本",
+  "visualScriptDesc": "可视化脚本",
+  "saveScript": "保存",
+  "exportScript": "导出",
+  "scriptSaved": "脚本已保存",
+  "scriptExported": "脚本已导出",
+  "reservedScriptFileName": "内部保留文件名，请更换文件名",
+  "aiScriptSavedTo": "已保存到 {target}: {name}",
+  "@aiScriptSavedTo": {
+    "description": "AI 气泡保存脚本成功提示",
+    "placeholders": {
+      "target": {
+        "type": "String"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "runScript": "运行",
+  "@runScript": {
+    "description": "运行脚本按钮"
+  },
+  "aiScriptRunning": "已启用 {target} 脚本: {name}",
+  "@aiScriptRunning": {
+    "description": "AI 脚本运行成功提示",
+    "placeholders": {
+      "target": {
+        "type": "String"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "exportConversation": "导出会话",
+  "@exportConversation": {
+    "description": "导出会话按钮"
+  },
+  "exportingConversation": "正在导出会话...",
+  "@exportingConversation": {
+    "description": "导出会话中的提示"
+  },
+  "conversationExported": "会话已导出到 {path}",
+  "@conversationExported": {
+    "description": "会话导出成功提示",
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    }
+  },
+  "exportFailed": "导出失败: {error}",
+  "@exportFailed": {
+    "description": "导出失败提示",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "exportFormat": "导出格式",
+  "@exportFormat": {
+    "description": "导出格式标签"
+  },
+  "exportOptions": "导出选项",
+  "@exportOptions": {
+    "description": "导出选项标签"
+  },
+  "includeToolCalls": "包含工具调用",
+  "@includeToolCalls": {
+    "description": "包含工具调用选项"
+  },
+  "includeToolCallsDesc": "导出 AI 调用的工具和参数",
+  "@includeToolCallsDesc": {
+    "description": "包含工具调用描述"
+  },
+  "includeThinking": "包含思考过程",
+  "@includeThinking": {
+    "description": "包含思考过程选项"
+  },
+  "includeThinkingDesc": "导出 AI 的推理和思考内容",
+  "@includeThinkingDesc": {
+    "description": "包含思考过程描述"
+  },
+  "preview": "预览",
+  "@preview": {
+    "description": "预览按钮"
+  },
+  "previewTruncated": "预览内容已截断",
+  "@previewTruncated": {
+    "description": "预览截断提示"
+  },
+  "copyToClipboard": "复制",
+  "@copyToClipboard": {
+    "description": "复制到剪贴板按钮"
+  },
+  "copiedToClipboard": "已复制到剪贴板",
+  "@copiedToClipboard": {
+    "description": "复制成功提示"
+  },
+  "share": "分享",
+  "@share": {
+    "description": "分享按钮"
+  },
+  "conversationExport": "会话导出",
+  "@conversationExport": {
+    "description": "会话导出标题"
+  },
+  "exportToFile": "保存文件",
+  "@exportToFile": {
+    "description": "导出到文件按钮"
+  },
+  "aiScriptSaveFailed": "保存失败: {error}",
+  "@aiScriptSaveFailed": {
+    "description": "AI 气泡保存脚本失败提示",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+
+  "manifestBasicInfo": "基本信息",
+  "manifestPackage": "包名",
+  "manifestMinSdk": "最低 SDK",
+  "manifestTargetSdk": "目标 SDK",
+  "manifestDebuggable": "可调试",
+  "manifestAllowBackup": "允许备份",
+  "manifestPermissions": "权限 ({count})",
+  "@manifestPermissions": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "manifestNoPermissions": "无权限",
+  "manifestActivities": "Activity",
+  "manifestServices": "Service",
+  "manifestReceivers": "Receiver",
+  "manifestProviders": "Provider",
+  "manifestNoItems": "无 {name}",
+  "@manifestNoItems": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "manifestExported": "已导出",
+
+  "apkNoAiSession": "未关联 AI 分析会话",
+  "apkAiAnalyze": "AI分析",
+  "apkSentToAi": "已发送到 AI：分析 {name}",
+  "@apkSentToAi": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "apkAnalyzeSmaliPrompt": "请分析 {className} 的 Smali 代码，解释逻辑并给出可能的 Hook 点。",
+  "@apkAnalyzeSmaliPrompt": {
+    "placeholders": { "className": { "type": "String" } }
+  },
+  "apkAnalyzeJavaPrompt": "请分析 {className} 的反编译 Java 代码，解释逻辑并给出可能的 Hook 点。",
+  "@apkAnalyzeJavaPrompt": {
+    "placeholders": { "className": { "type": "String" } }
+  },
+  "undo": "撤销",
+  "redo": "重做",
+  "sendToAi": "发送给AI",
+  "pressBackAgainToExit": "再按一次返回退出",
+  "apkAnalyzeSelectedCode": "以下是 {className} 的 {language} 代码片段，请帮我分析：\n\n{code}",
+  "@apkAnalyzeSelectedCode": {
+    "placeholders": {
+      "className": { "type": "String" },
+      "language": { "type": "String" },
+      "code": { "type": "String" }
+    }
+  },
+  "dexSearchHint": "搜索类名...",
+  "dexNoClassFound": "未找到包含 \"{keyword}\" 的类",
+  "@dexNoClassFound": {
+    "placeholders": { "keyword": { "type": "String" } }
+  },
+  "dexCopied": "已复制: {name}",
+  "@dexCopied": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "dexCopyShortName": "复制类名",
+  "dexCopyFullName": "复制全限定类名",
+  "soAskAi": "询问AI",
+  "soSentToAi": "已发送给 AI：分析 {name}",
+  "@soSentToAi": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "lsposedNotAvailable": "LSPosed 服务不可用，请确保模块已在 LSPosed 中激活并重启应用",
+  "lsposedAddingScope": "正在请求添加 {name} 到作用域...",
+  "@lsposedAddingScope": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "lsposedScopeRequestedCheckNotification": "已请求添加 {name} 到作用域，请查看通知栏并允许",
+  "@lsposedScopeRequestedCheckNotification": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "lsposedAddFailed": "添加 {name} 失败",
+  "@lsposedAddFailed": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "lsposedAddFailedService": "添加失败: LSPosed 服务不可用",
+  "aiMethodDetail": "方法详情",
+  "aiMethodName": "方法名",
+  "aiMethodModifier": "修饰符",
+  "aiMethodReturnType": "返回类型",
+  "aiMethodParams": "参数列表",
+  "aiMethodClass": "所属类",
+  "aiMethodHookHint": "Hook 指引",
+  "aiMethodCopyFull": "复制完整类名.方法名",
+  "overlayMemoryToolTitle": "Memory Tool",
+  "overlayFloatingToolWindow": "悬浮工具窗口",
+  "overlayWindowNotificationContent": "悬浮窗运行中",
+  "overlayWindowFallbackTitle": "Overlay Window",
+  "overlayWindowUnknownSceneTitle": "悬浮场景不可用",
+  "overlayWindowUnknownSceneDescription": "当前收到的悬浮场景未注册，已阻止继续渲染。",
+  "overlayQuickWorkspace": "快速工作区",
+  "overlayQuickWorkspaceDescription": "点击悬浮气泡可以展开面板，使用右上角按钮可最小化或关闭。",
+  "overlayBubbleFeatureTitle": "悬浮气泡",
+  "overlayBubbleFeatureDescription": "单击即可展开面板。",
+  "overlayPanelFeatureTitle": "稳定面板",
+  "overlayPanelFeatureDescription": "使用普通 Material 渲染，降低显示伪影风险。",
+  "overlayConnected": "悬浮窗已连接",
+  "memoryToolTabSearch": "搜索",
+  "memoryToolTabBrowse": "浏览",
+  "memoryToolTabPointer": "指针",
+  "memoryToolTabEdit": "修改",
+  "memoryToolTabSaved": "暂存",
+  "memoryToolTabWatch": "监视",
+  "memoryToolSearchTabTitle": "搜索参数",
+  "memoryToolSearchTabSubtitle": "用于放首次搜索、范围缩小和读取入口。",
+  "memoryToolSearchModeLabel": "模式",
+  "memoryToolActionPanelTitle": "操作入口",
+  "memoryToolActionPanelSubtitle": "保留给首次扫描、继续筛选和读取操作。",
+  "memoryToolFieldValue": "数值",
+  "memoryToolFieldValuePlaceholder": "100.0",
+  "memoryToolFieldValueHint": "输入要搜索的值",
+  "memoryToolFieldType": "类型",
+  "memoryToolFieldTypePlaceholder": "Int32",
+  "memoryToolFieldScope": "范围",
+  "memoryToolFieldScopePlaceholder": "全部内存",
+  "memoryToolFieldSearchMode": "搜索模式",
+  "memoryToolFieldFuzzyMode": "模糊条件",
+  "memoryToolFieldValueCategory": "搜索类型",
+  "memoryToolFieldValueTypeOption": "搜索格式",
+  "memoryToolFieldRangeSection": "自定义区段",
+  "memoryToolTextEncodingLabel": "文本编码",
+  "memoryToolTextEncodingUtf8": "UTF-8",
+  "memoryToolTextEncodingUtf16Le": "UTF-16LE",
+  "memoryToolSearchExact": "精确搜索",
+  "memoryToolSearchFuzzy": "模糊搜索",
+  "memoryToolSearchFuzzyUnknown": "未知初值",
+  "memoryToolSearchFuzzyUnchanged": "无变化",
+  "memoryToolSearchFuzzyChanged": "有变化",
+  "memoryToolSearchFuzzyIncreased": "增加了",
+  "memoryToolSearchFuzzyDecreased": "减少了",
+  "memoryToolSearchFuzzyHint": "模糊首次扫描可不填数值，继续筛选时再输入当前值。",
+  "memoryToolSearchFuzzyUnsupportedHint": "模糊搜索目前只支持固定长度数值类型。",
+  "memoryToolSearchBytesHint": "例如 12 34 AB CD",
+  "memoryToolSearchTextHint": "输入要搜索的文本",
+  "memoryToolSearchTypePendingHint": "当前搜索类型尚未接入扫描内核。",
+  "memoryToolRangePresetPendingHint": "当前版本仍按全部可读内存扫描，范围预设暂未下发生效。",
+  "memoryToolEndianLabel": "小端序",
+  "memoryToolValueCategoryInteger": "整数",
+  "memoryToolValueCategoryDecimal": "小数",
+  "memoryToolValueCategoryBytes": "字节",
+  "memoryToolValueCategoryText": "文本",
+  "memoryToolValueCategoryGroup": "联合",
+  "memoryToolValueCategoryAdvanced": "高级",
+  "memoryToolValueTypeI8": "I8",
+  "memoryToolValueTypeI16": "I16",
+  "memoryToolValueTypeI32": "I32",
+  "memoryToolValueTypeI64": "I64",
+  "memoryToolValueTypeF32": "F32",
+  "memoryToolValueTypeF64": "F64",
+  "memoryToolValueTypeBytes": "AOB",
+  "memoryToolValueTypeXor": "XOR",
+  "memoryToolValueTypeAuto": "AUTO",
+  "memoryToolValueTypeText": "TEXT",
+  "memoryToolValueTypeGroup": "联合",
+  "memoryToolRangePresetCommon": "常用",
+  "memoryToolRangePresetJava": "Java",
+  "memoryToolRangePresetNative": "Native",
+  "memoryToolRangePresetCode": "代码",
+  "memoryToolRangePresetAll": "全部",
+  "memoryToolRangePresetCustom": "自定义",
+  "memoryToolRangeSectionAnonymous": "匿名",
+  "memoryToolRangeSectionJava": "Java",
+  "memoryToolRangeSectionJavaHeap": "Java Heap",
+  "memoryToolRangeSectionCAlloc": "C Alloc",
+  "memoryToolRangeSectionCHeap": "C Heap",
+  "memoryToolRangeSectionCData": "C Data",
+  "memoryToolRangeSectionCBss": "C Bss",
+  "memoryToolRangeSectionCodeApp": "应用代码",
+  "memoryToolRangeSectionCodeSys": "系统代码",
+  "memoryToolRangeSectionStack": "栈",
+  "memoryToolRangeSectionAshmem": "Ashmem",
+  "memoryToolRangeSectionOther": "其他",
+  "memoryToolRangeSectionBad": "Bad",
+  "memoryToolActionFirstScan": "首次扫描",
+  "memoryToolActionNextScan": "继续筛选",
+  "memoryToolActionRead": "读取",
+  "memoryToolActionReset": "重置会话",
+  "memoryToolEditTabTitle": "修改工作区",
+  "memoryToolEditTabSubtitle": "这里适合放指定地址写入、批量修改和冻结入口。",
+  "memoryToolEditActionWriteValue": "向目标地址写入新数值",
+  "memoryToolEditActionFreezeValue": "把结果加入冻结列表并保持值不变",
+  "memoryToolEditActionBatchWrite": "对筛选结果执行批量写入",
+  "memoryToolPatchTabTitle": "补丁与脚本",
+  "memoryToolPatchTabSubtitle": "适合放 Hex 补丁、汇编修改和恢复原值。",
+  "memoryToolPatchActionHex": "Hex Patch 编辑入口",
+  "memoryToolPatchActionAsm": "汇编修改入口",
+  "memoryToolPatchActionRestore": "恢复原始值与补丁",
+  "memoryToolWatchTabTitle": "监视列表",
+  "memoryToolWatchTabSubtitle": "这里适合展示常驻监视值和冻结状态。",
+  "memoryToolSessionTitle": "搜索会话",
+  "memoryToolSessionEmpty": "当前还没有活动会话，先执行一次首次扫描。",
+  "memoryToolSessionMismatch": "当前会话不属于这个进程，请重新执行首次扫描。",
+  "memoryToolSessionPid": "会话 PID",
+  "memoryToolSessionRegionCount": "区段数",
+  "memoryToolSessionResultCount": "结果数",
+  "memoryToolSessionSelectedCount": "选中数",
+  "memoryToolSessionPageCount": "分页数",
+  "memoryToolSessionRenderedCount": "当前渲染",
+  "memoryToolSessionBoundToCurrent": "已绑定当前进程",
+  "memoryToolTaskFirstScanTitle": "首次扫描进行中",
+  "memoryToolTaskNextScanTitle": "继续筛选进行中",
+  "memoryToolTaskRunningHint": "正在读取目标进程内存，期间可以取消扫描。",
+  "memoryToolTaskElapsedLabel": "耗时",
+  "memoryToolTaskRegionsLabel": "区段",
+  "memoryToolTaskEntriesLabel": "候选",
+  "memoryToolTaskBytesLabel": "字节",
+  "memoryToolTaskResultCountLabel": "命中",
+  "memoryToolTaskCancelAction": "取消扫描",
+  "memoryToolTaskCancelled": "扫描已取消。",
+  "memoryToolTaskFailedFallback": "扫描失败，请重试。",
+  "memoryToolResultTitle": "命中结果",
+  "memoryToolResultEmpty": "当前没有命中结果。",
+  "memoryToolResultInactiveHint": "执行首次扫描后，这里会显示命中地址。",
+  "memoryToolResultAddress": "地址",
+  "memoryToolResultRegion": "区段",
+  "memoryToolResultType": "类型",
+  "memoryToolResultValue": "值",
+  "memoryToolResultPreviousValue": "上次值",
+  "memoryToolFrozenBadge": "冻结",
+  "memoryToolResultDetailTitle": "结果详情",
+  "memoryToolResultDetailActionsLabel": "快捷操作",
+  "memoryToolResultDetailActionEdit": "编辑",
+  "memoryToolResultDetailActionWatch": "加入监视",
+  "memoryToolResultDetailActionCopyAddress": "复制地址",
+  "memoryToolResultDetailActionCopyValue": "复制数值",
+  "memoryToolResultActionPointerScan": "指针搜索",
+  "memoryToolResultActionAutoChaseStatic": "一键寻址",
+  "memoryToolResultActionJumpToPointer": "跳转到指针",
+  "memoryToolResultActionPreviewMemoryBlock": "预览内存块",
+  "memoryToolResultActionOffsetPreview": "偏移量计算",
+  "memoryToolJumpAddressTitle": "地址跳转",
+  "memoryToolJumpAddressFieldLabel": "目标地址",
+  "memoryToolJumpAddressAction": "跳转到目标地址",
+  "memoryToolJumpAddressInvalid": "地址格式无效",
+  "memoryToolResultActionCopyHex": "复制十六进制",
+  "memoryToolResultActionCopyReverseHex": "复制反十六进制",
+  "memoryToolPointerScanTitle": "指针搜索",
+  "memoryToolPointerAutoChaseTitle": "一键寻址",
+  "memoryToolPointerTargetAddressLabel": "目标地址",
+  "memoryToolPointerWidthLabel": "指针宽度",
+  "memoryToolPointerMaxOffsetLabel": "最大偏移",
+  "memoryToolPointerMaxDepthLabel": "指针层数",
+  "memoryToolPointerAlignmentLabel": "对齐步长",
+  "memoryToolPointerAlignmentPointerWidth": "按指针宽度",
+  "memoryToolPointerInvalidMaxOffset": "请输入有效偏移量",
+  "memoryToolPointerInvalidMaxDepth": "请输入 1 到 12 的层数",
+  "memoryToolPointerActionContinueSearch": "继续搜索上一层指针",
+  "memoryToolPointerActionJumpToTarget": "跳转到指针目标",
+  "memoryToolPointerActionCopyPointerAddress": "复制指针地址",
+  "memoryToolPointerActionCopyPointedAddress": "复制指向地址",
+  "memoryToolPointerActionCopyTargetAddress": "复制目标地址",
+  "memoryToolPointerActionCopyExpression": "复制表达式",
+  "memoryToolPointerOffsetLabel": "偏移",
+  "memoryToolPointerBaseAddressLabel": "基址",
+  "memoryToolPointerPointerAddressLabel": "指针地址",
+  "memoryToolPointerBadgeAuto": "推荐",
+  "memoryToolPointerBadgeStatic": "静态区",
+  "memoryToolPointerEmpty": "从搜索、浏览或暂存结果长按并选择指针搜索",
+  "memoryToolPointerLoadedCount": "已加载 {loaded} / 总计 {total}",
+  "@memoryToolPointerLoadedCount": {
+    "placeholders": {
+      "loaded": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "memoryToolPointerTaskRunningTitle": "指针搜索进行中",
+  "memoryToolPointerStopReasonStaticReached": "已命中静态区",
+  "memoryToolPointerStopReasonNoMorePointers": "无更多上层指针",
+  "memoryToolPointerStopReasonMaxDepth": "已达指针层数",
+  "memoryToolPointerStopReasonCancelled": "已取消",
+  "memoryToolPointerStopReasonFailed": "扫描失败",
+  "memoryToolOffsetPreviewTitle": "偏移量计算",
+  "memoryToolOffsetPreviewOffsetLabel": "偏移量",
+  "memoryToolOffsetPreviewHexLabel": "HEX",
+  "memoryToolOffsetPreviewTargetAddress": "目标地址",
+  "memoryToolOffsetPreviewTargetValue": "目标数值",
+  "memoryToolOffsetPreviewInvalid": "请输入有效偏移量",
+  "memoryToolOffsetPreviewUnreadable": "当前地址不可读",
+  "memoryToolBrowseEmpty": "从搜索结果长按并选择预览内存块",
+  "memoryToolResultActionTitle": "更多操作",
+  "memoryToolResultActionSelectCurrent": "选中当前项",
+  "memoryToolResultActionSelectCurrentHint": "把当前结果加入选择集，便于后续统一处理。",
+  "memoryToolResultActionStartMultiSelect": "进入多选模式",
+  "memoryToolResultActionStartMultiSelectHint": "从当前结果开始进行多选和批量操作。",
+  "memoryToolResultActionBatchEdit": "批量修改",
+  "memoryToolResultActionBatchEditHint": "为后续批量写入和筛选后的编辑预留入口。",
+  "memoryToolBatchEditIncrementUnsupported": "递增模式仅支持数值类型",
+  "memoryToolBatchEditNoReadableResults": "没有可读取的选中结果。",
+  "memoryToolBatchEditIncrementLabel": "递增",
+  "memoryToolBatchEditStepLabel": "步长",
+  "memoryToolBatchEditPreviewLabel": "预览",
+  "memoryToolResultActionSaveToSaved": "保存到暂存区",
+  "memoryToolResultActionSaveToSavedHint": "把当前结果加入暂存区，便于后续集中编辑与冻结。",
+  "memoryToolSavedToSavedMessage": "已保存 {count} 项到暂存区",
+  "@memoryToolSavedToSavedMessage": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "memoryToolDebugAccessRead": "读",
+  "memoryToolDebugAccessWrite": "写",
+  "memoryToolDebugAccessReadWrite": "读写",
+  "memoryToolDebugBreakpointsTitle": "断点列表",
+  "memoryToolDebugBreakpointsTab": "断点",
+  "memoryToolDebugWritersTitle": "写入源",
+  "memoryToolDebugDetailTitle": "详情",
+  "memoryToolDebugEmptyBreakpoints": "还没有断点",
+  "memoryToolDebugEnabled": "已启用",
+  "memoryToolDebugDisabled": "已禁用",
+  "memoryToolDebugPauseOnHit": "命中即暂停",
+  "memoryToolDebugRecordOnly": "仅记录",
+  "memoryToolDebugHitCountUnit": "次命中",
+  "memoryToolDebugLastHitPrefix": "最近命中",
+  "memoryToolDebugEmptyWriters": "这个断点还没有命中",
+  "memoryToolDebugThreadCountUnit": "线程",
+  "memoryToolDebugEmptyDetail": "选择一个写入源查看详情",
+  "memoryToolDebugCurrentValue": "当前值",
+  "memoryToolDebugNoHitYet": "暂无命中",
+  "memoryToolDebugBreakpointAddress": "断点地址",
+  "memoryToolDebugPointer": "指针",
+  "memoryToolDebugAnonymousModule": "[匿名模块]",
+  "memoryToolDebugModuleOffset": "模块偏移",
+  "memoryToolDebugInstruction": "指令",
+  "memoryToolDebugCommonRewrite": "常见改写",
+  "memoryToolDebugRecentHits": "最近命中",
+  "memoryToolDebugStatBreakpoints": "断点",
+  "memoryToolDebugStatActive": "活动",
+  "memoryToolDebugStatWriters": "写入源",
+  "memoryToolDebugStatCurrentHits": "当前命中",
+  "memoryToolDebugStatPending": "待处理",
+  "memoryToolDebugStatLength": "长度",
+  "memoryToolDebugSelectProcessFirst": "请先选择进程",
+  "memoryToolDebugSelectProcessHint": "长按搜索结果、预览结果或暂存结果创建断点后，这里会显示命中记录和写入指令。",
+  "memoryToolDebugActionCopyValue": "复制值",
+  "memoryToolDebugActionCopyHex": "复制 Hex",
+  "memoryToolDebugActionCopyReverseHex": "复制反序 Hex",
+  "memoryToolDebugActionBrowseAddress": "浏览地址",
+  "memoryToolDebugActionPointerScan": "指针扫描",
+  "memoryToolDebugActionAutoChase": "自动追踪",
+  "memoryToolDebugActionCopyAddress": "复制地址",
+  "memoryToolDebugActionBrowseHitPointer": "浏览该命中指针",
+  "memoryToolDebugActionCopyModuleOffset": "复制模块偏移",
+  "memoryToolDebugActionCopyInstruction": "复制指令",
+  "memoryToolDebugActionCopyRewrite": "复制改写文本",
+  "memoryToolResultActionAddWatch": "加入监视列表",
+  "memoryToolResultActionAddWatchHint": "把当前结果加入监视区，后续持续查看变化。",
+  "memoryToolResultActionFreeze": "加入冻结队列",
+  "memoryToolResultActionFreezeHint": "为后续冻结和保持数值稳定预留入口。",
+  "memoryToolSavedEmpty": "暂无暂存数据",
+  "memoryToolResultCalculatorTitle": "偏移 / 异或",
+  "memoryToolResultCalculatorSummary": "已选 {selectedCount} 项，可计算 {pairCount} 组",
+  "@memoryToolResultCalculatorSummary": {
+    "placeholders": {
+      "selectedCount": {},
+      "pairCount": {}
+    }
+  },
+  "memoryToolResultCalculatorNeedAtLeastTwo": "至少选择 2 个整数结果。",
+  "memoryToolResultCalculatorValues": "值",
+  "memoryToolResultCalculatorCombinations": "组合",
+  "memoryToolResultCalculatorOffset": "偏移",
+  "memoryToolResultCalculatorXor": "异或",
+  "memoryToolAssemblyPreviewTitle": "汇编预览",
+  "memoryToolAssemblyPreviewCount": "{count} 个地址",
+  "@memoryToolAssemblyPreviewCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "memoryToolAssemblyPreviewEmpty": "没有可渲染的汇编",
+  "memoryToolResultSelectionDialogTitle": "结果列表设置",
+  "memoryToolResultSelectionSearchDescription": "控制搜索页当前渲染数量，同时也是多选、保存、批量修改等操作的上限。",
+  "memoryToolResultSelectionBrowseDescription": "控制浏览页单次可选数量和分页统计，不会清空已经加载的内存结果。",
+  "memoryToolResultSelectionFieldLabel": "数量上限",
+  "memoryToolResultSelectionHelperText": "建议 50 - 200，数值越大，列表渲染和批量操作越重。",
+  "memoryToolResultSelectionPresetLabel": "快速选择",
+  "memoryToolResultSelectionUnit": "项",
+  "memoryToolResultSelectionRequired": "请输入大于 0 的整数",
+  "memoryToolResultSelectionInvalid": "请输入大于 0 的整数",
+  "memoryToolResultSelectionCurrent": "当前值：{count} 项",
+  "@memoryToolResultSelectionCurrent": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "memoryToolTargetProcess": "目标进程",
+  "memoryToolValidationValueRequired": "请先输入搜索值。",
+  "memoryToolValidationBytesInvalid": "字节数组格式不正确，请输入偶数位十六进制，例如 12 34 AB。",
+  "memoryToolValidationIntegerInvalid": "整数类型只能输入整数值。",
+  "memoryToolValidationIntegerOutOfRange": "整数值超出当前类型可搜索的范围。",
+  "memoryToolValidationDecimalInvalid": "小数类型请输入有效的数字。",
+  "memoryToolValidationGroupInvalid": "联合搜索格式错误，例：i32:100;i32:200::32",
+  "memoryToolValidationGroupMissingWindow": "联合搜索缺少 ::window，例：i32:100;i32:200::32",
+  "memoryToolValidationGroupInvalidWindow": "联合搜索 window 必须是大于 0 的整数。",
+  "memoryToolValidationGroupWindowTooLarge": "联合搜索 window 最大支持 4096 字节。",
+  "memoryToolValidationGroupTooFewConditions": "联合搜索至少需要两个条件。",
+  "memoryToolValidationTypeUnsupported": "当前搜索类型尚未接入扫描内核。",
+  "memoryToolProcessTerminatedTitle": "目标进程已退出",
+  "memoryToolProcessTerminatedDescription": "当前选中的目标进程已经关闭，搜索会话和选择状态已被终止。请重新选择进程后再继续操作。",
+  "memoryToolProcessTerminatedAction": "我知道了",
+  "create": "创建",
+  "createScript": "创建脚本",
+  "scriptName": "脚本名称",
+  "newScript": "新脚本",
+  "createSuccess": "创建成功",
+  "createFailed": "创建失败",
+  "importSuccess": "导入成功",
+  "importFailed": "导入失败",
+  "shareSuccess": "分享成功",
+  "shareFailed": "分享失败",
+  "deleteScriptHint": "确认删除此脚本？",
+  "deleteSuccess": "删除成功",
+  "deleteFailed": "删除失败"
+}

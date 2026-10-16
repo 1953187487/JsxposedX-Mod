@@ -1,0 +1,4 @@
+enum MemoryToolEntryKind {
+  value,
+  instruction,
+}
