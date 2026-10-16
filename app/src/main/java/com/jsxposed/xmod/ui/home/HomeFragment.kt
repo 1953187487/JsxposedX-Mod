@@ -1,4 +1,4 @@
-package com.pocket.server.ui.home
+package com.jsxposed.xmod.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,17 +10,16 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.progressindicator.LinearProgressIndicator
-import com.pocket.server.R
-import com.pocket.server.env.EnvironmentManager
-import com.pocket.server.env.ServerManager
-import com.pocket.server.util.Prefs
+import com.jsxposed.xmod.R
+import com.jsxposed.xmod.env.EnvironmentManager
+import com.jsxposed.xmod.env.ServerManager
+import com.jsxposed.xmod.util.Prefs
 import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
     private val em get() = EnvironmentManager.get()
     private val sm get() = ServerManager.get()
-    private var selectedPackId: String = "builtin"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.fragment_home, container, false)
@@ -33,10 +32,8 @@ class HomeFragment : Fragment() {
         val progressText = view.findViewById<TextView>(R.id.text_progress)
         val console = view.findViewById<TextView>(R.id.text_console)
         val btnInstall = view.findViewById<View>(R.id.btn_install)
-        val btnSelectPack = view.findViewById<View>(R.id.btn_select_pack)
         val btnStart = view.findViewById<View>(R.id.btn_start_server)
         val btnStop = view.findViewById<View>(R.id.btn_stop)
-        val currentPack = view.findViewById<TextView>(R.id.text_current_pack)
 
         em.state.observe(viewLifecycleOwner) { st ->
             statusText.text = when (st) {
@@ -81,14 +78,11 @@ class HomeFragment : Fragment() {
                 .show()
         }
 
-        btnSelectPack.setOnClickListener { showPackDialog() }
-
         btnStart.setOnClickListener {
-            val pack = sm.packs(requireContext()).firstOrNull { it.id == selectedPackId } ?: sm.packs(requireContext()).first()
             try {
-                sm.start(requireContext(), pack) { line -> em.appendLog(requireContext(), "[server] $line") }
+                sm.start(requireContext()) { line -> em.appendLog(requireContext(), "[server] $line") }
                 em.state.postValue(EnvironmentManager.State.RUNNING)
-                em.appendLog(requireContext(), "[server] ${pack.name} 已启动，日志见下方")
+                em.appendLog(requireContext(), "[server] 用户系统服务包已启动，日志见下方")
             } catch (e: Exception) {
                 Toast.makeText(requireContext(), e.message, Toast.LENGTH_LONG).show()
             }
@@ -100,31 +94,8 @@ class HomeFragment : Fragment() {
             em.appendLog(requireContext(), "[server] 服务器已停止")
         }
 
-        selectedPackId = Prefs.getStr(requireContext(), "selected_pack", "builtin")
-        updatePackLabel(currentPack)
-
         em.refreshState(requireContext())
         maybeFirstRunDialog()
-    }
-
-    private fun updatePackLabel(tv: TextView) {
-        val pack = sm.packs(requireContext()).firstOrNull { it.id == selectedPackId }
-        tv.text = "当前服务包：${pack?.name ?: "-"} · ${pack?.desc ?: ""}"
-    }
-
-    private fun showPackDialog() {
-        val packs = sm.packs(requireContext())
-        val names = packs.map { it.name }.toTypedArray()
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle("选择服务包")
-            .setSingleChoiceItems(names, packs.indexOfFirst { it.id == selectedPackId }) { d, which ->
-                selectedPackId = packs[which].id
-                Prefs.putStr(requireContext(), "selected_pack", selectedPackId)
-                updatePackLabel(requireView().findViewById(R.id.text_current_pack))
-                d.dismiss()
-            }
-            .setNegativeButton("取消", null)
-            .show()
     }
 
     private fun startInstall() {
@@ -141,7 +112,7 @@ class HomeFragment : Fragment() {
         if (!Prefs.getBool(requireContext(), "asked_install", false) && !em.isInstalled(requireContext())) {
             Prefs.putBool(requireContext(), "asked_install", true)
             MaterialAlertDialogBuilder(requireContext())
-                .setTitle("欢迎使用口袋服务器")
+                .setTitle("欢迎使用JsxposedX-Mod")
                 .setMessage("检测到尚未安装运行环境。\n\n是否立即一键安装依赖？（proot + Alpine Linux + 基础工具，安装完成后即可把手机用作软件服务器 / 游戏服务器）")
                 .setPositiveButton("立即安装") { _, _ -> startInstall() }
                 .setNegativeButton("稍后", null)

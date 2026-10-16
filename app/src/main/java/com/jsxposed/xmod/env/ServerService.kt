@@ -1,4 +1,4 @@
-package com.pocket.server.env
+package com.jsxposed.xmod.env
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -18,7 +18,7 @@ class ServerService : Service() {
     }
 
     private fun buildNotification(): Notification {
-        val id = "pocket_server"
+        val id = "jsxposed.xmod"
         val nm = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         if (android.os.Build.VERSION.SDK_INT >= 26) {
             nm.createNotificationChannel(
@@ -31,7 +31,7 @@ class ServerService : Service() {
             @Suppress("DEPRECATION")
             Notification.Builder(this)
         }
-        b.setContentTitle("口袋服务器运行中")
+        b.setContentTitle("JsxposedX-Mod运行中")
             .setContentText("服务器功能正在运行，可在应用内停止")
             .setSmallIcon(android.R.drawable.stat_notify_sync_noanim)
             .setOngoing(true)

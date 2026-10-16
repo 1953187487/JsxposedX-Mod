@@ -67,7 +67,7 @@ class Handler(BaseHTTPRequestHandler):
                 {"username": a.get("username"), "online": a.get("online", False)}
                 for a in accounts]})
         elif self.path.startswith("/api/ping"):
-            self._json(200, {"ok": True, "service": "pocket-server", "time": int(time.time())})
+            self._json(200, {"ok": True, "service": "jsxposedx-mod", "time": int(time.time())})
         else:
             self.serve_static()
 

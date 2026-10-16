@@ -1,11 +1,11 @@
-package com.pocket.server.ui.ai
+package com.jsxposed.xmod.ui.ai
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.pocket.server.R
-import com.pocket.server.env.AccountInfo
+import com.jsxposed.xmod.R
+import com.jsxposed.xmod.env.AccountInfo
 
 class AccountAdapter(private val items: List<AccountInfo>) : RecyclerView.Adapter<AccountAdapter.VH>() {
 

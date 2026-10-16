@@ -1,4 +1,4 @@
-package com.pocket.server.util
+package com.jsxposed.xmod.util
 
 import android.app.DownloadManager
 import android.content.Context
@@ -15,7 +15,7 @@ object DownloadHelper {
      * @param title 通知栏标题
      * @param description 通知栏描述
      * @param mimeType MIME类型，例如 "application/vnd.android.package-archive"
-     * @param destinationSubPath 相对于Environment.DIRECTORY_DOWNLOADS的子路径，例如 "PocketServer/updates"
+     * @param destinationSubPath 相对于Environment.DIRECTORY_DOWNLOADS的子路径，例如 "JsxposedX-Mod/updates"
      * @return 下载ID
      */
     fun download(

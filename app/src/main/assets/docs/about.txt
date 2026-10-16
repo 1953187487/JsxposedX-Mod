@@ -1,24 +1,21 @@
-口袋服务器 PocketServer - 关于我们
+JsxposedX-Mod - 关于我们
 =====================================
 
-口袋服务器由开发者「东风…zjjaw」开发。
+JsxposedX-Mod 是基于 dugongzi/JsxposedX 的二次开发版本。
 
-开发理念：
-让每一台闲置的安卓手机都能变成一台真正的服务器。
-
-这位开发者开发了什么：
-- 口袋服务器：无需 root，把安卓手机变成软件服务器与游戏服务器
-- 内置用户系统服务包：注册 / 登录 / 在线心跳 / 账户列表 API，你的 App 客户端直接对接
-- 服务器功能：支持运行自定义服务包（把你自己的服务端软件放进工作区即可启动）
-- AI 助手：接入自定义 AI 服务商，分析服务器状态、分析 APK 结构
-- AI 逆向工作流：AI 辅助大量解包 APK，一键联机化（覆盖替换文件与服务器联机文件，重建签名）
+核心特性：
+- 无需 root、无需面具、无需授权
+- 仅依赖 Dhizuku 辅助权限即可完成 Xposed 模块注入
+- 注入路径：/data/data/xyz.dhiyan.dhizuku/files/modules/
+- 目标进程重启后自动加载模块
 
 技术基座（全部基于开源项目）：
+- JsxposedX：Xposed hook 核心
+- Dhizuku：Android 辅助权限管理器
 - proot：用户态 Linux 环境
 - Alpine Linux：轻量根文件系统
 - apktool / jadx / apksigner：APK 逆向、分析与签名
-- OpenJDK：Java 运行环境
 - OkHttp / AndroidX / Material：应用框架
 
-联系我们：
-- 开源仓库：https://github.com/1953187487/PocketServer
+开源仓库：https://github.com/1953187487/JsxposedX-Mod
+上游项目：https://github.com/dugongzi/JsxposedX

@@ -1,12 +1,12 @@
-package com.pocket.server.ui.settings
+package com.jsxposed.xmod.ui.settings
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.pocket.server.R
-import com.pocket.server.update.Release
+import com.jsxposed.xmod.R
+import com.jsxposed.xmod.update.Release
 
 class ReleaseAdapter(
     private val items: List<Release>,

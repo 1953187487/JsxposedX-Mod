@@ -1,4 +1,4 @@
-package com.pocket.server.update
+package com.jsxposed.xmod.update
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

@@ -1,9 +1,9 @@
-package com.pocket.server.env
+package com.jsxposed.xmod.env
 
 import android.content.Context
 import android.os.Build
 import androidx.lifecycle.MutableLiveData
-import com.pocket.server.util.Prefs
+import com.jsxposed.xmod.util.Prefs
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient

@@ -1,25 +1,25 @@
-package com.pocket.server
+package com.jsxposed.xmod
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.pocket.server.ui.ai.AiFragment
-import com.pocket.server.ui.home.HomeFragment
-import com.pocket.server.ui.settings.SettingsFragment
-import com.pocket.server.util.Prefs
+import com.jsxposed.xmod.ui.ai.AiFragment
+import com.jsxposed.xmod.ui.home.HomeFragment
+import com.jsxposed.xmod.ui.settings.SettingsFragment
+import com.jsxposed.xmod.util.Prefs
 
 class MainActivity : AppCompatActivity() {
 
     val themes = intArrayOf(
-        R.style.Theme_PocketServer,
-        R.style.Theme_PocketServer_Blue,
-        R.style.Theme_PocketServer_Teal,
-        R.style.Theme_PocketServer_Green,
-        R.style.Theme_PocketServer_Orange,
-        R.style.Theme_PocketServer_Red,
-        R.style.Theme_PocketServer_Pink,
-        R.style.Theme_PocketServer_Indigo
+        R.style.Theme_JsxposedXMod,
+        R.style.Theme_JsxposedXMod_Blue,
+        R.style.Theme_JsxposedXMod_Teal,
+        R.style.Theme_JsxposedXMod_Green,
+        R.style.Theme_JsxposedXMod_Orange,
+        R.style.Theme_JsxposedXMod_Red,
+        R.style.Theme_JsxposedXMod_Pink,
+        R.style.Theme_JsxposedXMod_Indigo
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {

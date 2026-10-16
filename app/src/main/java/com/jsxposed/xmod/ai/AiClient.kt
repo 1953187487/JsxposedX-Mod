@@ -1,4 +1,4 @@
-package com.pocket.server.ai
+package com.jsxposed.xmod.ai
 
 import com.google.gson.Gson
 import com.google.gson.JsonParser

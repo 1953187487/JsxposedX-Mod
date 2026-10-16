@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">口袋服务器</string>
+    <string name="app_name">JsxposedX-Mod</string>
     <string name="tab_home">主页</string>
     <string name="tab_ai">AI 与用户</string>
     <string name="tab_settings">设置</string>
@@ -16,11 +16,6 @@
     <string name="hint_message">向 AI 提问，或让它分析服务器 / APK…</string>
     <string name="refresh">刷新</string>
     <string name="accounts_title">服务器注册账户</string>
-    <string name="pick_apk">选择 APK</string>
-    <string name="install_toolchain">装工具链</string>
-    <string name="analyze_server">AI 分析服务器</string>
-    <string name="unpack_ai">AI 解包分析</string>
-    <string name="onlinize">一键联机化</string>
     <string name="settings_theme">调节颜色</string>
     <string name="settings_ai">自定义 AI 服务商</string>
     <string name="settings_update">检查更新与历史版本</string>
@@ -36,7 +31,7 @@
     <string name="base_url_hint">服务商地址（如 https://api.example.com/v1）</string>
     <string name="api_key_hint">API Key（仅保存在本机）</string>
     <string name="model_hint">模型名称（如 gpt-4o-mini / deepseek-chat）</string>
-    <string name="repo_hint">GitHub 仓库（如 user/PocketServer）</string>
+    <string name="repo_hint">GitHub 仓库（如 user/JsxposedX-Mod）</string>
     <string name="github_token_hint">GitHub Token（可选，查私有仓库）</string>
-    <string name="home_instructions">1. 点击「一键安装依赖」，首次进入会自动询问并下载 proot 运行环境与 Alpine Linux 根文件系统，随后自动安装 Python3 等基础依赖。\n2. 「服务器功能」：选择服务包后一键启动。内置「用户系统服务包」提供注册 / 登录 / 在线心跳 / 账户列表 API 并托管你的软件包；也可把自定义服务包放入工作区 serverpack 目录（含 start.sh），例如你自己的游戏服务端。\n3. 「AI 与用户」页：查看注册账户与在线状态；AI 解包分析 APK（apktool / jadx 逆向工具链）；「一键联机化」把工作区 onlinepack 联机补丁包覆盖替换进解包工程并替换服务器联机文件，重建签名输出联机版 APK。\n4. 服务器进程由前台服务保活，通知栏可确认运行状态；点击「停止服务器」结束。</string>
+    <string name="home_instructions">1. 点击「一键安装依赖」，首次进入会自动询问并下载 proot 运行环境与 Alpine Linux 根文件系统，随后自动安装 Python3 等基础依赖。\n2. 「服务器功能」：一键启动内置「用户系统服务包」，提供注册 / 登录 / 在线心跳 / 账户列表 API 并托管你的软件包。\n3. 「AI 与用户」页：查看注册账户与在线状态，接入自定义 AI 服务商进行分析。\n4. 服务器进程由前台服务保活，通知栏可确认运行状态；点击「停止服务器」结束。</string>
 </resources>

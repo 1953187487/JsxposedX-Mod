@@ -1,4 +1,4 @@
-package com.pocket.server.ui.settings
+package com.jsxposed.xmod.ui.settings
 
 import android.content.Intent
 import android.graphics.Color
@@ -18,15 +18,15 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.pocket.server.BuildConfig
-import com.pocket.server.MainActivity
-import com.pocket.server.R
-import com.pocket.server.ai.AiClient
-import com.pocket.server.ai.AiConfig
-import com.pocket.server.update.Release
-import com.pocket.server.update.UpdateChecker
-import com.pocket.server.util.DownloadHelper
-import com.pocket.server.util.Prefs
+import com.jsxposed.xmod.BuildConfig
+import com.jsxposed.xmod.MainActivity
+import com.jsxposed.xmod.R
+import com.jsxposed.xmod.ai.AiClient
+import com.jsxposed.xmod.ai.AiConfig
+import com.jsxposed.xmod.update.Release
+import com.jsxposed.xmod.update.UpdateChecker
+import com.jsxposed.xmod.util.DownloadHelper
+import com.jsxposed.xmod.util.Prefs
 import kotlinx.coroutines.launch
 
 class SettingsFragment : Fragment() {
@@ -56,7 +56,7 @@ class SettingsFragment : Fragment() {
         baseUrl.setText(Prefs.getStr(requireContext(), "ai_base_url", "https://api.deepseek.com/v1"))
         apiKey.setText(Prefs.getStr(requireContext(), "ai_api_key"))
         model.setText(Prefs.getStr(requireContext(), "ai_model", "deepseek-chat"))
-        repo.setText(Prefs.getStr(requireContext(), "github_repo", "1953187487/PocketServer"))
+        repo.setText(Prefs.getStr(requireContext(), "github_repo", "1953187487/JsxposedX-Mod"))
         token.setText(Prefs.getStr(requireContext(), "github_token"))
 
         baseUrl.setOnFocusChangeListener { _, f -> if (!f) Prefs.putStr(requireContext(), "ai_base_url", baseUrl.text.toString().trim()) }
@@ -73,7 +73,7 @@ class SettingsFragment : Fragment() {
         view.findViewById<View>(R.id.btn_agreement).setOnClickListener { showDoc("用户须知协议", "docs/agreement_user.txt") }
         view.findViewById<View>(R.id.btn_license).setOnClickListener { showDoc("开源协议", "docs/license_open_source.txt") }
 
-        view.findViewById<TextView>(R.id.text_version).text = "口袋服务器 PocketServer v${BuildConfig.VERSION_NAME}"
+        view.findViewById<TextView>(R.id.text_version).text = "JsxposedX-Mod v${BuildConfig.VERSION_NAME}"
     }
 
     private fun buildColorRow(row: LinearLayout) {
@@ -177,10 +177,10 @@ class SettingsFragment : Fragment() {
                             DownloadHelper.download(
                                 requireContext(),
                                 latest.apkUrl ?: latest.htmlUrl,
-                                "PocketServer 更新",
+                                "JsxposedX-Mod 更新",
                                 "正在下载版本 ${latest.tagName}",
                                 "application/vnd.android.package-archive",
-                                "PocketServer/updates"
+                                "JsxposedX-Mod/updates"
                             )
                             Toast.makeText(requireContext(), "下载已开始，请在通知栏查看进度", Toast.LENGTH_LONG).show()
                         }

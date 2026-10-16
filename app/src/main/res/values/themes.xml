@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.PocketServer" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.JsxposedXMod" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">#512DA8</item>
         <item name="colorOnPrimary">@color/white</item>
@@ -10,37 +10,37 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
     </style>
 
-    <style name="Theme.PocketServer.Blue">
+    <style name="Theme.JsxposedXMod.Blue">
         <item name="colorPrimary">#2196F3</item>
         <item name="colorPrimaryVariant">#1565C0</item>
     </style>
 
-    <style name="Theme.PocketServer.Teal">
+    <style name="Theme.JsxposedXMod.Teal">
         <item name="colorPrimary">#009688</item>
         <item name="colorPrimaryVariant">#00695C</item>
     </style>
 
-    <style name="Theme.PocketServer.Green">
+    <style name="Theme.JsxposedXMod.Green">
         <item name="colorPrimary">#4CAF50</item>
         <item name="colorPrimaryVariant">#2E7D32</item>
     </style>
 
-    <style name="Theme.PocketServer.Orange">
+    <style name="Theme.JsxposedXMod.Orange">
         <item name="colorPrimary">#FF9800</item>
         <item name="colorPrimaryVariant">#E65100</item>
     </style>
 
-    <style name="Theme.PocketServer.Red">
+    <style name="Theme.JsxposedXMod.Red">
         <item name="colorPrimary">#F44336</item>
         <item name="colorPrimaryVariant">#B71C1C</item>
     </style>
 
-    <style name="Theme.PocketServer.Pink">
+    <style name="Theme.JsxposedXMod.Pink">
         <item name="colorPrimary">#E91E63</item>
         <item name="colorPrimaryVariant">#880E4F</item>
     </style>
 
-    <style name="Theme.PocketServer.Indigo">
+    <style name="Theme.JsxposedXMod.Indigo">
         <item name="colorPrimary">#3F51B5</item>
         <item name="colorPrimaryVariant">#283593</item>
     </style>

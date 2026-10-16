@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.pocket.server"
+    namespace = "com.jsxposed.xmod"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.pocket.server"
+        applicationId = "com.jsxposed.xmod"
         minSdk = 24
         targetSdk = 28
         versionCode = 1

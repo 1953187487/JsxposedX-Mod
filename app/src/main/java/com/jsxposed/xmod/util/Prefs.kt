@@ -1,11 +1,11 @@
-package com.pocket.server.util
+package com.jsxposed.xmod.util
 
 import android.content.Context
 import android.content.SharedPreferences
 
 object Prefs {
 
-    private const val NAME = "pocket_prefs"
+    private const val NAME = "jsxposed_prefs"
 
     private fun sp(ctx: Context): SharedPreferences =
         ctx.getSharedPreferences(NAME, Context.MODE_PRIVATE)

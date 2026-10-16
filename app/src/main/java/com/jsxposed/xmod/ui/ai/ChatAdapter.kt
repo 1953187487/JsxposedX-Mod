@@ -1,11 +1,11 @@
-package com.pocket.server.ui.ai
+package com.jsxposed.xmod.ui.ai
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.pocket.server.R
+import com.jsxposed.xmod.R
 
 data class ChatMsg(val role: String, val text: String)
 
