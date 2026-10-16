@@ -42,6 +42,8 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNA" />
 
+    <!-- Dhizuku 权限授权 -->
+    <uses-permission android:name="xyz.dhiyan.dhizuku.permission.ACCESS" />
 
     <application
         android:description="@string/xposeddescription"

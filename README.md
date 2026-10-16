@@ -14,12 +14,29 @@
 
 ## 功能特性
 
-JsxposedX 原项目特性：
+### 核心功能（继承自 JsxposedX）
+
 - Flutter UI with Android-side Xposed hooks, LSPosed service integration, and native bridge modules
 - Project entries for `Quick Functions`, `AI Reverse`, `Xposed Project`, and `Frida Project`
 - Additional pages for crypto audit and SO analysis
 - Pigeon code generation via `.buildScript/pigen_watch.ps1` on Windows or `.buildScript/pigen_watch.sh` on macOS/Linux
 - Debug install flow via `.buildScript/run_install_debug.ps1` on Windows or `.buildScript/run_install_debug.sh` on macOS/Linux
+
+### 二改新增功能
+
+- **Dhizuku 权限集成**：无需 root、无需授权，仅依赖 Dhizuku 辅助权限即可完成 Xposed 模块注入
+  - 自动检测 Dhizuku 安装状态
+  - 引导用户安装 Dhizuku
+  - 请求 Dhizuku 授权
+  - 执行 shell 命令
+  - 管理模块文件（安装/卸载/查询）
+
+### Dhizuku 配置信息
+
+- Dhizuku 包名：`xyz.dhiyan.dhizuku`
+- 模块注入路径：`/data/data/xyz.dhiyan.dhizuku/files/modules/`
+- 目标进程重启后自动加载模块
+- Dhizuku 下载地址：https://github.com/dhiyanrd/dhizuku/releases
 
 ## 开源协议
 
