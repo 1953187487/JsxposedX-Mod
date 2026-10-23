@@ -50,3 +50,23 @@ This file records user instructions, preferences, and teachings for reference in
   - GitHub 仓库：https://github.com/1953187487/JsxposedX-Mod（公开，main 分支）
   - GitHub 凭据存放于 /root/.netrc（权限 600，git/curl 自动使用），严禁写入任何被 git 跟踪的文件
   - 用户凭据曾在聊天中明文暴露，涉及敏感操作后应提醒用户轮换 token
+  - 发布流程：`git push origin main` 后用 GitHub API 建 release（token 用 `git credential fill` 提取，不回显），上传 APK + sha256
+  - 版本状态：v1.0.0 正式版已发布（tag v1.0.0，commit 721ba14）；v1.0.2-beta.1 内测版已发布为 prerelease（commit 1c65952，含伪造服务器 + AI 工具集）
+  - 发布命令参考：`curl -X POST -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" -d @payload.json https://api.github.com/repos/1953187487/JsxposedX-Mod/releases`，再 `curl -X POST -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/vnd.android.package-archive" --data-binary @apk.html "https://uploads.github.com/repos/.../releases/<id>/assets?name=xxx.apk"`
+
+[Project Knowledge Summary]
+- Date: 2026-10-23
+- Context: Agent 执行 1.0.2-beta.1 构建发布时发现的 riverpod 3.0 API 陷阱
+- Category: Troubleshooting & Debugging
+- Instructions:
+  - riverpod 3.0 移除了 `AsyncValue.valueOrNull`，改用 `status.value`（返回可空 T?）
+  - `$AsyncClassModifier.update(cb, {onError})` 是 AsyncNotifier 内置方法，自定义 Provider 中不能再定义同签名的 `update(具体类型)` 方法，会报 invalid_override；改用其他方法名（如 markStatus）
+  - 修改 Provider 后必须重跑 `dart run build_runner build --delete-conflicting-outputs` 更新 .g.dart，否则 IsHook 等生成代码过期导致编译失败
+
+[Project Knowledge Summary]
+- Date: 2026-10-23
+- Context: Agent 执行后台构建时发现的日志/退出码陷阱
+- Category: Build & Compilation
+- Instructions:
+  - `flutter clean && flutter build ... | tee log | tail -n 0` 这种链会让终端退出码永远为 0（取 tail 的），且构建静默失败时日志为空；正确做法是构建命令不接管道，末尾加 `; echo "BUILD_EXIT_CODE=$?"`，日志直接落到终端输出文件
+  - Gradle 阶段终端日志几乎不增量属正常（Gradle 静默期），用 `du -sh /workspace/build` 增长判断真实进度（796M 左右进入 dex 打包）
