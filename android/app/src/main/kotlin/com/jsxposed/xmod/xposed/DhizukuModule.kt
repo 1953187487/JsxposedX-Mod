@@ -3,316 +3,178 @@ package com.jsxposed.xmod.xposed
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.os.Build
+import android.net.Uri
 import android.util.Log
-import androidx.core.content.FileProvider
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
-import java.io.IOException
-import java.security.MessageDigest
+import com.rosan.dhizuku.api.Dhizuku
+import com.rosan.dhizuku.api.DhizukuRequestPermissionListener
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeoutOrNull
 
 /**
- * Dhizuku 权限适配层
- * 
- * 提供以下功能：
- * - 检测 Dhizuku 是否已安装
- * - 引导用户安装 Dhizuku
- * - 请求 Dhizuku 授权
- * - 执行需要 shell 权限的命令
- * - 管理模块文件
- * 
- * Dhizuku 包名：xyz.dhiyan.dhizuku
- * 模块路径：/data/data/xyz.dhiyan.dhizuku/files/modules/
+ * Dhizuku 适配层。
+ *
+ * Dhizuku 通过设备所有者（Device Owner）身份向普通应用共享受管权限，
+ * 官方 SDK 为 `io.github.iamr0s:Dhizuku-API`，包名为 `com.rosan.dhizuku`。
+ *
+ * 这里只封装官方 API 真实提供的能力：安装检测、服务初始化、授权状态查询与授权请求。
+ * 模块的加载与作用域管理仍由 libxposed / LSPosed 服务负责。
  */
 object DhizukuModule {
 
     private const val TAG = "DhizukuModule"
-    
-    // Dhizuku 包名
-    const val DHIZUKU_PACKAGE = "xyz.dhiyan.dhizuku"
-    
-    // Dhizuku Action
-    const val ACTION_REQUEST_AUTHORIZATION = "xyz.dhiyan.dhizuku.ACTION_REQUEST_AUTHORIZATION"
-    const val ACTION_REQUEST_SHELL_EXECUTION = "xyz.dhiyan.dhizuku.ACTION_REQUEST_SHELL_EXECUTION"
-    
-    // Dhizuku Extra
-    const val EXTRA_PACKAGE = "xyz.dhiyan.dhizuku.EXTRA_PACKAGE"
-    const val EXTRA_CMD = "xyz.dhiyan.dhizuku.EXTRA_CMD"
-    
-    // Dhizuku 模块路径
-    const val DHIZUKU_DATA_DIR = "/data/data/xyz.dhiyan.dhizuku/files"
-    const val DHIZUKU_MODULES_DIR = "/data/data/xyz.dhiyan.dhizuku/files/modules"
-    
-    // 模块元数据文件
-    private const val MODULE_META_FILE = "module_meta.json"
-    
+
+    /** Dhizuku 官方包名。 */
+    const val DHIZUKU_PACKAGE = "com.rosan.dhizuku"
+
+    /** Dhizuku 官方下载地址。 */
+    const val DOWNLOAD_URL = "https://github.com/iamr0s/Dhizuku/releases"
+
+    /** 等待用户在 Dhizuku 授权页操作的最长时间。 */
+    private const val PERMISSION_TIMEOUT_MS = 60_000L
+
     /**
-     * 检测结果数据类
+     * Dhizuku 当前状态。
+     *
+     * @property installed 设备上是否安装了 Dhizuku
+     * @property activated Dhizuku 是否已激活为设备所有者且服务可用
+     * @property permissionGranted 本应用是否已获得 Dhizuku 授权
+     * @property ownerPackage 当前设备所有者应用包名（可能是 Dhizuku 的兼容实现）
+     * @property serverVersionName Dhizuku 服务端 API 版本名
+     * @property serverVersionCode Dhizuku 服务端 API 版本号
      */
-    data class DhizukuCheckResult(
-        val isInstalled: Boolean,
-        val versionName: String,
-        val versionCode: Int,
-        val packageName: String
+    data class DhizukuState(
+        val installed: Boolean = false,
+        val activated: Boolean = false,
+        val permissionGranted: Boolean = false,
+        val ownerPackage: String = "",
+        val serverVersionName: String = "",
+        val serverVersionCode: Int = 0,
     )
 
+    @Volatile
+    private var initialized = false
+
     /**
-     * 检测 Dhizuku 是否已安装
-     *
-     * @param context 应用上下文
-     * @return DhizukuCheckResult 包含安装状态和版本信息
+     * 读取 Dhizuku 状态。内部包含跨进程调用，禁止在主线程直接调用。
      */
-    fun checkDhizukuInstalled(context: Context): DhizukuCheckResult {
+    fun getState(context: Context): DhizukuState {
+        val installed = isInstalled(context)
+        if (!installed) return DhizukuState(installed = false)
+
+        val activated = ensureInitialized(context)
+        if (!activated) {
+            return DhizukuState(installed = true, activated = false)
+        }
+
+        val granted = runCatching { Dhizuku.isPermissionGranted() }
+            .onFailure { Log.w(TAG, "isPermissionGranted failed: ${it.message}") }
+            .getOrDefault(false)
+        val ownerPackage = runCatching { Dhizuku.getOwnerPackageName() }
+            .getOrDefault("")
+        val versionName = runCatching { Dhizuku.getVersionName() }
+            .getOrDefault("")
+        val versionCode = runCatching { Dhizuku.getVersionCode() }
+            .getOrDefault(0)
+
+        return DhizukuState(
+            installed = true,
+            activated = true,
+            permissionGranted = granted,
+            ownerPackage = ownerPackage,
+            serverVersionName = versionName,
+            serverVersionCode = versionCode,
+        )
+    }
+
+    /**
+     * 判断 Dhizuku 是否已安装。Android 11 及以上依赖清单中的 `<queries>` 声明。
+     */
+    fun isInstalled(context: Context): Boolean {
         return try {
-            val packageInfo = context.packageManager.getPackageInfo(DHIZUKU_PACKAGE, 0)
-            DhizukuCheckResult(
-                isInstalled = true,
-                versionName = packageInfo.versionName ?: "",
-                versionCode = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                    packageInfo.longVersionCode.toInt()
-                } else {
-                    @Suppress("DEPRECATION")
-                    packageInfo.versionCode
-                },
-                packageName = DHIZUKU_PACKAGE
-            )
+            context.packageManager.getPackageInfo(DHIZUKU_PACKAGE, 0)
+            true
         } catch (e: PackageManager.NameNotFoundException) {
-            DhizukuCheckResult(
-                isInstalled = false,
-                versionName = "",
-                versionCode = 0,
-                packageName = DHIZUKU_PACKAGE
-            )
+            false
         } catch (e: Exception) {
             Log.e(TAG, "Failed to check Dhizuku installation", e)
-            DhizukuCheckResult(
-                isInstalled = false,
-                versionName = "",
-                versionCode = 0,
-                packageName = DHIZUKU_PACKAGE
-            )
+            false
         }
     }
 
     /**
-     * 请求 Dhizuku 授权
-     * 
-     * 此方法会启动 Dhizuku 的授权界面，用户授权后，
-     * 本应用将获得 shell 权限执行命令。
-     *
-     * @param context 应用上下文
-     * @param requestCode 请求码，用于 onActivityResult 回调
+     * 初始化 Dhizuku 服务。失败表示 Dhizuku 未安装、未激活或服务不可达。
      */
-    fun requestAuthorization(context: Context, requestCode: Int) {
-        try {
-            val intent = Intent(ACTION_REQUEST_AUTHORIZATION).apply {
-                setPackage(DHIZUKU_PACKAGE)
-                putExtra(EXTRA_PACKAGE, context.packageName)
+    fun ensureInitialized(context: Context): Boolean {
+        if (initialized) return true
+        return synchronized(this) {
+            if (initialized) {
+                true
+            } else {
+                val result = runCatching { Dhizuku.init(context.applicationContext) }
+                    .onFailure { Log.e(TAG, "Dhizuku.init failed", it) }
+                    .getOrDefault(false)
+                initialized = result
+                result
             }
-            context.startActivityForResult(intent, requestCode)
-            Log.d(TAG, "Requested Dhizuku authorization")
-        } catch (e: Exception) {
-            Log.e(TAG, "Failed to request Dhizuku authorization", e)
         }
     }
 
     /**
-     * 请求执行 Shell 命令
-     * 
-     * 通过 Dhizuku 执行需要 shell 权限的命令。
+     * 请求 Dhizuku 授权，返回用户是否授予权限。
      *
-     * @param context 应用上下文
-     * @param command 要执行的命令
-     * @param requestCode 请求码
-     * @param callback 命令执行回调
+     * 授权结果通过 Dhizuku 服务回调返回，超过 [PERMISSION_TIMEOUT_MS] 视为失败。
      */
-    fun requestShellExecution(
-        context: Context,
-        command: String,
-        requestCode: Int,
-        callback: ShellExecutionCallback?
-    ) {
-        try {
-            val intent = Intent(ACTION_REQUEST_SHELL_EXECUTION).apply {
-                setPackage(DHIZUKU_PACKAGE)
-                putExtra(EXTRA_PACKAGE, context.packageName)
-                putExtra(EXTRA_CMD, command)
-            }
-            context.startActivityForResult(intent, requestCode)
-            Log.d(TAG, "Requested shell execution: $command")
-        } catch (e: Exception) {
-            Log.e(TAG, "Failed to request shell execution", e)
-            callback?.onExecutionFailed("Failed to request shell execution: ${e.message}")
+    suspend fun requestPermission(context: Context): Boolean {
+        if (!ensureInitialized(context)) return false
+        if (runCatching { Dhizuku.isPermissionGranted() }.getOrDefault(false)) {
+            return true
         }
-    }
 
-    /**
-     * 检查模块目录是否存在
-     *
-     * @return true 如果模块目录存在
-     */
-    fun checkModuleDirectoryExists(): Boolean {
-        return File(DHIZUKU_MODULES_DIR).exists()
-    }
-
-    /**
-     * 创建模块目录（需要 Dhizuku shell 权限）
-     *
-     * @param context 应用上下文
-     * @param callback 创建结果回调
-     */
-    fun createModuleDirectory(context: Context, callback: ShellExecutionCallback?) {
-        val command = "mkdir -p $DHIZUKU_MODULES_DIR"
-        requestShellExecution(context, command, 1001, callback)
-    }
-
-    /**
-     * 复制模块文件到 Dhizuku 模块目录
-     * 
-     * 将本地模块文件复制到 Dhizuku 的模块目录，
-     * 目标进程重启后会自动加载。
-     *
-     * @param context 应用上下文
-     * @param localModulePath 本地模块文件路径
-     * @param moduleName 模块名称
-     * @param callback 复制结果回调
-     */
-    fun copyModuleToDhizuku(
-        context: Context,
-        localModulePath: String,
-        moduleName: String,
-        callback: ShellExecutionCallback?
-    ) {
-        try {
-            val localFile = File(localModulePath)
-            if (!localFile.exists()) {
-                callback?.onExecutionFailed("Module file not found: $localModulePath")
-                return
+        val result = CompletableDeferred<Boolean>()
+        val listener = object : DhizukuRequestPermissionListener() {
+            override fun onRequestPermission(grantResult: Int) {
+                result.complete(grantResult == PackageManager.PERMISSION_GRANTED)
             }
+        }
 
-            // 计算模块文件哈希
-            val fileHash = calculateFileHash(localFile)
-            
-            // 创建模块目录
-            val moduleDir = "$DHIZUKU_MODULES_DIR/$moduleName"
-            val command = "mkdir -p $moduleDir"
-            requestShellExecution(context, command, 1002, object : ShellExecutionCallback {
-                override fun onExecutionSuccess(output: String) {
-                    // 复制模块文件
-                    val copyCommand = "cp $localModulePath $moduleDir/"
-                    requestShellExecution(context, copyCommand, 1003, object : ShellExecutionCallback {
-                        override fun onExecutionSuccess(output: String) {
-                            // 写入元数据
-                            val metaCommand = "echo '{\"name\":\"$moduleName\",\"hash\":\"$fileHash\",\"time\":${System.currentTimeMillis()}}' > $moduleDir/$MODULE_META_FILE"
-                            requestShellExecution(context, metaCommand, 1004, callback)
-                        }
-                        
-                        override fun onExecutionFailed(error: String) {
-                            callback?.onExecutionFailed("Failed to copy module: $error")
-                        }
-                    })
+        // requestPermission 内部会启动授权 Activity，必须在主线程发起。
+        withContext(Dispatchers.Main) {
+            runCatching { Dhizuku.requestPermission(listener) }
+                .onFailure {
+                    Log.e(TAG, "requestPermission failed", it)
+                    result.complete(false)
                 }
-                
-                override fun onExecutionFailed(error: String) {
-                    callback?.onExecutionFailed("Failed to create module directory: $error")
-                }
-            })
-        } catch (e: Exception) {
-            Log.e(TAG, "Failed to copy module to Dhizuku", e)
-            callback?.onExecutionFailed("Failed to copy module: ${e.message}")
         }
+
+        return withTimeoutOrNull(PERMISSION_TIMEOUT_MS) { result.await() } ?: false
     }
 
-    /**
-     * 删除模块
-     *
-     * @param context 应用上下文
-     * @param moduleName 模块名称
-     * @param callback 删除结果回调
-     */
-    fun deleteModule(context: Context, moduleName: String, callback: ShellExecutionCallback?) {
-        val command = "rm -rf $DHIZUKU_MODULES_DIR/$moduleName"
-        requestShellExecution(context, command, 1005, callback)
-    }
-
-    /**
-     * 列出已安装的模块
-     *
-     * @param context 应用上下文
-     * @param callback 列表结果回调
-     */
-    fun listModules(context: Context, callback: ShellExecutionCallback?) {
-        val command = "ls -1 $DHIZUKU_MODULES_DIR 2>/dev/null || echo ''"
-        requestShellExecution(context, command, 1006, callback)
-    }
-
-    /**
-     * 检查模块是否已安装
-     *
-     * @param context 应用上下文
-     * @param moduleName 模块名称
-     * @param callback 检查结果回调
-     */
-    fun isModuleInstalled(context: Context, moduleName: String, callback: ShellExecutionCallback?) {
-        val command = "test -d $DHIZUKU_MODULES_DIR/$moduleName && echo 'installed' || echo 'not_installed'"
-        requestShellExecution(context, command, 1007, callback)
-    }
-
-    /**
-     * 计算文件哈希值
-     *
-     * @param file 要计算哈希的文件
-     * @return SHA-256 哈希值
-     */
-    private fun calculateFileHash(file: File): String {
-        try {
-            val digest = MessageDigest.getInstance("SHA-256")
-            val fis = FileInputStream(file)
-            val buffer = ByteArray(8192)
-            var len: Int
-            while (fis.read(buffer).also { len = it } != -1) {
-                digest.update(buffer, 0, len)
-            }
-            fis.close()
-            return digest.digest().joinToString("") { "%02x".format(it) }
-        } catch (e: Exception) {
-            Log.e(TAG, "Failed to calculate file hash", e)
-            return ""
-        }
-    }
-
-    /**
-     * 获取 Dhizuku 安装链接
-     *
-     * @return Dhizuku 官方下载地址
-     */
-    fun getDhizukuDownloadUrl(): String {
-        return "https://github.com/dhiyanrd/dhizuku/releases"
-    }
-
-    /**
-     * 打开 Dhizuku 应用（如果已安装）
-     *
-     * @param context 应用上下文
-     */
-    fun openDhizuku(context: Context) {
-        try {
+    /** 打开 Dhizuku 应用，未安装时返回 false。 */
+    fun openDhizuku(context: Context): Boolean {
+        return try {
             val intent = context.packageManager.getLaunchIntentForPackage(DHIZUKU_PACKAGE)
-            if (intent != null) {
-                context.startActivity(intent)
-                Log.d(TAG, "Opened Dhizuku app")
-            }
+                ?: return false
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            context.startActivity(intent)
+            true
         } catch (e: Exception) {
             Log.e(TAG, "Failed to open Dhizuku", e)
+            false
         }
     }
 
-    /**
-     * Shell 执行回调接口
-     */
-    interface ShellExecutionCallback {
-        fun onExecutionSuccess(output: String)
-        fun onExecutionFailed(error: String)
+    /** 打开发布页，供用户下载安装 Dhizuku。 */
+    fun openDownloadPage(context: Context): Boolean {
+        return try {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(DOWNLOAD_URL))
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            context.startActivity(intent)
+            true
+        } catch (e: Exception) {
+            Log.e(TAG, "Failed to open Dhizuku download page", e)
+            false
+        }
     }
 }

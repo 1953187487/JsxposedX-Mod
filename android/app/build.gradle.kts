@@ -70,17 +70,17 @@ android {
         applicationId = "com.jsxposed.xmod"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = flutter.minSdkVersion
+        // Dhizuku API 要求 minSdk 26，否则清单合并会把它抬到 26 并产生告警。
+        minSdk = 26
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
         ndk {
-            abiFilters.addAll(
-                listOf(
-                    "arm64-v8a", "armeabi-v7a",
-                    "x86", "x86_64"
-                )
-            )
+            // 仅构建 arm64-v8a：与 --target-platform android-arm64 一致，
+            // 可省去 x86/armeabi-v7a/x86_64 三份 native 对象文件（各约 500-620MB）。
+            // 注意：默认 abiFilters 已含全部 ABI，必须 clear 后再 add，addAll 只是追加。
+            abiFilters.clear()
+            abiFilters.add("arm64-v8a")
         }
     }
 
@@ -111,6 +111,13 @@ android {
     packagingOptions {
         jniLibs {
             useLegacyPackaging = false
+            // mergeJniLibFolders 会合并 jniLibs/ 下所有 ABI 的预编译库，
+            // 与 ndk.abiFilters 相互独立。这里显式排除非 arm64 的产物。
+            excludes += listOf(
+                "**/armeabi-v7a/**",
+                "**/x86/**",
+                "**/x86_64/**",
+            )
         }
         resources {
             excludes += listOf(
@@ -119,6 +126,14 @@ android {
                 "META-INF/*.version",
             )
         }
+    }
+}
+
+// defaultConfig.ndk.abiFilters 不控制 CMake 编译，variant 级配置才生效。
+// 必须在 variant 创建时设置，afterEvaluate 太晚。
+androidComponents {
+    onVariants { variant ->
+        variant.externalNativeBuild?.abiFilters?.set(setOf("arm64-v8a"))
     }
 }
 
@@ -144,6 +159,15 @@ dependencies {
     compileOnly(files("src/lib/XposedBridgeAPI-89.jar"))
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2")
     implementation("com.google.code.gson:gson:2.13.2")
+    // Dhizuku 官方 SDK：通过设备所有者身份共享受管权限。
+    // 2.5.4 是最后兼容 compileSdk 36 / AGP 8.9.x 的版本；2.6.0 起要求 compileSdk 37。
+    implementation("io.github.iamr0s:Dhizuku-API:2.5.4")
+
+    // Shizuku 官方 SDK：通过 Shizuku 服务实现免 root 权限。
+    // 13.1.5 是最新稳定版，provider 模块需单独引入。
+    implementation("dev.rikka.shizuku:api:13.1.5")
+    implementation("dev.rikka.shizuku:provider:13.1.5")
+
     implementation("com.github.suzhelan:XpHelper:2.7") {
         exclude(group = "com.alibaba.fastjson2", module = "fastjson2")
     }

@@ -3,6 +3,10 @@ package com.jsxposed.xmod
 import com.jsxposed.xmod.core.bridge.apk_analysis_native.ApkAnalysisNative
 import com.jsxposed.xmod.core.bridge.apk_analysis_native.ApkAnalysisNativeImpl
 import com.jsxposed.xmod.core.bridge.app_native.AppNative
+import com.jsxposed.xmod.core.bridge.dhizuku_native.DhizukuNative
+import com.jsxposed.xmod.core.bridge.dhizuku_native.DhizukuNativeImpl
+import com.jsxposed.xmod.core.bridge.shizuku_native.ShizukuNative
+import com.jsxposed.xmod.core.bridge.shizuku_native.ShizukuNativeImpl
 import com.jsxposed.xmod.core.bridge.pinia_native.PiniaNativeImpl
 import com.jsxposed.xmod.core.bridge.file_picker_native.OverlayFilePickerNative
 import com.jsxposed.xmod.core.bridge.zygisk_frida_native.ZygiskFridaNative
@@ -30,6 +34,8 @@ object NativeProvider {
     private var apkAnalysisImpl: ApkAnalysisNativeImpl? = null
     private var soAnalysisImpl: SoAnalysisNativeImpl? = null
     private var memoryToolImpl: MemoryToolNativeImpl? = null
+    private var dhizukuNativeImpl: DhizukuNativeImpl? = null
+    private var shizukuNativeImpl: ShizukuNativeImpl? = null
 
     fun registerAll(context: android.content.Context, messenger: BinaryMessenger) {
         PiniaNative.setUp(messenger, PiniaNativeImpl(context))
@@ -60,6 +66,14 @@ object NativeProvider {
         OverlayFilePickerNative.register(context, messenger)
         UrlHelperNative.register(context, messenger)
         ShellNative.setUp(messenger, ShellNativeImpl(context))
+        dhizukuNativeImpl?.dispose()
+        val nextDhizukuNativeImpl = DhizukuNativeImpl(context)
+        dhizukuNativeImpl = nextDhizukuNativeImpl
+        DhizukuNative.setUp(messenger, nextDhizukuNativeImpl)
+        shizukuNativeImpl?.dispose()
+        val nextShizukuNativeImpl = ShizukuNativeImpl(context)
+        shizukuNativeImpl = nextShizukuNativeImpl
+        ShizukuNative.setUp(messenger, nextShizukuNativeImpl)
     }
 
     fun dispose() {
@@ -73,5 +87,9 @@ object NativeProvider {
         apkAnalysisImpl = null
         memoryToolImpl?.cleanup()
         memoryToolImpl = null
+        dhizukuNativeImpl?.dispose()
+        dhizukuNativeImpl = null
+        shizukuNativeImpl?.dispose()
+        shizukuNativeImpl = null
     }
 }

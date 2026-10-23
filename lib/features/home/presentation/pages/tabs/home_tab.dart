@@ -8,9 +8,11 @@ import 'package:JsxposedX/core/transport/android_desktop_bridge_server.dart';
 import 'package:JsxposedX/core/utils/url_helper.dart';
 import 'package:JsxposedX/features/ai/presentation/providers/runtime/ai_chat_runtime_provider.dart';
 import 'package:JsxposedX/features/frida/presentation/providers/frida_query_provider.dart';
+import 'package:JsxposedX/core/routes/routes/home_route.dart';
 import 'package:JsxposedX/features/home/presentation/widgets/activation_card.dart';
 import 'package:JsxposedX/features/home/presentation/widgets/info_card.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -148,6 +150,15 @@ class HomeTab extends HookConsumerWidget {
                         : context.l10n.homeDesktopCardDisconnected,
                   );
                 },
+              ),
+              SizedBox(height: 12.h),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10.w),
+                child: FilledButton.tonalIcon(
+                  onPressed: () => context.push(HomeRoute.server),
+                  icon: const Icon(Icons.cloud_outlined),
+                  label: Text(context.l10n.serverManagement),
+                ),
               ),
               SizedBox(height: 12.h),
               InfoCard(),

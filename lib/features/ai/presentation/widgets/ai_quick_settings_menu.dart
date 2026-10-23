@@ -926,6 +926,7 @@ class _ToolList extends HookConsumerWidget {
         AiToolCategory.dataAnalysis: isZh ? '数据分析' : 'Data Analysis',
         AiToolCategory.systemControl: isZh ? '系统管控' : 'System Control',
         AiToolCategory.multimodal: isZh ? '多模态' : 'Multimodal',
+        AiToolCategory.fakeServer: isZh ? '伪造服务器' : 'Fake Server',
       },
       [isZh],
     );

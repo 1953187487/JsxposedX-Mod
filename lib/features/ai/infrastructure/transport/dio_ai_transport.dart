@@ -121,6 +121,7 @@ class DioAiTransport implements AiTransport {
       DioExceptionType.sendTimeout ||
       DioExceptionType.badCertificate => AiFailureCode.networkUnavailable,
       DioExceptionType.badResponse ||
+      DioExceptionType.transformTimeout ||
       DioExceptionType.unknown => AiFailureCode.unknown,
     };
     return AiFailure(

@@ -42,14 +42,12 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNA" />
 
-    <!-- Dhizuku 权限授权 -->
-    <uses-permission android:name="xyz.dhiyan.dhizuku.permission.ACCESS" />
-
     <application
         android:description="@string/xposeddescription"
         android:name=".App"
         android:icon="@mipmap/ic_launcher"
         android:largeHeap="true"
+        android:usesCleartextTraffic="true"
         android:label="JsxposedX">
         <activity
             android:name=".MainActivity"
@@ -136,6 +134,16 @@
             android:exported="true"
             tools:ignore="ExportedContentProvider" />
 
+        <!-- Shizuku provider: 用于接收 Shizuku 服务的 Binder 连接 -->
+        <provider
+            android:name="rikka.shizuku.ShizukuProvider"
+            android:authorities="${applicationId}.shizuku"
+            android:multiprocess="false"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.INTERACT_ACROSS_USERS_FULL"
+            tools:ignore="ExportedContentProvider" />
+
     </application>
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility and
@@ -143,6 +151,9 @@
 
          In particular, this is used by the Flutter engine in io.flutter.plugin.text.ProcessTextPlugin. -->
     <queries>
+        <!-- Android 11+ 包可见性：用于检测与启动 Dhizuku 和 Shizuku -->
+        <package android:name="com.rosan.dhizuku" />
+        <package android:name="moe.shizuku.manager" />
         <intent>
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />

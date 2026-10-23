@@ -9,6 +9,7 @@ import 'package:JsxposedX/core/providers/theme_provider.dart';
 import 'package:JsxposedX/core/utils/procedure_utils.dart';
 import 'package:JsxposedX/core/utils/url_helper.dart';
 import 'package:JsxposedX/features/ai/presentation/pages/ai_config_page.dart';
+import 'package:JsxposedX/features/dhizuku/presentation/widgets/dhizuku_settings_section.dart';
 import 'package:JsxposedX/features/home/presentation/widgets/settings_community_card.dart';
 import 'package:JsxposedX/features/home/presentation/widgets/settings_section.dart';
 import 'package:JsxposedX/features/home/presentation/widgets/settings_tile.dart';
@@ -163,6 +164,8 @@ class SettingsTab extends HookConsumerWidget {
             ],
           ),
         ),
+        SliverToBoxAdapter(child: SizedBox(height: 20.h)),
+        const SliverToBoxAdapter(child: DhizukuSettingsSection()),
         SliverToBoxAdapter(child: SizedBox(height: 20.h)),
         SliverToBoxAdapter(
           child: SettingsSection(

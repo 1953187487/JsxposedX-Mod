@@ -30,7 +30,6 @@ class HomePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // 当前选中的索引
     final currentIndex = useState(0);
     final colorScheme = context.colorScheme;
     final fabOffsetY = 9.h;
@@ -38,9 +37,7 @@ class HomePage extends HookConsumerWidget {
     final bottomBarHeight = 60.h;
 
     final versionCode = useState(0);
-    // PageView 控制器
     final pageController = usePageController(initialPage: 0);
-    // 页面列表
     final pages = [
       const HomeTab(),
       const ProjectTab(),
@@ -48,7 +45,6 @@ class HomePage extends HookConsumerWidget {
       const SettingsTab(),
     ];
 
-    // Tab 标题列表
     final tabTitles = [
       context.l10n.home,
       context.l10n.project,
@@ -161,30 +157,24 @@ class HomePage extends HookConsumerWidget {
               onPressed: () {
                 SelectAppSheet.show(
                   context,
-                  addToLSPosedScope: true, // 启用自动添加到 LSPosed scope
+                  addToLSPosedScope: true,
                   onSelected: (appInfo) async {
-                    // 1. 立即关闭选择弹窗（不要在回调里写重逻辑）
                     if (Navigator.canPop(context)) {
                       Navigator.pop(context);
                     }
 
-                    // 2. 利用 microtask 确保弹窗关闭的帧提交完成后，再执行显示加载框和业务逻辑
                     Future.microtask(() async {
-                      // 确保加载框显示
                       Loading.show();
 
                       try {
-                        // 3. 这里的异步调用因为已经脱离了弹窗回调的 UI 帧竞争，加载框会先渲染出来
                         await ref.read(
                           createProjectProvider(
                             packageName: appInfo.packageName,
                           ).future,
                         );
 
-                        // 4. 刷新项目列表
                         ref.invalidate(projectsProvider);
 
-                        // 5. 提示成功
                         if (!context.mounted) return;
                         ToastMessage.show(
                           context.l10n.alreadySelected(appInfo.name),
@@ -192,7 +182,6 @@ class HomePage extends HookConsumerWidget {
                       } catch (e) {
                         ToastMessage.show("error: $e");
                       } finally {
-                        // 6. 隐藏加载中
                         Loading.hide();
                       }
                     });

@@ -1,10 +1,10 @@
-name: JsxposedX-Mod
+name: JsxposedX
 description: "基于 JsxposedX 的二次开发版本，无需 root、无需授权，仅依赖 Dhizuku 辅助权限"
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 
-version: 1.0.0+1
+version: 1.0.2-beta.1+102
 
 environment:
   sdk: ^3.9.2
@@ -121,6 +121,7 @@ flutter_launcher_icons:
 dependency_overrides:
   flutter_overlay_window:
     path: third_party/flutter_overlay_window
+  html: 0.15.6
 
 
 # Pigeon 配置已迁移至外部文件 pigeon.yaml

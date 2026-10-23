@@ -3180,4 +3180,215 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get deleteFailed => 'Deletion failed';
+
+  @override
+  String get dhizukuPermissionTitle => 'Dhizuku Permission';
+
+  @override
+  String get dhizukuChecking => 'Checking';
+
+  @override
+  String get dhizukuNotInstalled => 'Not installed';
+
+  @override
+  String get dhizukuNotActivated => 'Not activated';
+
+  @override
+  String get dhizukuNotAuthorized => 'Not authorized';
+
+  @override
+  String get dhizukuAuthorized => 'Authorized';
+
+  @override
+  String get dhizukuStatusInstalled => 'Installed';
+
+  @override
+  String get dhizukuStatusActivated => 'Activated';
+
+  @override
+  String get dhizukuStatusPermission => 'Permission';
+
+  @override
+  String get dhizukuOwnerPackage => 'Device owner';
+
+  @override
+  String get dhizukuServerVersion => 'Server version';
+
+  @override
+  String get dhizukuDownload => 'Download Dhizuku';
+
+  @override
+  String get dhizukuOpenApp => 'Open Dhizuku';
+
+  @override
+  String get dhizukuRequestPermission => 'Request permission';
+
+  @override
+  String get dhizukuActivationTip =>
+      'Activate Dhizuku as device owner, then return to refresh the status.';
+
+  @override
+  String get dhizukuInstallTip =>
+      'Dhizuku is not installed. Download and install it first.';
+
+  @override
+  String get dhizukuGrantedToast => 'Dhizuku permission granted';
+
+  @override
+  String get dhizukuDeniedToast => 'Dhizuku permission not granted';
+
+  @override
+  String get dhizukuRequestFailed => 'Operation failed, please try again later';
+
+  @override
+  String get permissionTitle => 'Rootless Permission';
+
+  @override
+  String get permissionActive => 'Authorized (Features Active)';
+
+  @override
+  String get shizukuPermissionTitle => 'Shizuku Permission';
+
+  @override
+  String get shizukuChecking => 'Checking';
+
+  @override
+  String get shizukuNotInstalled => 'Not installed';
+
+  @override
+  String get shizukuUnsupported => 'Unsupported';
+
+  @override
+  String get shizukuNotRunning => 'Not running';
+
+  @override
+  String get shizukuNotAuthorized => 'Not authorized';
+
+  @override
+  String get shizukuAuthorized => 'Authorized';
+
+  @override
+  String get shizukuStatusInstalled => 'Installed';
+
+  @override
+  String get shizukuStatusRunning => 'Service running';
+
+  @override
+  String get shizukuStatusPermission => 'Permission';
+
+  @override
+  String get shizukuVersion => 'Service version';
+
+  @override
+  String get shizukuSelinuxContext => 'SELinux context';
+
+  @override
+  String get shizukuDownload => 'Download Shizuku';
+
+  @override
+  String get shizukuOpenApp => 'Open Shizuku';
+
+  @override
+  String get shizukuRequestPermission => 'Request permission';
+
+  @override
+  String get shizukuInstallTip =>
+      'Shizuku is not installed. Download and install it first.';
+
+  @override
+  String get shizukuUnsupportedTip =>
+      'Current Android version does not support Shizuku. Android 11 or higher is required.';
+
+  @override
+  String get shizukuStartTip =>
+      'Please start the Shizuku service first via ADB or the Shizuku app.';
+
+  @override
+  String get shizukuPermissionTip =>
+      'Authorize this app in Shizuku, then return to refresh the status.';
+
+  @override
+  String get shizukuGrantedToast => 'Shizuku permission granted';
+
+  @override
+  String get shizukuDeniedToast => 'Shizuku permission not granted';
+
+  @override
+  String get shizukuRequestFailed => 'Operation failed, please try again later';
+
+  @override
+  String get server => 'Server';
+
+  @override
+  String get serverManagement => 'Fake Server';
+
+  @override
+  String get createServer => 'Create server';
+
+  @override
+  String get startServer => 'Start';
+
+  @override
+  String get stopServer => 'Stop';
+
+  @override
+  String get noServers => 'No fake servers yet';
+
+  @override
+  String get noServersHint =>
+      'Create a local HTTP / WebSocket / TCP server to mock game APIs';
+
+  @override
+  String get serverName => 'Server name';
+
+  @override
+  String get serverNameRequired => 'Please enter a server name';
+
+  @override
+  String get protocol => 'Protocol';
+
+  @override
+  String get port => 'Port';
+
+  @override
+  String get targetHost => 'Target host';
+
+  @override
+  String get targetHostHint => 'Optional, used to forward a real server';
+
+  @override
+  String get targetPort => 'Target port';
+
+  @override
+  String get description => 'Description';
+
+  @override
+  String get enablePortForwarding => 'Enable port forwarding';
+
+  @override
+  String get enablePortForwardingHint =>
+      'Beta only saves the config. Public URL comes later.';
+
+  @override
+  String get serverCreated => 'Server created';
+
+  @override
+  String get serverStarted => 'Server started';
+
+  @override
+  String get serverStopped => 'Server stopped';
+
+  @override
+  String get serverDeleted => 'Server deleted';
+
+  @override
+  String confirmDeleteServer(String name) {
+    return 'Delete server $name?';
+  }
+
+  @override
+  String get connections => 'connections';
+
+  @override
+  String get requests => 'requests';
 }

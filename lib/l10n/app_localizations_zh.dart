@@ -3092,4 +3092,207 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get deleteFailed => '删除失败';
+
+  @override
+  String get dhizukuPermissionTitle => 'Dhizuku 权限';
+
+  @override
+  String get dhizukuChecking => '检测中';
+
+  @override
+  String get dhizukuNotInstalled => '未安装';
+
+  @override
+  String get dhizukuNotActivated => '未激活';
+
+  @override
+  String get dhizukuNotAuthorized => '未授权';
+
+  @override
+  String get dhizukuAuthorized => '已授权';
+
+  @override
+  String get dhizukuStatusInstalled => '已安装';
+
+  @override
+  String get dhizukuStatusActivated => '已激活';
+
+  @override
+  String get dhizukuStatusPermission => '授权状态';
+
+  @override
+  String get dhizukuOwnerPackage => '设备所有者';
+
+  @override
+  String get dhizukuServerVersion => '服务版本';
+
+  @override
+  String get dhizukuDownload => '下载 Dhizuku';
+
+  @override
+  String get dhizukuOpenApp => '打开 Dhizuku';
+
+  @override
+  String get dhizukuRequestPermission => '请求授权';
+
+  @override
+  String get dhizukuActivationTip => '请在 Dhizuku 中完成设备所有者激活，完成后返回本页刷新状态。';
+
+  @override
+  String get dhizukuInstallTip => '未检测到 Dhizuku，请先下载并安装。';
+
+  @override
+  String get dhizukuGrantedToast => 'Dhizuku 授权成功';
+
+  @override
+  String get dhizukuDeniedToast => 'Dhizuku 授权未完成';
+
+  @override
+  String get dhizukuRequestFailed => '操作失败，请稍后重试';
+
+  @override
+  String get permissionTitle => '免 Root 权限';
+
+  @override
+  String get permissionActive => '已授权（功能可用）';
+
+  @override
+  String get shizukuPermissionTitle => 'Shizuku 权限';
+
+  @override
+  String get shizukuChecking => '检测中';
+
+  @override
+  String get shizukuNotInstalled => '未安装';
+
+  @override
+  String get shizukuUnsupported => '不支持';
+
+  @override
+  String get shizukuNotRunning => '未运行';
+
+  @override
+  String get shizukuNotAuthorized => '未授权';
+
+  @override
+  String get shizukuAuthorized => '已授权';
+
+  @override
+  String get shizukuStatusInstalled => '已安装';
+
+  @override
+  String get shizukuStatusRunning => '服务运行';
+
+  @override
+  String get shizukuStatusPermission => '授权状态';
+
+  @override
+  String get shizukuVersion => '服务版本';
+
+  @override
+  String get shizukuSelinuxContext => 'SELinux 上下文';
+
+  @override
+  String get shizukuDownload => '下载 Shizuku';
+
+  @override
+  String get shizukuOpenApp => '打开 Shizuku';
+
+  @override
+  String get shizukuRequestPermission => '请求授权';
+
+  @override
+  String get shizukuInstallTip => '未检测到 Shizuku，请先下载并安装。';
+
+  @override
+  String get shizukuUnsupportedTip => '当前系统版本不支持 Shizuku，需要 Android 11 或更高版本。';
+
+  @override
+  String get shizukuStartTip => '请先启动 Shizuku 服务，可通过 ADB 或 Shizuku 应用内授权。';
+
+  @override
+  String get shizukuPermissionTip => '请在 Shizuku 中完成授权，完成后返回本页刷新状态。';
+
+  @override
+  String get shizukuGrantedToast => 'Shizuku 授权成功';
+
+  @override
+  String get shizukuDeniedToast => 'Shizuku 授权未完成';
+
+  @override
+  String get shizukuRequestFailed => '操作失败，请稍后重试';
+
+  @override
+  String get server => '服务器';
+
+  @override
+  String get serverManagement => '伪造服务器';
+
+  @override
+  String get createServer => '创建服务器';
+
+  @override
+  String get startServer => '启动';
+
+  @override
+  String get stopServer => '停止';
+
+  @override
+  String get noServers => '还没有伪造服务器';
+
+  @override
+  String get noServersHint => '创建本地 HTTP / WebSocket / TCP 服务器，用于模拟游戏接口';
+
+  @override
+  String get serverName => '服务器名称';
+
+  @override
+  String get serverNameRequired => '请输入服务器名称';
+
+  @override
+  String get protocol => '协议';
+
+  @override
+  String get port => '端口';
+
+  @override
+  String get targetHost => '目标主机';
+
+  @override
+  String get targetHostHint => '可选，用于转发真实服务器';
+
+  @override
+  String get targetPort => '目标端口';
+
+  @override
+  String get description => '描述';
+
+  @override
+  String get enablePortForwarding => '启用内网穿透';
+
+  @override
+  String get enablePortForwardingHint => '内测版先保存配置，公网地址后续接入';
+
+  @override
+  String get serverCreated => '服务器已创建';
+
+  @override
+  String get serverStarted => '服务器已启动';
+
+  @override
+  String get serverStopped => '服务器已停止';
+
+  @override
+  String get serverDeleted => '服务器已删除';
+
+  @override
+  String confirmDeleteServer(String name) {
+    return '确定删除服务器 $name？';
+  }
+
+  @override
+  String get connections => '连接';
+
+  @override
+  String get requests => '请求';
 }

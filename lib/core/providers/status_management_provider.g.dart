@@ -61,17 +61,14 @@ final class StatusManagementNativeProvider
 String _$statusManagementNativeHash() =>
     r'13fdf3146fd54211c59605db3342803cad92cf24';
 
-/// Hook 状态 Provider
+/// Hook 状态 Provider（带刷新功能）
 
-@ProviderFor(isHook)
+@ProviderFor(IsHook)
 const isHookProvider = IsHookProvider._();
 
-/// Hook 状态 Provider
-
-final class IsHookProvider
-    extends $FunctionalProvider<AsyncValue<bool>, bool, FutureOr<bool>>
-    with $FutureModifier<bool>, $FutureProvider<bool> {
-  /// Hook 状态 Provider
+/// Hook 状态 Provider（带刷新功能）
+final class IsHookProvider extends $AsyncNotifierProvider<IsHook, bool> {
+  /// Hook 状态 Provider（带刷新功能）
   const IsHookProvider._()
     : super(
         from: null,
@@ -88,16 +85,31 @@ final class IsHookProvider
 
   @$internal
   @override
-  $FutureProviderElement<bool> $createElement($ProviderPointer pointer) =>
-      $FutureProviderElement(pointer);
-
-  @override
-  FutureOr<bool> create(Ref ref) {
-    return isHook(ref);
-  }
+  IsHook create() => IsHook();
 }
 
-String _$isHookHash() => r'c0d301b359a17e9236325dae601804d9776e2613';
+String _$isHookHash() => r'5a3dd3afbdd6e5eb44dad9fb465161a79d1e47aa';
+
+/// Hook 状态 Provider（带刷新功能）
+
+abstract class _$IsHook extends $AsyncNotifier<bool> {
+  FutureOr<bool> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<AsyncValue<bool>, bool>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<bool>, bool>,
+              AsyncValue<bool>,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}
 
 /// Root 状态 Provider（轮询检测）
 

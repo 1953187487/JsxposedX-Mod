@@ -1606,5 +1606,149 @@
   "shareFailed": "分享失败",
   "deleteScriptHint": "确认删除此脚本？",
   "deleteSuccess": "删除成功",
-  "deleteFailed": "删除失败"
+  "deleteFailed": "删除失败",
+  "dhizukuPermissionTitle": "Dhizuku 权限",
+  "dhizukuChecking": "检测中",
+  "dhizukuNotInstalled": "未安装",
+  "dhizukuNotActivated": "未激活",
+  "dhizukuNotAuthorized": "未授权",
+  "dhizukuAuthorized": "已授权",
+  "dhizukuStatusInstalled": "已安装",
+  "dhizukuStatusActivated": "已激活",
+  "dhizukuStatusPermission": "授权状态",
+  "dhizukuOwnerPackage": "设备所有者",
+  "dhizukuServerVersion": "服务版本",
+  "dhizukuDownload": "下载 Dhizuku",
+  "dhizukuOpenApp": "打开 Dhizuku",
+  "dhizukuRequestPermission": "请求授权",
+  "dhizukuActivationTip": "请在 Dhizuku 中完成设备所有者激活，完成后返回本页刷新状态。",
+  "dhizukuInstallTip": "未检测到 Dhizuku，请先下载并安装。",
+  "dhizukuGrantedToast": "Dhizuku 授权成功",
+  "dhizukuDeniedToast": "Dhizuku 授权未完成",
+  "dhizukuRequestFailed": "操作失败，请稍后重试",
+  "permissionTitle": "免 Root 权限",
+  "permissionActive": "已授权（功能可用）",
+  "shizukuPermissionTitle": "Shizuku 权限",
+  "shizukuChecking": "检测中",
+  "shizukuNotInstalled": "未安装",
+  "shizukuUnsupported": "不支持",
+  "shizukuNotRunning": "未运行",
+  "shizukuNotAuthorized": "未授权",
+  "shizukuAuthorized": "已授权",
+  "shizukuStatusInstalled": "已安装",
+  "shizukuStatusRunning": "服务运行",
+  "shizukuStatusPermission": "授权状态",
+  "shizukuVersion": "服务版本",
+  "shizukuSelinuxContext": "SELinux 上下文",
+  "shizukuDownload": "下载 Shizuku",
+  "shizukuOpenApp": "打开 Shizuku",
+  "shizukuRequestPermission": "请求授权",
+  "shizukuInstallTip": "未检测到 Shizuku，请先下载并安装。",
+  "shizukuUnsupportedTip": "当前系统版本不支持 Shizuku，需要 Android 11 或更高版本。",
+  "shizukuStartTip": "请先启动 Shizuku 服务，可通过 ADB 或 Shizuku 应用内授权。",
+  "shizukuPermissionTip": "请在 Shizuku 中完成授权，完成后返回本页刷新状态。",
+  "shizukuGrantedToast": "Shizuku 授权成功",
+  "shizukuDeniedToast": "Shizuku 授权未完成",
+  "shizukuRequestFailed": "操作失败，请稍后重试",
+  "server": "服务器",
+  "@server": {
+    "description": "服务器入口"
+  },
+  "serverManagement": "伪造服务器",
+  "@serverManagement": {
+    "description": "服务器管理页标题"
+  },
+  "createServer": "创建服务器",
+  "@createServer": {
+    "description": "创建服务器按钮"
+  },
+  "startServer": "启动",
+  "@startServer": {
+    "description": "启动服务器"
+  },
+  "stopServer": "停止",
+  "@stopServer": {
+    "description": "停止服务器"
+  },
+  "noServers": "还没有伪造服务器",
+  "@noServers": {
+    "description": "服务器空状态标题"
+  },
+  "noServersHint": "创建本地 HTTP / WebSocket / TCP 服务器，用于模拟游戏接口",
+  "@noServersHint": {
+    "description": "服务器空状态说明"
+  },
+  "serverName": "服务器名称",
+  "@serverName": {
+    "description": "服务器名称"
+  },
+  "serverNameRequired": "请输入服务器名称",
+  "@serverNameRequired": {
+    "description": "服务器名称为空提示"
+  },
+  "protocol": "协议",
+  "@protocol": {
+    "description": "服务器协议"
+  },
+  "port": "端口",
+  "@port": {
+    "description": "服务器端口"
+  },
+  "targetHost": "目标主机",
+  "@targetHost": {
+    "description": "目标主机"
+  },
+  "targetHostHint": "可选，用于转发真实服务器",
+  "@targetHostHint": {
+    "description": "目标主机提示"
+  },
+  "targetPort": "目标端口",
+  "@targetPort": {
+    "description": "目标端口"
+  },
+  "description": "描述",
+  "@description": {
+    "description": "描述字段"
+  },
+  "enablePortForwarding": "启用内网穿透",
+  "@enablePortForwarding": {
+    "description": "启用内网穿透"
+  },
+  "enablePortForwardingHint": "内测版先保存配置，公网地址后续接入",
+  "@enablePortForwardingHint": {
+    "description": "内网穿透说明"
+  },
+  "serverCreated": "服务器已创建",
+  "@serverCreated": {
+    "description": "服务器创建成功"
+  },
+  "serverStarted": "服务器已启动",
+  "@serverStarted": {
+    "description": "服务器启动成功"
+  },
+  "serverStopped": "服务器已停止",
+  "@serverStopped": {
+    "description": "服务器停止成功"
+  },
+  "serverDeleted": "服务器已删除",
+  "@serverDeleted": {
+    "description": "服务器删除成功"
+  },
+  "confirmDeleteServer": "确定删除服务器 {name}？",
+  "@confirmDeleteServer": {
+    "description": "删除服务器确认",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "connections": "连接",
+  "@connections": {
+    "description": "连接数"
+  },
+  "requests": "请求",
+  "@requests": {
+    "description": "请求数"
+  }
 }

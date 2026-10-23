@@ -1,3 +1,4 @@
+import 'package:JsxposedX/features/ai/domain/environments/server_tool_handlers.dart';
 import 'package:JsxposedX/features/ai/domain/repositories/script_log_repository.dart';
 import 'package:JsxposedX/features/ai/domain/services/ai_conversation_export_service.dart';
 import 'package:JsxposedX/features/apk_analysis/domain/repositories/apk_analysis_query_repository.dart';
@@ -30,6 +31,7 @@ class ApkReverseToolRuntimeContext {
     this.packageName = '',
     this.isZh = true,
     this.exportService,
+    this.serverRuntime,
   });
 
   final ApkAnalysisQueryRepository repo;
@@ -46,4 +48,7 @@ class ApkReverseToolRuntimeContext {
 
   /// 会话导出服务（用于 export_conversation 工具）
   final AiConversationExportService? exportService;
+
+  /// 伪造服务器工具运行时（内测版可选）
+  final ServerToolRuntime? serverRuntime;
 }

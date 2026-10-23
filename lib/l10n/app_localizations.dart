@@ -6040,6 +6040,408 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'删除失败'**
   String get deleteFailed;
+
+  /// No description provided for @dhizukuPermissionTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'Dhizuku 权限'**
+  String get dhizukuPermissionTitle;
+
+  /// No description provided for @dhizukuChecking.
+  ///
+  /// In zh, this message translates to:
+  /// **'检测中'**
+  String get dhizukuChecking;
+
+  /// No description provided for @dhizukuNotInstalled.
+  ///
+  /// In zh, this message translates to:
+  /// **'未安装'**
+  String get dhizukuNotInstalled;
+
+  /// No description provided for @dhizukuNotActivated.
+  ///
+  /// In zh, this message translates to:
+  /// **'未激活'**
+  String get dhizukuNotActivated;
+
+  /// No description provided for @dhizukuNotAuthorized.
+  ///
+  /// In zh, this message translates to:
+  /// **'未授权'**
+  String get dhizukuNotAuthorized;
+
+  /// No description provided for @dhizukuAuthorized.
+  ///
+  /// In zh, this message translates to:
+  /// **'已授权'**
+  String get dhizukuAuthorized;
+
+  /// No description provided for @dhizukuStatusInstalled.
+  ///
+  /// In zh, this message translates to:
+  /// **'已安装'**
+  String get dhizukuStatusInstalled;
+
+  /// No description provided for @dhizukuStatusActivated.
+  ///
+  /// In zh, this message translates to:
+  /// **'已激活'**
+  String get dhizukuStatusActivated;
+
+  /// No description provided for @dhizukuStatusPermission.
+  ///
+  /// In zh, this message translates to:
+  /// **'授权状态'**
+  String get dhizukuStatusPermission;
+
+  /// No description provided for @dhizukuOwnerPackage.
+  ///
+  /// In zh, this message translates to:
+  /// **'设备所有者'**
+  String get dhizukuOwnerPackage;
+
+  /// No description provided for @dhizukuServerVersion.
+  ///
+  /// In zh, this message translates to:
+  /// **'服务版本'**
+  String get dhizukuServerVersion;
+
+  /// No description provided for @dhizukuDownload.
+  ///
+  /// In zh, this message translates to:
+  /// **'下载 Dhizuku'**
+  String get dhizukuDownload;
+
+  /// No description provided for @dhizukuOpenApp.
+  ///
+  /// In zh, this message translates to:
+  /// **'打开 Dhizuku'**
+  String get dhizukuOpenApp;
+
+  /// No description provided for @dhizukuRequestPermission.
+  ///
+  /// In zh, this message translates to:
+  /// **'请求授权'**
+  String get dhizukuRequestPermission;
+
+  /// No description provided for @dhizukuActivationTip.
+  ///
+  /// In zh, this message translates to:
+  /// **'请在 Dhizuku 中完成设备所有者激活，完成后返回本页刷新状态。'**
+  String get dhizukuActivationTip;
+
+  /// No description provided for @dhizukuInstallTip.
+  ///
+  /// In zh, this message translates to:
+  /// **'未检测到 Dhizuku，请先下载并安装。'**
+  String get dhizukuInstallTip;
+
+  /// No description provided for @dhizukuGrantedToast.
+  ///
+  /// In zh, this message translates to:
+  /// **'Dhizuku 授权成功'**
+  String get dhizukuGrantedToast;
+
+  /// No description provided for @dhizukuDeniedToast.
+  ///
+  /// In zh, this message translates to:
+  /// **'Dhizuku 授权未完成'**
+  String get dhizukuDeniedToast;
+
+  /// No description provided for @dhizukuRequestFailed.
+  ///
+  /// In zh, this message translates to:
+  /// **'操作失败，请稍后重试'**
+  String get dhizukuRequestFailed;
+
+  /// No description provided for @permissionTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'免 Root 权限'**
+  String get permissionTitle;
+
+  /// No description provided for @permissionActive.
+  ///
+  /// In zh, this message translates to:
+  /// **'已授权（功能可用）'**
+  String get permissionActive;
+
+  /// No description provided for @shizukuPermissionTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'Shizuku 权限'**
+  String get shizukuPermissionTitle;
+
+  /// No description provided for @shizukuChecking.
+  ///
+  /// In zh, this message translates to:
+  /// **'检测中'**
+  String get shizukuChecking;
+
+  /// No description provided for @shizukuNotInstalled.
+  ///
+  /// In zh, this message translates to:
+  /// **'未安装'**
+  String get shizukuNotInstalled;
+
+  /// No description provided for @shizukuUnsupported.
+  ///
+  /// In zh, this message translates to:
+  /// **'不支持'**
+  String get shizukuUnsupported;
+
+  /// No description provided for @shizukuNotRunning.
+  ///
+  /// In zh, this message translates to:
+  /// **'未运行'**
+  String get shizukuNotRunning;
+
+  /// No description provided for @shizukuNotAuthorized.
+  ///
+  /// In zh, this message translates to:
+  /// **'未授权'**
+  String get shizukuNotAuthorized;
+
+  /// No description provided for @shizukuAuthorized.
+  ///
+  /// In zh, this message translates to:
+  /// **'已授权'**
+  String get shizukuAuthorized;
+
+  /// No description provided for @shizukuStatusInstalled.
+  ///
+  /// In zh, this message translates to:
+  /// **'已安装'**
+  String get shizukuStatusInstalled;
+
+  /// No description provided for @shizukuStatusRunning.
+  ///
+  /// In zh, this message translates to:
+  /// **'服务运行'**
+  String get shizukuStatusRunning;
+
+  /// No description provided for @shizukuStatusPermission.
+  ///
+  /// In zh, this message translates to:
+  /// **'授权状态'**
+  String get shizukuStatusPermission;
+
+  /// No description provided for @shizukuVersion.
+  ///
+  /// In zh, this message translates to:
+  /// **'服务版本'**
+  String get shizukuVersion;
+
+  /// No description provided for @shizukuSelinuxContext.
+  ///
+  /// In zh, this message translates to:
+  /// **'SELinux 上下文'**
+  String get shizukuSelinuxContext;
+
+  /// No description provided for @shizukuDownload.
+  ///
+  /// In zh, this message translates to:
+  /// **'下载 Shizuku'**
+  String get shizukuDownload;
+
+  /// No description provided for @shizukuOpenApp.
+  ///
+  /// In zh, this message translates to:
+  /// **'打开 Shizuku'**
+  String get shizukuOpenApp;
+
+  /// No description provided for @shizukuRequestPermission.
+  ///
+  /// In zh, this message translates to:
+  /// **'请求授权'**
+  String get shizukuRequestPermission;
+
+  /// No description provided for @shizukuInstallTip.
+  ///
+  /// In zh, this message translates to:
+  /// **'未检测到 Shizuku，请先下载并安装。'**
+  String get shizukuInstallTip;
+
+  /// No description provided for @shizukuUnsupportedTip.
+  ///
+  /// In zh, this message translates to:
+  /// **'当前系统版本不支持 Shizuku，需要 Android 11 或更高版本。'**
+  String get shizukuUnsupportedTip;
+
+  /// No description provided for @shizukuStartTip.
+  ///
+  /// In zh, this message translates to:
+  /// **'请先启动 Shizuku 服务，可通过 ADB 或 Shizuku 应用内授权。'**
+  String get shizukuStartTip;
+
+  /// No description provided for @shizukuPermissionTip.
+  ///
+  /// In zh, this message translates to:
+  /// **'请在 Shizuku 中完成授权，完成后返回本页刷新状态。'**
+  String get shizukuPermissionTip;
+
+  /// No description provided for @shizukuGrantedToast.
+  ///
+  /// In zh, this message translates to:
+  /// **'Shizuku 授权成功'**
+  String get shizukuGrantedToast;
+
+  /// No description provided for @shizukuDeniedToast.
+  ///
+  /// In zh, this message translates to:
+  /// **'Shizuku 授权未完成'**
+  String get shizukuDeniedToast;
+
+  /// No description provided for @shizukuRequestFailed.
+  ///
+  /// In zh, this message translates to:
+  /// **'操作失败，请稍后重试'**
+  String get shizukuRequestFailed;
+
+  /// 服务器入口
+  ///
+  /// In zh, this message translates to:
+  /// **'服务器'**
+  String get server;
+
+  /// 服务器管理页标题
+  ///
+  /// In zh, this message translates to:
+  /// **'伪造服务器'**
+  String get serverManagement;
+
+  /// 创建服务器按钮
+  ///
+  /// In zh, this message translates to:
+  /// **'创建服务器'**
+  String get createServer;
+
+  /// 启动服务器
+  ///
+  /// In zh, this message translates to:
+  /// **'启动'**
+  String get startServer;
+
+  /// 停止服务器
+  ///
+  /// In zh, this message translates to:
+  /// **'停止'**
+  String get stopServer;
+
+  /// 服务器空状态标题
+  ///
+  /// In zh, this message translates to:
+  /// **'还没有伪造服务器'**
+  String get noServers;
+
+  /// 服务器空状态说明
+  ///
+  /// In zh, this message translates to:
+  /// **'创建本地 HTTP / WebSocket / TCP 服务器，用于模拟游戏接口'**
+  String get noServersHint;
+
+  /// 服务器名称
+  ///
+  /// In zh, this message translates to:
+  /// **'服务器名称'**
+  String get serverName;
+
+  /// 服务器名称为空提示
+  ///
+  /// In zh, this message translates to:
+  /// **'请输入服务器名称'**
+  String get serverNameRequired;
+
+  /// 服务器协议
+  ///
+  /// In zh, this message translates to:
+  /// **'协议'**
+  String get protocol;
+
+  /// 服务器端口
+  ///
+  /// In zh, this message translates to:
+  /// **'端口'**
+  String get port;
+
+  /// 目标主机
+  ///
+  /// In zh, this message translates to:
+  /// **'目标主机'**
+  String get targetHost;
+
+  /// 目标主机提示
+  ///
+  /// In zh, this message translates to:
+  /// **'可选，用于转发真实服务器'**
+  String get targetHostHint;
+
+  /// 目标端口
+  ///
+  /// In zh, this message translates to:
+  /// **'目标端口'**
+  String get targetPort;
+
+  /// 描述字段
+  ///
+  /// In zh, this message translates to:
+  /// **'描述'**
+  String get description;
+
+  /// 启用内网穿透
+  ///
+  /// In zh, this message translates to:
+  /// **'启用内网穿透'**
+  String get enablePortForwarding;
+
+  /// 内网穿透说明
+  ///
+  /// In zh, this message translates to:
+  /// **'内测版先保存配置，公网地址后续接入'**
+  String get enablePortForwardingHint;
+
+  /// 服务器创建成功
+  ///
+  /// In zh, this message translates to:
+  /// **'服务器已创建'**
+  String get serverCreated;
+
+  /// 服务器启动成功
+  ///
+  /// In zh, this message translates to:
+  /// **'服务器已启动'**
+  String get serverStarted;
+
+  /// 服务器停止成功
+  ///
+  /// In zh, this message translates to:
+  /// **'服务器已停止'**
+  String get serverStopped;
+
+  /// 服务器删除成功
+  ///
+  /// In zh, this message translates to:
+  /// **'服务器已删除'**
+  String get serverDeleted;
+
+  /// 删除服务器确认
+  ///
+  /// In zh, this message translates to:
+  /// **'确定删除服务器 {name}？'**
+  String confirmDeleteServer(String name);
+
+  /// 连接数
+  ///
+  /// In zh, this message translates to:
+  /// **'连接'**
+  String get connections;
+
+  /// 请求数
+  ///
+  /// In zh, this message translates to:
+  /// **'请求'**
+  String get requests;
 }
 
 class _AppLocalizationsDelegate

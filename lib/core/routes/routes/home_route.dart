@@ -6,6 +6,7 @@ import 'package:JsxposedX/features/home/presentation/pages/desktop_home_page.dar
 import 'package:JsxposedX/features/home/presentation/pages/tabs/repository_tab/pages/script_detail_page.dart';
 import 'package:JsxposedX/features/so_analysis/presentation/pages/so_analysis_page.dart';
 import 'package:JsxposedX/features/home/presentation/pages/home_page.dart';
+import 'package:JsxposedX/features/server/presentation/pages/server_page.dart';
 import 'package:JsxposedX/features/project/presentation/pages/crypto/crypto_audit_js_editor_page.dart';
 import 'package:JsxposedX/features/project/presentation/pages/crypto/crypto_audit_log_page.dart';
 import 'package:JsxposedX/features/frida/presentation/pages/frida_api_manual_page.dart';
@@ -42,6 +43,7 @@ class HomeRoute {
   static const soAnalysis = '/soAnalysis/:packageName';
   static const scriptDetail = '/scriptDetail/:id';
   static const fileViewer = '/fileViewer';
+  static const server = '/server';
   static const login = 'login';
 
   static String toQuickFunctions({required AppInfo app}) => '/quickFunctions';
@@ -76,6 +78,8 @@ class HomeRoute {
   static String toScriptDetail({required int id}) => '/scriptDetail/$id';
 
   static String toFileViewer({required String path}) => '/fileViewer';
+
+  static String toServer() => server;
 }
 
 List<GoRoute> homeRoutes = [
@@ -203,5 +207,9 @@ List<GoRoute> homeRoutes = [
       }
       return FileViewerPage(path: extra as String? ?? '');
     },
+  ),
+  GoRoute(
+    path: HomeRoute.server,
+    builder: (context, state) => const ServerPage(),
   ),
 ];

@@ -11,18 +11,52 @@ StatusManagementNative statusManagementNative(Ref ref) {
   return StatusManagementNative();
 }
 
-/// Hook 状态 Provider
+/// Hook 状态 Provider（带刷新功能）
 @Riverpod(keepAlive: true)
-Future<bool> isHook(Ref ref) async {
-  final native = ref.read(statusManagementNativeProvider);
-  for (var i = 0; i < 18; i++) {
-    try {
-      final hooked = await native.isHook();
-      if (hooked) return true;
-    } catch (_) {}
-    await Future.delayed(const Duration(milliseconds: 350));
+class IsHook extends _$IsHook {
+  Timer? _timer;
+
+  @override
+  Future<bool> build() async {
+    ref.onDispose(() => _timer?.cancel());
+    _performCheck();
+    return false;
   }
-  return false;
+
+  bool _isChecking = false;
+  bool _hasFoundHook = false;
+
+  Future<void> _performCheck() async {
+    if (_isChecking || _hasFoundHook) return;
+    _isChecking = true;
+
+    try {
+      final native = ref.read(statusManagementNativeProvider);
+      for (var i = 0; i < 18; i++) {
+        try {
+          final hooked = await native.isHook();
+          if (hooked) {
+            _hasFoundHook = true;
+            _timer?.cancel();
+            state = const AsyncData(true);
+            return;
+          }
+        } catch (_) {}
+        await Future.delayed(const Duration(milliseconds: 350));
+      }
+      state = const AsyncData(false);
+    } catch (_) {
+      state = const AsyncData(false);
+    } finally {
+      _isChecking = false;
+    }
+  }
+
+  /// 手动刷新 Hook 状态
+  Future<void> refresh() async {
+    _hasFoundHook = false;
+    await _performCheck();
+  }
 }
 
 /// Root 状态 Provider（轮询检测）

@@ -6,6 +6,8 @@ import 'package:JsxposedX/features/ai/domain/environments/content_production_too
 import 'package:JsxposedX/features/ai/domain/environments/data_analysis_tool_handlers.dart';
 import 'package:JsxposedX/features/ai/domain/environments/system_control_tool_handlers.dart';
 import 'package:JsxposedX/features/ai/domain/environments/multimodal_tool_handlers.dart';
+import 'package:JsxposedX/features/ai/domain/environments/server_tool_definitions.dart';
+import 'package:JsxposedX/features/ai/domain/environments/server_tool_handlers.dart';
 import 'package:JsxposedX/features/ai/domain/environments/shell_exec_tool_handler.dart';
 import 'package:JsxposedX/features/ai/domain/models/ai_tool_definition.dart';
 
@@ -28,6 +30,9 @@ enum AiToolCategory {
 
   /// 多模态处理
   multimodal,
+
+  /// 伪造服务器
+  fakeServer,
 }
 
 /// 危险等级三分法（封装标准 §3.1：仅写操作为危险）
@@ -1032,6 +1037,87 @@ class AiToolRegistry {
 
   // ---- 多模态工具注册 ----
 
+  static List<AiToolRegistration> fakeServer() => [
+    AiToolRegistration(
+      definition: ServerToolDefinitions.createServer,
+      category: AiToolCategory.fakeServer,
+      danger: AiToolDangerLevel.write,
+      handlerFactory: CreateFakeServerToolHandler.new,
+    ),
+    AiToolRegistration(
+      definition: ServerToolDefinitions.startServer,
+      category: AiToolCategory.fakeServer,
+      danger: AiToolDangerLevel.write,
+      handlerFactory: StartFakeServerToolHandler.new,
+    ),
+    AiToolRegistration(
+      definition: ServerToolDefinitions.stopServer,
+      category: AiToolCategory.fakeServer,
+      danger: AiToolDangerLevel.write,
+      handlerFactory: StopFakeServerToolHandler.new,
+    ),
+    AiToolRegistration(
+      definition: ServerToolDefinitions.deleteServer,
+      category: AiToolCategory.fakeServer,
+      danger: AiToolDangerLevel.write,
+      handlerFactory: DeleteFakeServerToolHandler.new,
+    ),
+    AiToolRegistration(
+      definition: ServerToolDefinitions.listServers,
+      category: AiToolCategory.fakeServer,
+      danger: AiToolDangerLevel.read,
+      handlerFactory: ListFakeServersToolHandler.new,
+    ),
+    AiToolRegistration(
+      definition: ServerToolDefinitions.getServerStatus,
+      category: AiToolCategory.fakeServer,
+      danger: AiToolDangerLevel.read,
+      handlerFactory: GetFakeServerStatusToolHandler.new,
+    ),
+    AiToolRegistration(
+      definition: ServerToolDefinitions.addRouteRule,
+      category: AiToolCategory.fakeServer,
+      danger: AiToolDangerLevel.write,
+      handlerFactory: AddServerRouteRuleToolHandler.new,
+    ),
+    AiToolRegistration(
+      definition: ServerToolDefinitions.deleteRouteRule,
+      category: AiToolCategory.fakeServer,
+      danger: AiToolDangerLevel.write,
+      handlerFactory: DeleteServerRouteRuleToolHandler.new,
+    ),
+    AiToolRegistration(
+      definition: ServerToolDefinitions.getRequestLogs,
+      category: AiToolCategory.fakeServer,
+      danger: AiToolDangerLevel.read,
+      handlerFactory: GetFakeServerLogsToolHandler.new,
+    ),
+    AiToolRegistration(
+      definition: ServerToolDefinitions.enablePortForwarding,
+      category: AiToolCategory.fakeServer,
+      danger: AiToolDangerLevel.write,
+      handlerFactory: EnableServerPortForwardingToolHandler.new,
+    ),
+    AiToolRegistration(
+      definition: ServerToolDefinitions.analyzeGameProtocol,
+      category: AiToolCategory.fakeServer,
+      danger: AiToolDangerLevel.read,
+      handlerFactory: AnalyzeGameProtocolToolHandler.new,
+    ),
+    AiToolRegistration(
+      definition: ServerToolDefinitions.simulateGameServer,
+      category: AiToolCategory.fakeServer,
+      danger: AiToolDangerLevel.write,
+      handlerFactory: SimulateGameServerToolHandler.new,
+    ),
+    AiToolRegistration(
+      definition: ServerToolDefinitions.convertToOnlineGame,
+      category: AiToolCategory.fakeServer,
+      danger: AiToolDangerLevel.write,
+      handlerFactory: ConvertToOnlineGameToolHandler.new,
+    ),
+  ];
+
   static List<AiToolRegistration> multimodal() => [
     AiToolRegistration(
       definition: _captureScreenshot,
@@ -1062,6 +1148,7 @@ class AiToolRegistry {
     for (final r in dataAnalysis()) r.definition.name: r,
     for (final r in systemControl()) r.definition.name: r,
     for (final r in multimodal()) r.definition.name: r,
+    for (final r in fakeServer()) r.definition.name: r,
   };
 
   /// 按工具名查找注册项（不限场景）

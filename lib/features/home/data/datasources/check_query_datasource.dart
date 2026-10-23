@@ -4,29 +4,53 @@ import 'package:JsxposedX/features/home/data/models/update_dto.dart';
 
 class CheckQueryDatasource {
   final HttpService _httpService;
-  final baseUrl = "http://wy.llua.cn/api";
 
-  // final appKey = "ZwAxPqAj635nRxnW";
-  final appId = "34173";
-
-  // final apiToken = "a25c1a30d7fa8354decca3af3f05890a";
+  // GitHub Releases API for current repository
+  final _githubOwner = '1953187487';
+  final _githubRepo = 'JsxposedX-Mod';
 
   CheckQueryDatasource({required HttpService httpService})
     : _httpService = httpService;
 
   Future<UpdateDto> getUpdateInfo() async {
+    // Get latest release from GitHub
     final response = await _httpService.get(
-      baseUrl,
-      queryParameters: {"id": "ini", "app": appId},
+      'https://api.github.com/repos/${_githubOwner}/${_githubRepo}/releases/latest',
     );
-    return UpdateDto.fromJson(response.data);
+
+    final data = response.data as Map<String, dynamic>;
+    final assets = data['assets'] as List<dynamic>? ?? [];
+    final apkUrl = assets.isNotEmpty
+        ? (assets[0]['browser_download_url'] as String?) ?? ''
+        : '';
+
+    final versionCode = data['tag_name'] ?? 'v1.0.0';
+    final versionNum = versionCode.replaceAll('v', '');
+
+    return UpdateDto(
+      code: 500,
+      msg: UpdateMsgDto(
+        version: versionNum,
+        url: apkUrl,
+        content: (data['body'] as String?) ?? 'Release update available',
+        mustUpdate: '0',
+      ),
+      check: 'github',
+    );
   }
 
   Future<NoticeDto> getNoticeInfo() async {
+    // Get latest release notes as notice
     final response = await _httpService.get(
-      baseUrl,
-      queryParameters: {"id": "notice", "app": appId},
+      'https://api.github.com/repos/${_githubOwner}/${_githubRepo}/releases/latest',
     );
-    return NoticeDto.fromJson(response.data);
+
+    final data = response.data as Map<String, dynamic>;
+
+    return NoticeDto(
+      code: 500,
+      msg: MsgDto(content: (data['body'] as String?) ?? 'No notice available'),
+      check: 'github',
+    );
   }
 }

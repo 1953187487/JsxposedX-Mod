@@ -1598,5 +1598,149 @@
   "shareFailed": "Share failed",
   "deleteScriptHint": "Confirm deletion of this script?",
   "deleteSuccess": "Deleted successfully",
-  "deleteFailed": "Deletion failed"
+  "deleteFailed": "Deletion failed",
+  "dhizukuPermissionTitle": "Dhizuku Permission",
+  "dhizukuChecking": "Checking",
+  "dhizukuNotInstalled": "Not installed",
+  "dhizukuNotActivated": "Not activated",
+  "dhizukuNotAuthorized": "Not authorized",
+  "dhizukuAuthorized": "Authorized",
+  "dhizukuStatusInstalled": "Installed",
+  "dhizukuStatusActivated": "Activated",
+  "dhizukuStatusPermission": "Permission",
+  "dhizukuOwnerPackage": "Device owner",
+  "dhizukuServerVersion": "Server version",
+  "dhizukuDownload": "Download Dhizuku",
+  "dhizukuOpenApp": "Open Dhizuku",
+  "dhizukuRequestPermission": "Request permission",
+  "dhizukuActivationTip": "Activate Dhizuku as device owner, then return to refresh the status.",
+  "dhizukuInstallTip": "Dhizuku is not installed. Download and install it first.",
+  "dhizukuGrantedToast": "Dhizuku permission granted",
+  "dhizukuDeniedToast": "Dhizuku permission not granted",
+  "dhizukuRequestFailed": "Operation failed, please try again later",
+  "permissionTitle": "Rootless Permission",
+  "permissionActive": "Authorized (Features Active)",
+  "shizukuPermissionTitle": "Shizuku Permission",
+  "shizukuChecking": "Checking",
+  "shizukuNotInstalled": "Not installed",
+  "shizukuUnsupported": "Unsupported",
+  "shizukuNotRunning": "Not running",
+  "shizukuNotAuthorized": "Not authorized",
+  "shizukuAuthorized": "Authorized",
+  "shizukuStatusInstalled": "Installed",
+  "shizukuStatusRunning": "Service running",
+  "shizukuStatusPermission": "Permission",
+  "shizukuVersion": "Service version",
+  "shizukuSelinuxContext": "SELinux context",
+  "shizukuDownload": "Download Shizuku",
+  "shizukuOpenApp": "Open Shizuku",
+  "shizukuRequestPermission": "Request permission",
+  "shizukuInstallTip": "Shizuku is not installed. Download and install it first.",
+  "shizukuUnsupportedTip": "Current Android version does not support Shizuku. Android 11 or higher is required.",
+  "shizukuStartTip": "Please start the Shizuku service first via ADB or the Shizuku app.",
+  "shizukuPermissionTip": "Authorize this app in Shizuku, then return to refresh the status.",
+  "shizukuGrantedToast": "Shizuku permission granted",
+  "shizukuDeniedToast": "Shizuku permission not granted",
+  "shizukuRequestFailed": "Operation failed, please try again later",
+  "server": "Server",
+  "@server": {
+    "description": "Server entry"
+  },
+  "serverManagement": "Fake Server",
+  "@serverManagement": {
+    "description": "Server management page title"
+  },
+  "createServer": "Create server",
+  "@createServer": {
+    "description": "Create server button"
+  },
+  "startServer": "Start",
+  "@startServer": {
+    "description": "Start server"
+  },
+  "stopServer": "Stop",
+  "@stopServer": {
+    "description": "Stop server"
+  },
+  "noServers": "No fake servers yet",
+  "@noServers": {
+    "description": "Empty server state title"
+  },
+  "noServersHint": "Create a local HTTP / WebSocket / TCP server to mock game APIs",
+  "@noServersHint": {
+    "description": "Empty server state hint"
+  },
+  "serverName": "Server name",
+  "@serverName": {
+    "description": "Server name"
+  },
+  "serverNameRequired": "Please enter a server name",
+  "@serverNameRequired": {
+    "description": "Empty server name prompt"
+  },
+  "protocol": "Protocol",
+  "@protocol": {
+    "description": "Server protocol"
+  },
+  "port": "Port",
+  "@port": {
+    "description": "Server port"
+  },
+  "targetHost": "Target host",
+  "@targetHost": {
+    "description": "Target host"
+  },
+  "targetHostHint": "Optional, used to forward a real server",
+  "@targetHostHint": {
+    "description": "Target host hint"
+  },
+  "targetPort": "Target port",
+  "@targetPort": {
+    "description": "Target port"
+  },
+  "description": "Description",
+  "@description": {
+    "description": "Description field"
+  },
+  "enablePortForwarding": "Enable port forwarding",
+  "@enablePortForwarding": {
+    "description": "Enable port forwarding"
+  },
+  "enablePortForwardingHint": "Beta only saves the config. Public URL comes later.",
+  "@enablePortForwardingHint": {
+    "description": "Port forwarding hint"
+  },
+  "serverCreated": "Server created",
+  "@serverCreated": {
+    "description": "Server created toast"
+  },
+  "serverStarted": "Server started",
+  "@serverStarted": {
+    "description": "Server started toast"
+  },
+  "serverStopped": "Server stopped",
+  "@serverStopped": {
+    "description": "Server stopped toast"
+  },
+  "serverDeleted": "Server deleted",
+  "@serverDeleted": {
+    "description": "Server deleted toast"
+  },
+  "confirmDeleteServer": "Delete server {name}?",
+  "@confirmDeleteServer": {
+    "description": "Delete server confirmation",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "connections": "connections",
+  "@connections": {
+    "description": "Connection count"
+  },
+  "requests": "requests",
+  "@requests": {
+    "description": "Request count"
+  }
 }

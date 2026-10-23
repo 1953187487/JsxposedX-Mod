@@ -13,6 +13,7 @@ import 'package:JsxposedX/features/apk_analysis/domain/repositories/apk_analysis
 import 'package:JsxposedX/features/so_analysis/data/datasources/so_analysis_datasource.dart';
 
 import 'package:JsxposedX/features/ai/domain/environments/apk_reverse_chat_tools_spec.dart';
+import 'package:JsxposedX/features/ai/domain/environments/server_tool_handlers.dart';
 
 class ApkReverseChatEnvironmentAdapter implements AiChatEnvironmentAdapter {
   ApkReverseChatEnvironmentAdapter({
@@ -23,6 +24,7 @@ class ApkReverseChatEnvironmentAdapter implements AiChatEnvironmentAdapter {
     required ApkAnalysisQueryRepository apkQueryRepository,
     required SoAnalysisDatasource soDataSource,
     required AiConversationExportService exportService,
+    this.serverRuntime,
   }) : _apkActionRepository = apkActionRepository,
        _apkQueryRepository = apkQueryRepository,
        _soDataSource = soDataSource,
@@ -35,6 +37,7 @@ class ApkReverseChatEnvironmentAdapter implements AiChatEnvironmentAdapter {
   final ApkAnalysisQueryRepository _apkQueryRepository;
   final SoAnalysisDatasource _soDataSource;
   final AiConversationExportService _exportService;
+  final ServerToolRuntime? serverRuntime;
 
   String? _sessionId;
   List<String> _dexPaths = const [];
@@ -95,6 +98,7 @@ class ApkReverseChatEnvironmentAdapter implements AiChatEnvironmentAdapter {
       ...AiToolRegistry.dataAnalysis(),
       ...AiToolRegistry.systemControl(),
       ...AiToolRegistry.multimodal(),
+      ...AiToolRegistry.fakeServer(),
     ];
 
     final ctx = ApkReverseToolRuntimeContext(
@@ -106,6 +110,7 @@ class ApkReverseChatEnvironmentAdapter implements AiChatEnvironmentAdapter {
       packageName: packageName,
       isZh: isZh,
       exportService: _exportService,
+      serverRuntime: serverRuntime,
     );
     final toolsSpec = ApkReverseChatToolsSpec(
       includeSoTools: true,
