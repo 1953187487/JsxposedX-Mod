@@ -23,7 +23,8 @@ class RepositoryTokenLogin extends _$RepositoryTokenLogin {
 
     try {
       return await _validateToken(token);
-    } on RepositoryLoginStatusException {
+    } catch (_) {
+      // 校验失败（接口变更 / 网络异常 / Token 失效）统一按未登录处理
       await storage.remove(repositoryLoginTokenStorageKey);
       return null;
     }

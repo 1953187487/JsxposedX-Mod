@@ -25,6 +25,7 @@ class IsHook extends _$IsHook {
 
   bool _isChecking = false;
   bool _hasFoundHook = false;
+  bool _refreshPending = false;
 
   Future<void> _performCheck() async {
     if (_isChecking || _hasFoundHook) return;
@@ -49,12 +50,22 @@ class IsHook extends _$IsHook {
       state = const AsyncData(false);
     } finally {
       _isChecking = false;
+      // 检查期间若触发了刷新（如 Dhizuku/Shizuku 授权成功），
+      // 结束后立即补检一次，避免状态停留在授权前的 false。
+      if (_refreshPending && !_hasFoundHook) {
+        _refreshPending = false;
+        unawaited(_performCheck());
+      }
     }
   }
 
   /// 手动刷新 Hook 状态
   Future<void> refresh() async {
     _hasFoundHook = false;
+    if (_isChecking) {
+      _refreshPending = true;
+      return;
+    }
     await _performCheck();
   }
 }

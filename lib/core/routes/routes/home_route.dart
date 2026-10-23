@@ -144,7 +144,14 @@ List<GoRoute> homeRoutes = [
     path: HomeRoute.aiReverse,
     builder: (context, state) {
       final packageName = state.pathParameters["packageName"]!;
-      return AiReversePage(packageName: packageName);
+      final extra = state.extra as String?;
+      final initialMessage =
+          extra != null && extra.trim().isNotEmpty ? extra : null;
+      return AiReversePage(
+        packageName: packageName,
+        initialMessage: initialMessage,
+        sendWhenReady: initialMessage != null,
+      );
     },
   ),
   GoRoute(

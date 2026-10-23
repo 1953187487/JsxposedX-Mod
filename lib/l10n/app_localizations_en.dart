@@ -9,7 +9,7 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get appName => 'JSXPOSEDX';
+  String get appName => 'JsxposedX Mod';
 
   @override
   String get desktopNavDeviceConnection => 'Device Connection';
@@ -506,6 +506,33 @@ class AppLocalizationsEn extends AppLocalizations {
       'The built-in AI features are only general assistance modules for data analysis, content explanation, result filtering, information organization, operation guidance, learning, and research. AI output may contain errors, omissions, or may not apply to specific scenarios. It is for reference only, and users must make their own judgments and bear final responsibility.';
 
   @override
+  String get modAgreement => 'Second-Mod Agreement';
+
+  @override
+  String get modAgreementSubtitle => 'JsxposedX secondary-mod statement';
+
+  @override
+  String get modAgreementIntro => 'About This Secondary Mod';
+
+  @override
+  String get modAgreementBody =>
+      'This app is a secondary-modified build of the open-source project JsxposedX, intended for personal learning and technical research only. All rights to the original project belong to its author. This secondary-mod retains the core features of the original, adds an AI assistance module and a release module, and removes dependencies on the original author\'s platform.';
+
+  @override
+  String get modAgreementLicenseTitle => 'License Notice';
+
+  @override
+  String get modAgreementLicenseBody =>
+      'The original project is released under its open-source license. This secondary-mod modifies and redistributes it in compliance with that license. If you use this secondary-mod, you must simultaneously comply with the original project\'s license and the relevant open-source terms.';
+
+  @override
+  String get modAgreementLiabilityTitle => 'Liability';
+
+  @override
+  String get modAgreementLiabilityBody =>
+      'This secondary-mod has no affiliation or warranty relationship with the original project\'s author. Any direct or indirect consequences arising from the use, distribution, or further modification of this secondary-mod are borne solely by the user; the secondary-mod author provides no warranty regarding the original features or the results of using this modified version.';
+
+  @override
   String get community => 'Community';
 
   @override
@@ -728,6 +755,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get notice => 'Notice';
 
   @override
+  String get noticeAgreementLabel =>
+      'I have read and agree to the second-mod statement above';
+
+  @override
+  String get noticeContinue => 'Continue';
+
+  @override
+  String get noticeRepository => 'View Repository';
+
+  @override
+  String get noticeEmpty => 'No notice available right now.';
+
+  @override
+  String get openingBrowser => 'Opening browser…';
+
+  @override
   String get updateAvailableTitle => 'New Version Available';
 
   @override
@@ -754,6 +797,18 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get confirmDelete => 'Confirm delete?';
+
+  @override
+  String get chat => 'Chat';
+
+  @override
+  String get chatInputHint => 'Describe the problem, or type / for commands';
+
+  @override
+  String get creatingProject => 'Creating project…';
+
+  @override
+  String get repositoryReleases => 'Repository Releases';
 
   @override
   String get xposedProject => 'Xposed Project';

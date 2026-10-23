@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "appName": "JSXPOSEDX",
+  "appName": "JsxposedX Mod",
   "@appName": {
     "description": "Application name"
   },
@@ -480,6 +480,38 @@
   "@disclaimerAiBody": {
     "description": "Disclaimer AI feature body"
   },
+  "modAgreement": "Second-Mod Agreement",
+  "@modAgreement": {
+    "description": "Second-mod agreement title"
+  },
+  "modAgreementSubtitle": "JsxposedX secondary-mod statement",
+  "@modAgreementSubtitle": {
+    "description": "Second-mod agreement subtitle"
+  },
+  "modAgreementIntro": "About This Secondary Mod",
+  "@modAgreementIntro": {
+    "description": "Second-mod agreement intro title"
+  },
+  "modAgreementBody": "This app is a secondary-modified build of the open-source project JsxposedX, intended for personal learning and technical research only. All rights to the original project belong to its author. This secondary-mod retains the core features of the original, adds an AI assistance module and a release module, and removes dependencies on the original author's platform.",
+  "@modAgreementBody": {
+    "description": "Second-mod agreement intro body"
+  },
+  "modAgreementLicenseTitle": "License Notice",
+  "@modAgreementLicenseTitle": {
+    "description": "Second-mod agreement license title"
+  },
+  "modAgreementLicenseBody": "The original project is released under its open-source license. This secondary-mod modifies and redistributes it in compliance with that license. If you use this secondary-mod, you must simultaneously comply with the original project's license and the relevant open-source terms.",
+  "@modAgreementLicenseBody": {
+    "description": "Second-mod agreement license body"
+  },
+  "modAgreementLiabilityTitle": "Liability",
+  "@modAgreementLiabilityTitle": {
+    "description": "Second-mod agreement liability title"
+  },
+  "modAgreementLiabilityBody": "This secondary-mod has no affiliation or warranty relationship with the original project's author. Any direct or indirect consequences arising from the use, distribution, or further modification of this secondary-mod are borne solely by the user; the secondary-mod author provides no warranty regarding the original features or the results of using this modified version.",
+  "@modAgreementLiabilityBody": {
+    "description": "Second-mod agreement liability body"
+  },
   "community": "Community",
   "@community": {
     "description": "Community section title"
@@ -641,6 +673,11 @@
   "systemAppLabel": "System",
   "alreadySelected": "Selected: {name}",
   "notice": "Notice",
+  "noticeAgreementLabel": "I have read and agree to the second-mod statement above",
+  "noticeContinue": "Continue",
+  "noticeRepository": "View Repository",
+  "noticeEmpty": "No notice available right now.",
+  "openingBrowser": "Opening browser…",
   "updateAvailableTitle": "New Version Available",
   "updateContentTitle": "What's New",
   "updateNow": "Update Now",
@@ -649,6 +686,10 @@
   "projectListEmpty": "No projects yet, create one from the home page",
   "projectLoadFailed": "Load failed: {error}",
   "confirmDelete": "Confirm delete?",
+  "chat": "Chat",
+  "chatInputHint": "Describe the problem, or type / for commands",
+  "creatingProject": "Creating project…",
+  "repositoryReleases": "Repository Releases",
   "xposedProject": "Xposed Project",
   "fridaProject": "Frida Project",
   "quickFunctions": "Quick Functions",

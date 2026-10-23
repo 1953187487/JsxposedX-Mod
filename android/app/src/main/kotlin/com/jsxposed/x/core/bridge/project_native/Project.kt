@@ -9,7 +9,6 @@ import com.google.gson.Gson
 import android.content.Context
 import android.os.Build
 import android.util.Base64
-import java.io.ByteArrayInputStream
 import org.json.JSONObject
 import android.util.Log
 import androidx.annotation.RequiresApi
@@ -25,18 +24,15 @@ class Project(private val context: Context) {
     private val gson = Gson()
 
     fun initProject() {
-        if (!shell.isFolder(PathConstant.PROJECT_DIR_PATH)) {
-            shell.apply {
-                mkdir(PathConstant.PROJECT_DIR_PATH)//创建项目根目录文件夹
-                mkdir(PathConstant.CONFIG_DIR_PATH)//创建配置文件夹
-                mkdir("${PathConstant.TMP_PATH}/JsxposedX")//创建Frida文件夹
-            }
-        }
-
+        // 项目根目录/配置目录位于应用私有目录，直接 File I/O，
+        // 不依赖 su（su 可能等待授权交互而永久挂起）。
+        File(PathConstant.PROJECT_DIR_PATH).mkdirs()
+        File(PathConstant.CONFIG_DIR_PATH).mkdirs()
+        shell.mkdir("${PathConstant.TMP_PATH}/JsxposedX")//创建Frida文件夹
     }
 
     fun projectExists(packageName: String): Boolean {
-        return shell.isFolder("${PathConstant.PROJECT_DIR_PATH}/${packageName}")
+        return File("${PathConstant.PROJECT_DIR_PATH}/${packageName}").isDirectory
     }
 
     fun getProjects(): List<AppInfo> {
@@ -71,12 +67,12 @@ class Project(private val context: Context) {
 
     fun createProject(packageName: String) {
         if (!projectExists(packageName)) {
-            shell.apply {
-                mkdir("${PathConstant.PROJECT_DIR_PATH}/${packageName}")//创建项目文件夹
-                mkdir(PathConstant.jsProjectDirPath(packageName = packageName))//创建JS项目文件夹
-                mkdir(PathConstant.fridaProjectDirPath(packageName = packageName))//创建Frida项目文件夹
-                mkdir(PathConstant.logDirPath(packageName = packageName) + "/crypto")//创建日志文件夹
-            }
+            // 私有目录直接用 File I/O，避免 su 授权交互导致挂起
+            File("${PathConstant.PROJECT_DIR_PATH}/${packageName}").mkdirs()//创建项目文件夹
+            File(PathConstant.jsProjectDirPath(packageName = packageName)).mkdirs()//创建JS项目文件夹
+            // Frida 目录在 /data/local/tmp，需要 Shell 权限
+            shell.mkdir(PathConstant.fridaProjectDirPath(packageName = packageName))//创建Frida项目文件夹
+            File(PathConstant.logDirPath(packageName = packageName) + "/crypto").mkdirs()//创建日志文件夹
 
             // 写入 app.json 持久化元数据
             val app = app.getAppByPackageName(packageName)
@@ -90,25 +86,21 @@ class Project(private val context: Context) {
                         "isSystemApp": ${app.isSystemApp}
                     }
                 """.trimIndent()
-                shell.write(json, "${PathConstant.PROJECT_DIR_PATH}/${packageName}/app.json")
+                File("${PathConstant.PROJECT_DIR_PATH}/${packageName}/app.json").writeText(json)
             }
 
             // 写入 icon.png 持久化图标
             if (app?.icon != null) {
-                shell.takeStream(
-                    ByteArrayInputStream(app.icon),
-                    "${PathConstant.PROJECT_DIR_PATH}/${packageName}/icon.png"
-                )
+                File("${PathConstant.PROJECT_DIR_PATH}/${packageName}/icon.png").writeBytes(app.icon)
             }
         }
     }
 
     fun deleteProject(packageName: String) {
-        if (projectExists(packageName)) {
-            shell.apply {
-                remove("${PathConstant.PROJECT_DIR_PATH}/${packageName}")
-                remove(PathConstant.fridaProjectDirPath(packageName = packageName))
-            }
+        // 私有目录直接 File I/O 删除；tmp 目录仍需 Shell
+        File("${PathConstant.PROJECT_DIR_PATH}/${packageName}").deleteRecursively()
+        if (shell.isFolder(PathConstant.fridaProjectDirPath(packageName = packageName))) {
+            shell.remove(PathConstant.fridaProjectDirPath(packageName = packageName))
         }
     }
 

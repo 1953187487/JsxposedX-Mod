@@ -101,7 +101,7 @@ abstract class AppLocalizations {
   /// 应用名称
   ///
   /// In zh, this message translates to:
-  /// **'JSXPOSEDX'**
+  /// **'JsxposedX Mod'**
   String get appName;
 
   /// PC 端侧边栏-设备连接
@@ -1028,6 +1028,54 @@ abstract class AppLocalizations {
   /// **'内置 AI 功能仅作为通用智能辅助模块，用于数据分析、内容解释、结果筛选、信息整理、操作指引及学习研究等场景。AI 输出可能存在误差、遗漏或不适用于特定场景，仅供参考；用户应自行判断并承担最终使用责任。'**
   String get disclaimerAiBody;
 
+  /// 二改协议标题
+  ///
+  /// In zh, this message translates to:
+  /// **'二改协议'**
+  String get modAgreement;
+
+  /// 二改协议副标题
+  ///
+  /// In zh, this message translates to:
+  /// **'JsxposedX 二次修改声明'**
+  String get modAgreementSubtitle;
+
+  /// 二改协议导语标题
+  ///
+  /// In zh, this message translates to:
+  /// **'二改说明'**
+  String get modAgreementIntro;
+
+  /// 二改协议导语正文
+  ///
+  /// In zh, this message translates to:
+  /// **'本应用是基于开源项目 JsxposedX 的二次修改版本，仅用于个人学习与技术研究。原始项目版权归原作者所有，本二改版本在保留原项目核心功能的基础上增加了 AI 辅助能力与仓库发布模块，并移除了对原作者平台的依赖。'**
+  String get modAgreementBody;
+
+  /// 二改协议许可证标题
+  ///
+  /// In zh, this message translates to:
+  /// **'许可证说明'**
+  String get modAgreementLicenseTitle;
+
+  /// 二改协议许可证正文
+  ///
+  /// In zh, this message translates to:
+  /// **'原始项目遵循其开源许可证发布，本二改版本在符合原许可证的前提下进行修改与再分发。若您使用本二改版本，需同时遵守原始项目许可证与相关开源协议的约束。'**
+  String get modAgreementLicenseBody;
+
+  /// 二改协议责任标题
+  ///
+  /// In zh, this message translates to:
+  /// **'责任划分'**
+  String get modAgreementLiabilityTitle;
+
+  /// 二改协议责任正文
+  ///
+  /// In zh, this message translates to:
+  /// **'本二改版本与原项目作者无任何隶属或担保关系。因使用、传播或二次开发本二改版本产生的一切后果，均由使用者自行承担；本二改者不对原项目功能或本修改版本的使用结果提供任何保证。'**
+  String get modAgreementLiabilityBody;
+
   /// 社区分组标题
   ///
   /// In zh, this message translates to:
@@ -1454,6 +1502,36 @@ abstract class AppLocalizations {
   /// **'公告'**
   String get notice;
 
+  /// No description provided for @noticeAgreementLabel.
+  ///
+  /// In zh, this message translates to:
+  /// **'我已阅读并同意以上二改协议'**
+  String get noticeAgreementLabel;
+
+  /// No description provided for @noticeContinue.
+  ///
+  /// In zh, this message translates to:
+  /// **'进入应用'**
+  String get noticeContinue;
+
+  /// No description provided for @noticeRepository.
+  ///
+  /// In zh, this message translates to:
+  /// **'查看仓库'**
+  String get noticeRepository;
+
+  /// No description provided for @noticeEmpty.
+  ///
+  /// In zh, this message translates to:
+  /// **'当前暂无新的公告内容。'**
+  String get noticeEmpty;
+
+  /// No description provided for @openingBrowser.
+  ///
+  /// In zh, this message translates to:
+  /// **'打开浏览器中…'**
+  String get openingBrowser;
+
   /// No description provided for @updateAvailableTitle.
   ///
   /// In zh, this message translates to:
@@ -1501,6 +1579,30 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'确认删除?'**
   String get confirmDelete;
+
+  /// No description provided for @chat.
+  ///
+  /// In zh, this message translates to:
+  /// **'对话'**
+  String get chat;
+
+  /// No description provided for @chatInputHint.
+  ///
+  /// In zh, this message translates to:
+  /// **'描述问题，或输入 / 唤起命令'**
+  String get chatInputHint;
+
+  /// No description provided for @creatingProject.
+  ///
+  /// In zh, this message translates to:
+  /// **'正在创建项目…'**
+  String get creatingProject;
+
+  /// No description provided for @repositoryReleases.
+  ///
+  /// In zh, this message translates to:
+  /// **'仓库发布'**
+  String get repositoryReleases;
 
   /// No description provided for @xposedProject.
   ///

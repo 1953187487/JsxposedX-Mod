@@ -1,6 +1,7 @@
 import 'package:JsxposedX/common/pages/toast.dart';
 import 'package:JsxposedX/common/widgets/custom_dIalog.dart';
 import 'package:JsxposedX/core/extensions/context_extensions.dart';
+import 'package:JsxposedX/core/providers/status_management_provider.dart';
 import 'package:JsxposedX/features/dhizuku/presentation/providers/dhizuku_provider.dart';
 import 'package:JsxposedX/features/home/presentation/widgets/settings_section.dart';
 import 'package:JsxposedX/features/home/presentation/widgets/settings_tile.dart';
@@ -217,6 +218,10 @@ class _DhizukuPermissionDialogState
     try {
       final granted = await native.requestPermission();
       ref.invalidate(dhizukuStatusProvider);
+      if (granted) {
+        // 授权成功后立即复检 Hook 状态，避免首页停留在授权前的旧状态。
+        ref.read(isHookProvider.notifier).refresh();
+      }
       if (!mounted) return;
       ToastMessage.show(
         granted ? context.l10n.dhizukuGrantedToast : context.l10n.dhizukuDeniedToast,

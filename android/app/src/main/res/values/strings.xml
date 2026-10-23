@@ -2,6 +2,6 @@
 <resources>
     <!-- HookInjectTip -->
     <string name="hook_inject_success">JsXposedX: Inject success [%s]!</string>
-    <string name="xposeddescription">website:jsxposed.org,A dynamic debugging tool integrating Xposed, Frida, and AI-powered reverse engineering, supporting scriptable hooks and assisted analysis.</string>
+    <string name="xposeddescription">website:https://github.com/1953187487/JsxposedX-Mod, A secondary-modified build of JsxposedX integrating Xposed, Frida, and AI-powered reverse engineering. For personal learning and technical research only.</string>
 
 </resources>

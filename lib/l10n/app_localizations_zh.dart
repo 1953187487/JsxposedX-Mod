@@ -9,7 +9,7 @@ class AppLocalizationsZh extends AppLocalizations {
   AppLocalizationsZh([String locale = 'zh']) : super(locale);
 
   @override
-  String get appName => 'JSXPOSEDX';
+  String get appName => 'JsxposedX Mod';
 
   @override
   String get desktopNavDeviceConnection => '设备连接';
@@ -491,6 +491,33 @@ class AppLocalizationsZh extends AppLocalizations {
       '内置 AI 功能仅作为通用智能辅助模块，用于数据分析、内容解释、结果筛选、信息整理、操作指引及学习研究等场景。AI 输出可能存在误差、遗漏或不适用于特定场景，仅供参考；用户应自行判断并承担最终使用责任。';
 
   @override
+  String get modAgreement => '二改协议';
+
+  @override
+  String get modAgreementSubtitle => 'JsxposedX 二次修改声明';
+
+  @override
+  String get modAgreementIntro => '二改说明';
+
+  @override
+  String get modAgreementBody =>
+      '本应用是基于开源项目 JsxposedX 的二次修改版本，仅用于个人学习与技术研究。原始项目版权归原作者所有，本二改版本在保留原项目核心功能的基础上增加了 AI 辅助能力与仓库发布模块，并移除了对原作者平台的依赖。';
+
+  @override
+  String get modAgreementLicenseTitle => '许可证说明';
+
+  @override
+  String get modAgreementLicenseBody =>
+      '原始项目遵循其开源许可证发布，本二改版本在符合原许可证的前提下进行修改与再分发。若您使用本二改版本，需同时遵守原始项目许可证与相关开源协议的约束。';
+
+  @override
+  String get modAgreementLiabilityTitle => '责任划分';
+
+  @override
+  String get modAgreementLiabilityBody =>
+      '本二改版本与原项目作者无任何隶属或担保关系。因使用、传播或二次开发本二改版本产生的一切后果，均由使用者自行承担；本二改者不对原项目功能或本修改版本的使用结果提供任何保证。';
+
+  @override
   String get community => '社区';
 
   @override
@@ -712,6 +739,21 @@ class AppLocalizationsZh extends AppLocalizations {
   String get notice => '公告';
 
   @override
+  String get noticeAgreementLabel => '我已阅读并同意以上二改协议';
+
+  @override
+  String get noticeContinue => '进入应用';
+
+  @override
+  String get noticeRepository => '查看仓库';
+
+  @override
+  String get noticeEmpty => '当前暂无新的公告内容。';
+
+  @override
+  String get openingBrowser => '打开浏览器中…';
+
+  @override
   String get updateAvailableTitle => '发现新版本';
 
   @override
@@ -736,6 +778,18 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get confirmDelete => '确认删除?';
+
+  @override
+  String get chat => '对话';
+
+  @override
+  String get chatInputHint => '描述问题，或输入 / 唤起命令';
+
+  @override
+  String get creatingProject => '正在创建项目…';
+
+  @override
+  String get repositoryReleases => '仓库发布';
 
   @override
   String get xposedProject => 'Xposed 项目';

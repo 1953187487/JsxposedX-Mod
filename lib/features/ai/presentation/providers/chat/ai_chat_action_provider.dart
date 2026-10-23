@@ -75,6 +75,9 @@ class AiChatAction extends _$AiChatAction {
   bool _sessionReady = false;
   bool _disposed = false;
 
+  /// Optional message queued to be sent when the session becomes ready.
+  String? _pendingSendWhenReady;
+
   /// 记录最近一次发送是否携带图片：带图片的请求失败后需要提示用户
   /// 为该模型配置图片能力，避免用户不知道“整个对话为什么废了”。
   bool _lastSendHadImage = false;
@@ -139,6 +142,7 @@ class AiChatAction extends _$AiChatAction {
       error: null,
       lastResponseIssue: null,
     );
+    _tryFlushPendingSend();
   }
 
   void markSessionInitFailed(String message) {
@@ -667,10 +671,7 @@ class AiChatAction extends _$AiChatAction {
       );
     }
     if (state.sessionInitState == AiSessionInitState.initializing) {
-      state = state.copyWith(
-        error: '逆向会话仍在初始化，请稍后再试。',
-        lastResponseIssue: AiResponseIssue.toolInitError,
-      );
+      _pendingSendWhenReady = text;
       return;
     }
     if (state.sessionInitState == AiSessionInitState.failed) {
@@ -680,13 +681,14 @@ class AiChatAction extends _$AiChatAction {
       );
       return;
     }
+    await _sendNow(text);
+  }
+
+  /// Send a message immediately (session must be ready).
+  Future<void> _sendNow(String text) async {
     final controller = _readyController();
     if (controller == null) return;
-    // 记录本轮是否带图片：若发送失败，需要提示用户为该模型配置图片能力，
-    // 而不是让整轮对话无声作废。
     _lastSendHadImage = AiMultimodalMessageCodec.hasImageAttachments(text);
-    // 关闭图片能力的模型，图片附件会在请求构造层被降级为文本占位。这里在发送
-    // 前就判定出来，发送后提示用户「图片未真正送达」，避免误以为已经发出。
     final visionBlocked = _lastSendHadImage && !_currentModelAllowsVision();
     state = state.copyWith(visionConfigPromptPending: false);
     try {
@@ -703,6 +705,26 @@ class AiChatAction extends _$AiChatAction {
           visionConfigPromptPending: _lastSendHadImage,
         );
       }
+    }
+  }
+
+  /// Queue a message to be sent when the session becomes ready.
+  /// If the session is already ready, sends immediately.
+  Future<void> sendWhenReady(String text) async {
+    if (text.trim().isEmpty) return;
+    if (state.sessionInitState == AiSessionInitState.ready && !state.isStreaming) {
+      await _sendNow(text);
+    } else {
+      _pendingSendWhenReady = text;
+    }
+  }
+
+  void _tryFlushPendingSend() {
+    final pending = _pendingSendWhenReady;
+    if (pending == null) return;
+    if (state.sessionInitState == AiSessionInitState.ready && !state.isStreaming) {
+      _pendingSendWhenReady = null;
+      unawaited(_sendNow(pending));
     }
   }
 

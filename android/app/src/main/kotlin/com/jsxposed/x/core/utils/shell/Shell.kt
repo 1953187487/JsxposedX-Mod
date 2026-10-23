@@ -6,6 +6,8 @@ import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
 import java.io.OutputStream
+import java.util.concurrent.TimeUnit
+import java.util.concurrent.atomic.AtomicReference
 
 /**
  * 标准化 Shell 工具类
@@ -15,13 +17,59 @@ class Shell(private val su: Boolean = false) {
 
     companion object {
         private const val TAG = "Shell"
+
+        /** 单条命令的默认超时：su 请求授权、进程挂起时避免永久卡死调用方。 */
+        const val DEFAULT_TIMEOUT_MS = 15_000L
+    }
+
+    private class ExecResult(val exitCode: Int, val output: String, val error: String)
+
+    /**
+     * 带超时的进程执行器：stdout/stderr 各自在后台线程消费，
+     * 主线程仅做超时等待，保证任何挂起的命令都能在超时后被强制终止。
+     *
+     * @return 进程在超时前结束时返回结果；超时则强制销毁进程并返回 null。
+     */
+    private fun runWithTimeout(execArray: Array<String>, timeoutMs: Long): ExecResult? {
+        val process = Runtime.getRuntime().exec(execArray)
+
+        val stdoutRef = AtomicReference<String?>()
+        val stderrRef = AtomicReference<String?>()
+
+        val stdoutThread = Thread {
+            try {
+                stdoutRef.set(process.inputStream.bufferedReader().use { it.readText() })
+            } catch (e: Exception) {
+                stdoutRef.set("")
+            }
+        }
+        val stderrThread = Thread {
+            try {
+                stderrRef.set(process.errorStream.bufferedReader().use { it.readText() })
+            } catch (e: Exception) {
+                stderrRef.set("")
+            }
+        }
+        stdoutThread.isDaemon = true
+        stderrThread.isDaemon = true
+        stdoutThread.start()
+        stderrThread.start()
+
+        return if (process.waitFor(timeoutMs, TimeUnit.MILLISECONDS)) {
+            stdoutThread.join(1_000)
+            stderrThread.join(1_000)
+            ExecResult(process.exitValue(), stdoutRef.get() ?: "", stderrRef.get() ?: "")
+        } else {
+            process.destroyForcibly()
+            null
+        }
     }
 
     /**
      * 唯一标准化执行器
      * 内部处理 su/sh 逻辑，并确保输出流/错误流被正确读取和关闭
      */
-    fun execute(command: String): String {
+    fun execute(command: String, timeoutMs: Long = DEFAULT_TIMEOUT_MS): String {
         val finalExecArray = if (su) {
             arrayOf("su", "-c", command)
         } else {
@@ -29,21 +77,19 @@ class Shell(private val su: Boolean = false) {
         }
 
         return try {
-            val process = Runtime.getRuntime().exec(finalExecArray)
+            val result = runWithTimeout(finalExecArray, timeoutMs)
+            if (result == null) {
+                LogX.e(TAG, "Shell execute timeout(${timeoutMs}ms): $command")
+                return "ERROR(timeout): $command"
+            }
 
-            // 使用 use 确保流正确关闭，防止内存泄漏
-            val output = process.inputStream.use { it.bufferedReader().readText() }
-            val error = process.errorStream.use { it.bufferedReader().readText() }
-
-            val exitCode = process.waitFor()
-
-            if (exitCode != 0) {
+            if (result.exitCode != 0) {
                 // 如果报错，返回错误信息以便调试
-                val errorMsg = error.trim()
-                LogX.e(TAG, "Shell execute ERROR($exitCode): $errorMsg | Command: $command")
-                if (errorMsg.isNotEmpty()) "ERROR($exitCode): $errorMsg" else "ERROR($exitCode)"
+                val errorMsg = result.error.trim()
+                LogX.e(TAG, "Shell execute ERROR(${result.exitCode}): $errorMsg | Command: $command")
+                if (errorMsg.isNotEmpty()) "ERROR(${result.exitCode}): $errorMsg" else "ERROR(${result.exitCode})"
             } else {
-                output.trim()
+                result.output.trim()
             }
         } catch (e: Exception) {
             LogX.e(TAG, "Shell exec exception: ${e.message}")
@@ -76,9 +122,13 @@ class Shell(private val su: Boolean = false) {
                 writer.flush()
             }
 
-            val exitCode = process.waitFor()
-            if (exitCode != 0) {
-                LogX.e(TAG, "Write/Append failed to $path, exitCode: $exitCode")
+            if (!process.waitFor(DEFAULT_TIMEOUT_MS, TimeUnit.MILLISECONDS)) {
+                process.destroyForcibly()
+                LogX.e(TAG, "Write/Append timeout to $path")
+                return false
+            }
+            if (process.exitValue() != 0) {
+                LogX.e(TAG, "Write/Append failed to $path, exitCode: ${process.exitValue()}")
                 return false
             }
             // 强制刷新文件系统缓冲区
@@ -105,8 +155,14 @@ class Shell(private val su: Boolean = false) {
                 input.copyTo(output)
                 output.flush()
             }
-            val exitCode = process.waitFor()
-            if (exitCode != 0) LogX.e(TAG, "takeStream failed to $path, exitCode: $exitCode")
+            if (process.waitFor(DEFAULT_TIMEOUT_MS, TimeUnit.MILLISECONDS)) {
+                if (process.exitValue() != 0) {
+                    LogX.e(TAG, "takeStream failed to $path, exitCode: ${process.exitValue()}")
+                }
+            } else {
+                process.destroyForcibly()
+                LogX.e(TAG, "takeStream timeout to $path")
+            }
         } catch (e: Exception) {
             LogX.e(TAG, "takeStream error: $e")
         }
@@ -124,9 +180,13 @@ class Shell(private val su: Boolean = false) {
             val bytes = process.inputStream.readBytes()
             // 消费 errorStream，防止 buffer 满时进程挂起
             process.errorStream.close()
-            val exitCode = process.waitFor()
-            if (exitCode == 0) bytes else {
-                LogX.e(TAG, "readBytes failed for $path, exitCode: $exitCode")
+            if (!process.waitFor(DEFAULT_TIMEOUT_MS, TimeUnit.MILLISECONDS)) {
+                process.destroyForcibly()
+                LogX.e(TAG, "readBytes timeout for $path")
+                return null
+            }
+            if (process.exitValue() == 0) bytes else {
+                LogX.e(TAG, "readBytes failed for $path, exitCode: ${process.exitValue()}")
                 null
             }
         } catch (e: Exception) {

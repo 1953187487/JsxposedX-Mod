@@ -56,9 +56,16 @@ DateTime _logcatTimestamp(String value) {
 }
 
 class AiReversePage extends HookConsumerWidget {
-  const AiReversePage({super.key, required this.packageName});
+  const AiReversePage({
+    super.key,
+    required this.packageName,
+    this.initialMessage,
+    this.sendWhenReady = false,
+  });
 
   final String packageName;
+  final String? initialMessage;
+  final bool sendWhenReady;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -161,6 +168,18 @@ class AiReversePage extends HookConsumerWidget {
       Future.microtask(initializeReverseSession);
       return () => unawaited(environment.dispose());
     }, [environment]);
+
+    // Send initial message when session becomes ready (if requested via route extra).
+    useEffect(() {
+      if (!sendWhenReady || initialMessage == null || initialMessage!.trim().isEmpty) {
+        return null;
+      }
+      final notifier = ref.read(
+        aiChatRuntimeProvider(packageName: packageName).notifier,
+      );
+      notifier.sendWhenReady(initialMessage!);
+      return null;
+    }, [sendWhenReady, initialMessage, packageName, ref]);
 
     // 搜索定位的高亮短暂显示后自动清除。
     useEffect(() {
