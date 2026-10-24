@@ -1,33 +1,39 @@
 ﻿import 'package:flutter/material.dart';
 
-/// 应用颜色常量
+/// 应用颜色常量（beta.2 全新色板）
 class AppColors {
   AppColors._();
 
   // 主题色
-  static const primary = Color(0xFF98D2D5); // 青色
-  static const secondary = Color(0xF59DBBFF); // 浅蓝紫
+  static const primary = Color(0xFF6366F1); // 默认 · AI 靛蓝
+  static const secondary = Color(0xFF22D3EE); // 青
 
-  // 文字颜色
-  static const textPrimary = Color(0xFF333333);
-  static const textSecondary = Color(0xFF666666);
-  static const textHint = Color(0xFF999999);
+  // 文字颜色（亮色模式）
+  static const textPrimary = Color(0xFF1B1F27);
+  static const textSecondary = Color(0xFF5A6472);
+  static const textHint = Color(0xFF9AA3AF);
   static const textWhite = Colors.white;
 
-  // 背景色
-  static const background = Color(0xFFF5F5F5);
-  static const surface = Colors.white;
-  static const surfaceVariant = Color(0x89C8C7C7); // 浅灰色
-  static Color darkBackground = Color(0xFF1E1E1E);
+  // 背景色（亮色模式）
+  static const background = Color(0xFFF4F6FB);
+  static const surface = Color(0xFFFFFFFF);
+  static const surfaceVariant = Color(0xFFEEF1F7);
+
+  // 暗色模式
+  static const darkBackground = Color(0xFF0E1116);
+  static const darkSurface = Color(0xFF12151B);
+  static const darkSurfaceContainer = Color(0xFF1A1F28);
+  static const darkSurfaceContainerHigh = Color(0xFF1F2530);
+  static const darkSurfaceContainerHighest = Color(0xFF242B38);
 
   // 功能色
-  static const success = Color(0xFF4CAF50);
-  static const warning = Color(0xFFFF9800);
-  static const error = Color(0xFFF44336);
-  static const info = Color(0xFF2196F3);
+  static const success = Color(0xFF22C55E);
+  static const warning = Color(0xFFF59E0B);
+  static const error = Color(0xFFEF4444);
+  static const info = Color(0xFF3B82F6);
 
   // 分割线
-  static const divider = Color(0xFFE0E0E0);
+  static const divider = Color(0xFFE4E7EE);
 
   // 半透明
   static const overlay = Color(0x80000000);

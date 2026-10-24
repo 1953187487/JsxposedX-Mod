@@ -47,6 +47,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get desktopUpdateCheckFailed => '检查更新失败，请稍后重试';
 
   @override
+  String get desktopUpdateChecking => '正在检查更新…';
+
+  @override
   String get desktopConnectionConnected => '已连接';
 
   @override
@@ -769,7 +772,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get noRelatedApps => '没有找到相关应用';
 
   @override
-  String get projectListEmpty => '暂无项目，去首页创建一个吧';
+  String get projectListEmpty => '暂无项目，点底部「＋」选择一个应用即可创建';
 
   @override
   String projectLoadFailed(Object error) {
@@ -784,6 +787,12 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get chatInputHint => '描述问题，或输入 / 唤起命令';
+
+  @override
+  String get switchProject => '切换项目';
+
+  @override
+  String get repositoryEmpty => '暂无发布内容';
 
   @override
   String get creatingProject => '正在创建项目…';

@@ -1,8 +1,10 @@
+import 'dart:async';
+
 import 'package:JsxposedX/common/widgets/app_bottom_sheet.dart';
 import 'package:JsxposedX/core/extensions/context_extensions.dart';
+import 'package:JsxposedX/core/providers/status_management_provider.dart';
 import 'package:JsxposedX/core/providers/theme_provider.dart';
 import 'package:JsxposedX/core/utils/procedure_utils.dart';
-import 'package:JsxposedX/features/home/presentation/pages/tabs/home_tab.dart';
 import 'package:JsxposedX/features/home/presentation/pages/tabs/ai_conversation_tab.dart';
 import 'package:JsxposedX/features/home/presentation/pages/tabs/settings_tab.dart';
 import 'package:JsxposedX/features/home/presentation/providers/check_query_provider.dart';
@@ -15,6 +17,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+/// 主页面（beta.2）：对话 + 设置两个 Tab。
+/// 原「首页」Tab 已移除，主界面直接进入 AI 对话。
 class HomePage extends HookConsumerWidget {
   const HomePage({super.key});
 
@@ -23,18 +27,12 @@ class HomePage extends HookConsumerWidget {
     final currentIndex = useState(0);
     final pageController = usePageController(initialPage: 0);
 
-    final pages = [
-      const HomeTab(),
-      const AiConversationTab(),
-      const SettingsTab(),
+    final pages = const [
+      AiConversationTab(),
+      SettingsTab(),
     ];
 
     final navItems = [
-      HomeBottomNavItemData(
-        label: context.l10n.home,
-        outlinedIcon: Icons.home_outlined,
-        filledIcon: Icons.home,
-      ),
       HomeBottomNavItemData(
         label: context.l10n.chat,
         outlinedIcon: Icons.chat_bubble_outline_rounded,
@@ -47,11 +45,36 @@ class HomePage extends HookConsumerWidget {
       ),
     ];
 
-    final versionCode = useState(0);
+    // 从 Dhizuku / Shizuku 授权页返回应用时，刷新 Hook 状态。
+    useOnAppLifecycleStateChange((previous, current) {
+      if (current == AppLifecycleState.resumed &&
+          previous == AppLifecycleState.paused) {
+        unawaited(ref.read(isHookProvider.notifier).refresh());
+      }
+    });
 
     useEffect(() {
       Future.microtask(() async {
-        versionCode.value = await ProcedureUtils.getBuildNumber();
+        try {
+          final localVersionName = await ProcedureUtils.getVersionName();
+          final update = await ref.read(updateInfoProvider.future);
+
+          if (!context.mounted) return;
+          if (!shouldShowUpdateDialog(
+            update: update,
+            localVersionName: localVersionName,
+          )) {
+            return;
+          }
+
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (!context.mounted) return;
+            UpdateCheckDialog.show(context, update: update);
+          });
+        } catch (error, stackTrace) {
+          debugPrint('Failed to check update: $error');
+          debugPrintStack(stackTrace: stackTrace);
+        }
       });
 
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -61,52 +84,29 @@ class HomePage extends HookConsumerWidget {
           title: context.l10n.notice,
           child: const NoticeBottomSheet(),
         );
-
-        Future.microtask(() async {
-          try {
-            final localBuildNumber = versionCode.value > 0
-                ? versionCode.value
-                : await ProcedureUtils.getBuildNumber();
-            final update = await ref.read(updateInfoProvider.future);
-
-            if (!context.mounted) return;
-            if (!shouldShowUpdateDialog(
-              update: update,
-              localBuildNumber: localBuildNumber,
-            )) {
-              return;
-            }
-
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              if (!context.mounted) return;
-              UpdateCheckDialog.show(context, update: update);
-            });
-          } catch (error, stackTrace) {
-            debugPrint('Failed to check update: $error');
-            debugPrintStack(stackTrace: stackTrace);
-          }
-        });
       });
 
       return null;
     }, []);
 
+    final appBarTitle = currentIndex.value == 0
+        ? context.l10n.appName
+        : context.l10n.settings;
+
     return Scaffold(
       extendBody: true,
       appBar: AppBar(
-        title: Text(
-          navItems[currentIndex.value].label,
-        ),
+        title: Text(appBarTitle),
         actions: [
-          switch (currentIndex.value) {
-            0 => IconButton(
-              onPressed: () {
-                ref.read(themeProvider.notifier).toggleTheme();
-              },
-              icon: Icon(!context.isDark ? Icons.dark_mode : Icons.light_mode),
+          IconButton(
+            onPressed: () {
+              ref.read(themeProvider.notifier).toggleTheme();
+            },
+            icon: Icon(
+              context.isDark ? Icons.light_mode : Icons.dark_mode,
+              size: 21,
             ),
-            _ => const SizedBox.shrink(),
-          },
+          ),
         ],
         centerTitle: true,
       ),

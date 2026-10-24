@@ -3,10 +3,17 @@ import 'dart:async';
 import 'package:JsxposedX/common/pages/toast.dart';
 import 'package:JsxposedX/common/widgets/cache_image.dart';
 import 'package:JsxposedX/common/widgets/custom_dIalog.dart';
+import 'package:JsxposedX/common/widgets/loading.dart';
 import 'package:JsxposedX/core/extensions/context_extensions.dart';
 import 'package:JsxposedX/core/models/app_info.dart';
 import 'package:JsxposedX/core/providers/status_management_provider.dart';
 import 'package:JsxposedX/core/routes/routes/home_route.dart';
+import 'package:JsxposedX/features/ai/domain/models/ai_session_init_state.dart';
+import 'package:JsxposedX/features/ai/presentation/providers/environments/apk_reverse_chat_environment_provider.dart';
+import 'package:JsxposedX/features/ai/presentation/providers/runtime/ai_chat_runtime_provider.dart';
+import 'package:JsxposedX/features/ai/presentation/runtime/ai_chat_environment_initializer.dart';
+import 'package:JsxposedX/features/ai/presentation/widgets/ai_chat_input.dart';
+import 'package:JsxposedX/features/ai/presentation/widgets/ai_chat_list.dart';
 import 'package:JsxposedX/features/home/domain/models/post.dart';
 import 'package:JsxposedX/features/home/domain/models/user_detail.dart';
 import 'package:JsxposedX/features/home/presentation/pages/widgets/repository_token_dialog.dart';
@@ -24,10 +31,11 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 
-/// 对话页：上方项目/仓库列表，下方 AI 对话输入框。
+/// 对话页：主界面就是真正的 AI 对话。
 ///
-/// 替代原「项目 Tab + 仓库 Tab + 中间悬浮按钮」的组合，
-/// 把项目、仓库与 AI 对话合并到同一个入口。
+/// 未选择项目时展示「项目/仓库」两段列表 + 底部快捷提问条；
+/// 选中项目后整个区域变为内嵌 AI 会话（真实 AiChatList + AiChatInput），
+/// 无需再跳转到独立的 AI 逆向页面。
 class AiConversationTab extends HookConsumerWidget {
   const AiConversationTab({super.key});
 
@@ -38,19 +46,13 @@ class AiConversationTab extends HookConsumerWidget {
     final creatingPackage = useState<String?>(null);
     final segment = useState(0); // 0 = 项目，1 = 仓库
     final selectedProject = useState<AppInfo?>(null);
+    final selectedDraft = useState('');
     final draftController = useTextEditingController();
 
-    void send(String text) {
-      final trimmed = text.trim();
-      final project = selectedProject.value;
-      draftController.clear();
-
-      if (project != null) {
-        _navigateToAi(
-          context,
-          packageName: project.packageName,
-          draft: trimmed,
-        );
+    Future<void> openPickerFor(String draft) async {
+      final isHook = ref.read(isHookProvider).value ?? false;
+      if (!isHook) {
+        ToastMessage.show(context.l10n.pleaseActivateXposed);
         return;
       }
 
@@ -61,16 +63,46 @@ class AiConversationTab extends HookConsumerWidget {
           if (Navigator.canPop(context)) {
             Navigator.pop(context);
           }
-          selectedProject.value = appInfo;
-          await _ensureProject(
-            context,
-            ref,
-            creatingPackage,
-            packageName: appInfo.packageName,
-            name: appInfo.name,
-            draft: trimmed,
-          );
+          final packageName = appInfo.packageName;
+          creatingPackage.value = packageName;
+          try {
+            await ref.read(createProjectProvider(packageName: packageName).future);
+            ref.invalidate(projectsProvider);
+            if (!context.mounted) return;
+            ToastMessage.show(context.l10n.alreadySelected(appInfo.name));
+            selectedDraft.value = draft.trim();
+            selectedProject.value = appInfo;
+          } catch (e) {
+            if (context.mounted) ToastMessage.show('error: $e');
+          } finally {
+            if (creatingPackage.value == packageName) {
+              creatingPackage.value = null;
+            }
+          }
         },
+      );
+    }
+
+    void sendFromPicker(String text) {
+      final trimmed = text.trim();
+      if (trimmed.isNotEmpty) {
+        draftController.clear();
+      }
+      openPickerFor(trimmed);
+    }
+
+    final project = selectedProject.value;
+    if (project != null) {
+      return _EmbeddedAiChat(
+        key: ValueKey(project.packageName),
+        project: project,
+        initialDraft: selectedDraft.value,
+        onDraftConsumed: () => selectedDraft.value = '',
+        onSwitchProject: () {
+          selectedProject.value = null;
+          selectedDraft.value = '';
+        },
+        onMenu: () => ProjectMenuSheet.show(context, app: project),
       );
     }
 
@@ -87,62 +119,343 @@ class AiConversationTab extends HookConsumerWidget {
               ? _ProjectSection(
                   creatingPackage: creatingPackage,
                   selectedProject: selectedProject,
+                  onSelectedDraft: (draft) => selectedDraft.value = draft,
                 )
               : const _RepositorySection(),
         ),
         SizedBox(height: 8.h),
-        if (selectedProject.value != null)
-          _SelectedProjectChip(
-            project: selectedProject.value!,
-            onClear: () => selectedProject.value = null,
-          ),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
-          child: _ChatInputBar(
-            controller: draftController,
-            hint: context.l10n.chatInputHint,
-            onSend: send,
+          child: Row(
+            children: [
+              _PickAppButton(onTap: () => openPickerFor(draftController.text)),
+              SizedBox(width: 8.w),
+              Expanded(
+                child: _ChatInputBar(
+                  controller: draftController,
+                  hint: context.l10n.chatInputHint,
+                  onSend: sendFromPicker,
+                ),
+              ),
+            ],
           ),
         ),
       ],
     );
   }
+}
 
-  Future<void> _ensureProject(
-    BuildContext context,
-    WidgetRef ref,
-    ValueNotifier<String?> creatingPackage, {
-    required String packageName,
-    required String name,
-    String draft = '',
-  }) async {
-    creatingPackage.value = packageName;
-    try {
-      await ref.read(createProjectProvider(packageName: packageName).future);
-      ref.invalidate(projectsProvider);
-      if (!context.mounted) return;
-      ToastMessage.show(context.l10n.alreadySelected(name));
-      _navigateToAi(context, packageName: packageName, draft: draft);
-    } catch (e) {
-      if (context.mounted) ToastMessage.show('error: $e');
-    } finally {
-      if (creatingPackage.value == packageName) {
-        creatingPackage.value = null;
-      }
-    }
+/// 未选择应用时的「选择应用」入口：无需输入即可打开应用列表进入对话。
+class _PickAppButton extends HookConsumerWidget {
+  const _PickAppButton({required this.onTap});
+
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final colorScheme = context.colorScheme;
+    final isHook = ref.watch(isHookProvider).value ?? false;
+
+    return SizedBox(
+      width: 52.w,
+      height: 52.w,
+      child: OutlinedButton(
+        onPressed: isHook ? onTap : null,
+        style: OutlinedButton.styleFrom(
+          foregroundColor: colorScheme.primary,
+          minimumSize: const Size(0, 0),
+          padding: EdgeInsets.zero,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24.r),
+          ),
+        ),
+        child: Icon(Icons.add_circle_outline_rounded, size: 26.sp),
+      ),
+    );
   }
+}
 
-  void _navigateToAi(
-    BuildContext context, {
-    required String packageName,
-    String draft = '',
-  }) {
-    final route = HomeRoute.toAiReverse(packageName: packageName);
-    if (draft.isEmpty) {
-      context.push(route);
-    } else {
-      context.push(route, extra: draft);
+/// 内嵌 AI 会话：复用 AiChatList / AiChatInput 与 APK 逆向会话环境，
+/// 直接嵌在对话页中完成初始化、消息列表与输入交互。
+class _EmbeddedAiChat extends HookConsumerWidget {
+  const _EmbeddedAiChat({
+    super.key,
+    required this.project,
+    required this.initialDraft,
+    required this.onSwitchProject,
+    required this.onMenu,
+    this.onDraftConsumed,
+  });
+
+  final AppInfo project;
+
+  /// 选择应用时携带的问题；会话就绪后自动发送一次。
+  final String initialDraft;
+
+  final VoidCallback onSwitchProject;
+  final VoidCallback onMenu;
+  final VoidCallback? onDraftConsumed;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final packageName = project.packageName;
+    final isZh = context.isZh;
+
+    final chatState = ref.watch(aiChatRuntimeProvider(packageName: packageName));
+    final chatNotifier =
+        ref.read(aiChatRuntimeProvider(packageName: packageName).notifier);
+    final environment = ref.watch(
+      apkReverseChatEnvironmentProvider(
+        ApkReverseChatEnvironmentArgs(packageName: packageName, isZh: isZh),
+      ),
+    );
+
+    final scrollController = useScrollController();
+    final booting = useState(true);
+    final draftSent = useRef(false);
+    final followScheduled = useRef(false);
+
+    void _maybeSendInitialDraft() {
+      final draft = initialDraft.trim();
+      if (draft.isEmpty || draftSent.value) return;
+      final state =
+          ref.read(aiChatRuntimeProvider(packageName: packageName));
+      if (state.sessionInitState != AiSessionInitState.ready) return;
+      draftSent.value = true;
+      onDraftConsumed?.call();
+      unawaited(chatNotifier.sendWhenReady(draft));
     }
+
+    Future<void> initSession() async {
+      booting.value = true;
+      try {
+        await initializeAiChatEnvironment(
+          notifier: chatNotifier,
+          environment: environment,
+          initErrorPrefix: 'AI 会话初始化失败',
+        );
+      } catch (_) {
+        // initializeAiChatEnvironment 内部已通过 markSessionInitFailed 记录错误。
+      }
+      booting.value = false;
+      _maybeSendInitialDraft();
+    }
+
+    useEffect(() {
+      Future.microtask(initSession);
+      return () => unawaited(environment.dispose());
+    }, [environment]);
+
+    // 流式输出时贴近底部自动跟随（列表为倒序，offset 0 即最新消息）。
+    useEffect(() {
+      final subscription = chatNotifier.streamingContentStream.listen((
+        content,
+      ) {
+        if (content.isEmpty || !scrollController.hasClients) {
+          return;
+        }
+        if (scrollController.offset > 80) {
+          return;
+        }
+        if (followScheduled.value) return;
+        followScheduled.value = true;
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          followScheduled.value = false;
+          if (!scrollController.hasClients ||
+              scrollController.offset > 80) {
+            return;
+          }
+          scrollController.jumpTo(0);
+        });
+      });
+      return subscription.cancel;
+    }, [chatNotifier, scrollController]);
+
+    final initializing =
+        booting.value ||
+        chatState.sessionInitState == AiSessionInitState.initializing;
+    final initFailed =
+        !booting.value &&
+        chatState.sessionInitState == AiSessionInitState.failed;
+
+    return Column(
+      children: [
+        _ChatProjectHeader(
+          project: project,
+          onSwitch: onSwitchProject,
+          onMenu: onMenu,
+        ),
+        SizedBox(height: 8.h),
+        if (initFailed)
+          _EmbeddedInitErrorBanner(
+            message: chatState.error,
+            onRetry: initSession,
+          ),
+        Expanded(
+          child: initializing
+              ? Center(
+                  child: BrandLoading(
+                    message: context.l10n.aiReverseSessionInitializingHint,
+                    size: 56,
+                  ),
+                )
+              : AiChatList(
+                  messages: chatState.visibleViewMessages,
+                  scrollController: scrollController,
+                  packageName: packageName,
+                ),
+        ),
+        AiChatInput(
+          packageName: packageName,
+          onRetryInitialization: initSession,
+        ),
+      ],
+    );
+  }
+}
+
+/// 内嵌会话的项目头：应用信息 + 切换项目 + 项目菜单。
+class _ChatProjectHeader extends StatelessWidget {
+  const _ChatProjectHeader({
+    required this.project,
+    required this.onSwitch,
+    required this.onMenu,
+  });
+
+  final AppInfo project;
+  final VoidCallback onSwitch;
+  final VoidCallback onMenu;
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = context.colorScheme;
+
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
+        decoration: BoxDecoration(
+          color: colorScheme.primary.withValues(alpha: 0.08),
+          borderRadius: BorderRadius.circular(16.r),
+          border: Border.all(
+            color: colorScheme.primary.withValues(alpha: 0.35),
+            width: 1,
+          ),
+        ),
+        child: Row(
+          children: [
+            Container(
+              width: 38.w,
+              height: 38.w,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.r),
+                color: colorScheme.surfaceContainer,
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10.r),
+                child: Image.memory(
+                  project.icon,
+                  fit: BoxFit.cover,
+                  cacheWidth:
+                      (38.w * MediaQuery.devicePixelRatioOf(context)).round(),
+                  cacheHeight:
+                      (38.w * MediaQuery.devicePixelRatioOf(context)).round(),
+                ),
+              ),
+            ),
+            SizedBox(width: 10.w),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    project.name,
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  SizedBox(height: 2.h),
+                  Text(
+                    project.packageName,
+                    style: TextStyle(
+                      fontSize: 11.sp,
+                      color: colorScheme.onSurface.withValues(alpha: 0.55),
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
+            ),
+            IconButton(
+              tooltip: context.l10n.switchProject,
+              icon: Icon(
+                Icons.swap_horiz_rounded,
+                size: 20.sp,
+                color: colorScheme.primary,
+              ),
+              onPressed: onSwitch,
+            ),
+            IconButton(
+              tooltip: context.l10n.project,
+              icon: Icon(
+                Icons.more_vert_rounded,
+                size: 20.sp,
+                color: colorScheme.onSurface.withValues(alpha: 0.7),
+              ),
+              onPressed: onMenu,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// 内嵌会话初始化失败提示条。
+class _EmbeddedInitErrorBanner extends StatelessWidget {
+  const _EmbeddedInitErrorBanner({required this.message, required this.onRetry});
+
+  final String? message;
+  final Future<void> Function() onRetry;
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = context.colorScheme;
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.fromLTRB(10.w, 4.h, 10.w, 0),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: colorScheme.errorContainer,
+        borderRadius: BorderRadius.circular(12.r),
+      ),
+      child: Row(
+        children: [
+          Icon(
+            Icons.error_outline_rounded,
+            color: colorScheme.onErrorContainer,
+          ),
+          SizedBox(width: 10.w),
+          Expanded(
+            child: Text(
+              message ?? context.l10n.aiReverseSessionInitFailedBanner,
+              style: TextStyle(color: colorScheme.onErrorContainer),
+            ),
+          ),
+          TextButton(
+            onPressed: () => unawaited(onRetry()),
+            child: Text(
+              context.l10n.retry,
+              style: TextStyle(color: colorScheme.onErrorContainer),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
 
@@ -220,10 +533,14 @@ class _ProjectSection extends HookConsumerWidget {
   const _ProjectSection({
     required this.creatingPackage,
     required this.selectedProject,
+    required this.onSelectedDraft,
   });
 
   final ValueNotifier<String?> creatingPackage;
   final ValueNotifier<AppInfo?> selectedProject;
+
+  /// 从列表直接选中项目进入对话时，携带空草稿。
+  final ValueChanged<String> onSelectedDraft;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -273,10 +590,10 @@ class _ProjectSection extends HookConsumerWidget {
                             final app = projects[index];
                             return _ProjectRow(
                               app: app,
-                              selected:
-                                  selectedProject.value?.packageName ==
-                                  app.packageName,
-                              onSelect: () => selectedProject.value = app,
+                              onSelect: () {
+                                onSelectedDraft('');
+                                selectedProject.value = app;
+                              },
                               onMenu: () => ProjectMenuSheet.show(
                                 context,
                                 app: app,
@@ -391,14 +708,12 @@ class _CreatingProjectBanner extends StatelessWidget {
 class _ProjectRow extends ConsumerWidget {
   const _ProjectRow({
     required this.app,
-    required this.selected,
     required this.onSelect,
     required this.onMenu,
     required this.onDelete,
   });
 
   final AppInfo app;
-  final bool selected;
   final VoidCallback onSelect;
   final VoidCallback onMenu;
   final VoidCallback onDelete;
@@ -411,15 +726,11 @@ class _ProjectRow extends ConsumerWidget {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 2.w, vertical: 4.h),
       decoration: BoxDecoration(
-        color: selected
-            ? colorScheme.primaryContainer.withValues(alpha: 0.4)
-            : colorScheme.surface,
+        color: colorScheme.surface,
         borderRadius: BorderRadius.circular(16.r),
         border: Border.all(
-          color: selected
-              ? colorScheme.primary.withValues(alpha: 0.6)
-              : colorScheme.outlineVariant.withValues(alpha: 0.25),
-          width: selected ? 1.4 : 1,
+          color: colorScheme.outlineVariant.withValues(alpha: 0.25),
+          width: 1,
         ),
       ),
       child: InkWell(
@@ -482,15 +793,11 @@ class _ProjectRow extends ConsumerWidget {
                   ],
                 ),
               ),
-              if (selected)
-                Padding(
-                  padding: EdgeInsets.only(left: 6.w),
-                  child: Icon(
-                    Icons.check_circle_rounded,
-                    size: 20.sp,
-                    color: colorScheme.primary,
-                  ),
-                ),
+              Icon(
+                Icons.arrow_forward_ios_rounded,
+                size: 14.sp,
+                color: colorScheme.onSurface.withValues(alpha: 0.35),
+              ),
               IconButton(
                 icon: Icon(Icons.more_vert_rounded, size: 20.sp),
                 onPressed: onMenu,
@@ -498,56 +805,6 @@ class _ProjectRow extends ConsumerWidget {
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class _SelectedProjectChip extends StatelessWidget {
-  const _SelectedProjectChip({required this.project, required this.onClear});
-
-  final AppInfo project;
-  final VoidCallback onClear;
-
-  @override
-  Widget build(BuildContext context) {
-    final colorScheme = context.colorScheme;
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10.w),
-      child: Container(
-        margin: EdgeInsets.only(bottom: 6.h),
-        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
-        decoration: BoxDecoration(
-          color: colorScheme.primary.withValues(alpha: 0.12),
-          borderRadius: BorderRadius.circular(20.r),
-        ),
-        child: Row(
-          children: [
-            Icon(
-              Icons.chat_bubble_rounded,
-              size: 14.sp,
-              color: colorScheme.primary,
-            ),
-            SizedBox(width: 6.w),
-            Expanded(
-              child: Text(
-                '@${project.name}',
-                style: TextStyle(
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w600,
-                  color: colorScheme.primary,
-                ),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-            IconButton(
-              icon: Icon(Icons.close_rounded, size: 16.sp),
-              color: colorScheme.primary,
-              onPressed: onClear,
-            ),
-          ],
         ),
       ),
     );
@@ -577,7 +834,7 @@ class _RepositorySection extends HookConsumerWidget {
                   child: Padding(
                     padding: EdgeInsets.all(20.w),
                     child: Text(
-                      context.l10n.projectListEmpty,
+                      context.l10n.repositoryEmpty,
                       style: TextStyle(color: Colors.grey, fontSize: 13.sp),
                     ),
                   ),

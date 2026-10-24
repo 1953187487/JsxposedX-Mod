@@ -170,6 +170,12 @@ abstract class AppLocalizations {
   /// **'检查更新失败，请稍后重试'**
   String get desktopUpdateCheckFailed;
 
+  /// 设置页-检查更新进行中
+  ///
+  /// In zh, this message translates to:
+  /// **'正在检查更新…'**
+  String get desktopUpdateChecking;
+
   /// PC 端-设备连接状态-已连接
   ///
   /// In zh, this message translates to:
@@ -1565,7 +1571,7 @@ abstract class AppLocalizations {
   /// No description provided for @projectListEmpty.
   ///
   /// In zh, this message translates to:
-  /// **'暂无项目，去首页创建一个吧'**
+  /// **'暂无项目，点底部「＋」选择一个应用即可创建'**
   String get projectListEmpty;
 
   /// No description provided for @projectLoadFailed.
@@ -1591,6 +1597,18 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'描述问题，或输入 / 唤起命令'**
   String get chatInputHint;
+
+  /// No description provided for @switchProject.
+  ///
+  /// In zh, this message translates to:
+  /// **'切换项目'**
+  String get switchProject;
+
+  /// No description provided for @repositoryEmpty.
+  ///
+  /// In zh, this message translates to:
+  /// **'暂无发布内容'**
+  String get repositoryEmpty;
 
   /// No description provided for @creatingProject.
   ///

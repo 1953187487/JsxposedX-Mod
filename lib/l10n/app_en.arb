@@ -56,6 +56,10 @@
   "@desktopUpdateCheckFailed": {
     "description": "PC - update check failure"
   },
+  "desktopUpdateChecking": "Checking for updates…",
+  "@desktopUpdateChecking": {
+    "description": "Settings - update check in progress"
+  },
   "desktopConnectionConnected": "Connected",
   "@desktopConnectionConnected": {
     "description": "PC - device connection status - connected"
@@ -683,11 +687,13 @@
   "updateNow": "Update Now",
   "updateContentFallback": "• Fix known issues\n• Improve user experience\n• Enhance app performance",
   "noRelatedApps": "No related apps found",
-  "projectListEmpty": "No projects yet, create one from the home page",
+  "projectListEmpty": "No projects yet. Tap the + button below to pick an app and create one",
   "projectLoadFailed": "Load failed: {error}",
   "confirmDelete": "Confirm delete?",
   "chat": "Chat",
   "chatInputHint": "Describe the problem, or type / for commands",
+  "switchProject": "Switch project",
+  "repositoryEmpty": "No releases yet",
   "creatingProject": "Creating project…",
   "repositoryReleases": "Repository Releases",
   "xposedProject": "Xposed Project",

@@ -12,26 +12,46 @@ class CheckQueryDatasource {
   CheckQueryDatasource({required HttpService httpService})
     : _httpService = httpService;
 
-  Future<UpdateDto> getUpdateInfo() async {
-    // Get latest release from GitHub
+  /// 拉取最新 release（含 prerelease，按发布时间倒序取第一条）。
+  Future<Map<String, dynamic>> _latestRelease() async {
     final response = await _httpService.get(
-      'https://api.github.com/repos/${_githubOwner}/${_githubRepo}/releases/latest',
+      'https://api.github.com/repos/${_githubOwner}/${_githubRepo}/releases?per_page=5',
     );
 
-    final data = response.data as Map<String, dynamic>;
-    final assets = data['assets'] as List<dynamic>? ?? [];
-    final apkUrl = assets.isNotEmpty
-        ? (assets[0]['browser_download_url'] as String?) ?? ''
-        : '';
+    final list = response.data as List<dynamic>?;
+    if (list == null || list.isEmpty) {
+      throw Exception('No releases found on GitHub');
+    }
+    return Map<String, dynamic>.from(list.first as Map);
+  }
 
-    final versionCode = data['tag_name'] ?? 'v1.0.0';
-    final versionNum = versionCode.replaceAll('v', '');
+  /// 在 assets 中挑选 arm64 release APK，回退到任意 APK。
+  String _pickApkUrl(Map<String, dynamic> release) {
+    final assets = release['assets'] as List<dynamic>? ?? [];
+    String? anyApk;
+
+    for (final asset in assets) {
+      final map = asset as Map;
+      final name = (map['name'] as String?) ?? '';
+      final url = (map['browser_download_url'] as String?) ?? '';
+      if (url.isEmpty || !name.endsWith('.apk')) continue;
+      if (name == 'app-api100-release.apk') return url;
+      anyApk ??= url;
+    }
+    return anyApk ?? '';
+  }
+
+  Future<UpdateDto> getUpdateInfo() async {
+    final data = await _latestRelease();
+
+    final tagName = (data['tag_name'] ?? 'v1.0.0') as String;
+    final versionNum = tagName.replaceFirst(RegExp('^[vV]'), '');
 
     return UpdateDto(
       code: 500,
       msg: UpdateMsgDto(
         version: versionNum,
-        url: apkUrl,
+        url: _pickApkUrl(data),
         content: (data['body'] as String?) ?? 'Release update available',
         mustUpdate: '0',
       ),
@@ -40,12 +60,7 @@ class CheckQueryDatasource {
   }
 
   Future<NoticeDto> getNoticeInfo() async {
-    // Get latest release notes as notice
-    final response = await _httpService.get(
-      'https://api.github.com/repos/${_githubOwner}/${_githubRepo}/releases/latest',
-    );
-
-    final data = response.data as Map<String, dynamic>;
+    final data = await _latestRelease();
 
     return NoticeDto(
       code: 500,

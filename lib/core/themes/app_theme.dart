@@ -2,114 +2,143 @@ import 'package:JsxposedX/core/themes/app_colors.dart';
 import 'package:JsxposedX/core/themes/app_fonts.dart';
 import 'package:flutter/material.dart';
 
-/// 应用主题配置
+/// 应用主题配置（beta.2 全面重写：更深的表面层次、更大的圆角、更现代的暗色）
 class AppTheme {
   AppTheme._();
 
+  static Color _onPrimaryFor(Color seed) {
+    return seed.computeLuminance() > 0.55 ? const Color(0xFF10131A) : Colors.white;
+  }
+
   /// 亮色主题
   static ThemeData lightTheme(Color seedColor) {
+    final base = ColorScheme.fromSeed(
+      seedColor: seedColor,
+      brightness: Brightness.light,
+    );
+
+    final colorScheme = base.copyWith(
+      primary: seedColor,
+      onPrimary: _onPrimaryFor(seedColor),
+      secondary: AppColors.secondary,
+      surface: const Color(0xFFF7F8FC),
+      onSurface: AppColors.textPrimary,
+      onSurfaceVariant: AppColors.textSecondary,
+      surfaceContainerLow: const Color(0xFFF2F4FA),
+      surfaceContainer: AppColors.surfaceVariant,
+      surfaceContainerHigh: const Color(0xFFE9EDF5),
+      surfaceContainerHighest: const Color(0xFFE3E7F0),
+      outline: const Color(0xFFD4D9E4),
+      outlineVariant: AppColors.divider,
+    );
+
     return ThemeData(
       useMaterial3: true,
       fontFamily: AppFonts.primary,
 
-      // 颜色方案
-      colorScheme: ColorScheme.fromSeed(
-        seedColor: seedColor,
-        brightness: Brightness.light,
-        primary: seedColor,
-        primaryContainer: seedColor.withValues(alpha: 0.1),
-        onPrimaryContainer: seedColor,
-        secondary: AppColors.secondary,
-        surface: AppColors.surface,
-        error: AppColors.error,
-      ),
+      colorScheme: colorScheme,
+      scaffoldBackgroundColor: AppColors.background,
 
-      // FloatingActionButton主题
-      floatingActionButtonTheme: FloatingActionButtonThemeData(
-        backgroundColor: seedColor,
-        foregroundColor: Colors.white,
-        elevation: 2,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      ),
-
-      // 脚手架背景色
-      scaffoldBackgroundColor: AppColors.surface,
-
-      // AppBar主题
-      appBarTheme: const AppBarTheme(
+      appBarTheme: AppBarTheme(
         centerTitle: true,
         elevation: 0,
+        scrolledUnderElevation: 2,
         surfaceTintColor: Colors.transparent,
-        backgroundColor: AppColors.surface,
+        backgroundColor: AppColors.background,
         foregroundColor: AppColors.textPrimary,
+        titleTextStyle: const TextStyle(
+          color: AppColors.textPrimary,
+          fontSize: 17,
+          fontWeight: FontWeight.w700,
+        ),
       ),
 
-      // 底部导航栏主题
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: AppColors.surface,
+        backgroundColor: colorScheme.surface,
         selectedItemColor: seedColor,
-        unselectedItemColor: AppColors.textSecondary,
+        unselectedItemColor: AppColors.textHint,
         elevation: 0,
-        selectedLabelStyle: const TextStyle(fontSize: 12),
+        selectedLabelStyle: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700),
         unselectedLabelStyle: const TextStyle(fontSize: 12),
       ),
 
-      // 卡片主题
       cardTheme: CardThemeData(
-        color: Colors.grey[100],
+        color: Colors.white,
         elevation: 0,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        margin: EdgeInsets.zero,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),
 
-      // Chip主题
-      chipTheme: ChipThemeData(
-        backgroundColor: Colors.grey[100],
-        selectedColor: seedColor.withValues(alpha: 0.15),
-        disabledColor: Colors.grey[200],
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        labelStyle: const TextStyle(
-          color: AppColors.textPrimary,
-          fontSize: 13,
-          fontFamily: AppFonts.primary,
-        ),
-        secondaryLabelStyle: TextStyle(
-          color: seedColor,
-          fontSize: 13,
-          fontWeight: FontWeight.bold,
-          fontFamily: AppFonts.primary,
-        ),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      chipTheme: chipThemeBase(seedColor).copyWith(
+        backgroundColor: colorScheme.surfaceContainer,
+        selectedColor: seedColor.withValues(alpha: 0.16),
+        disabledColor: colorScheme.surfaceContainerLow,
+        labelStyle: const TextStyle(color: AppColors.textPrimary, fontSize: 13, fontFamily: AppFonts.primary),
         side: BorderSide.none,
-        showCheckmark: false,
       ),
 
-      // 输入框主题
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: Colors.white,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide.none,
+          borderRadius: BorderRadius.circular(14),
+          borderSide: BorderSide(color: colorScheme.outlineVariant, width: 1.2),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(14),
+          borderSide: BorderSide(color: colorScheme.outlineVariant, width: 1.2),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: seedColor, width: 2),
+          borderRadius: BorderRadius.circular(14),
+          borderSide: BorderSide(color: seedColor, width: 1.8),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(14),
+          borderSide: const BorderSide(color: AppColors.error, width: 1.2),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(14),
+          borderSide: const BorderSide(color: AppColors.error, width: 1.8),
+        ),
+        disabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(14),
+          borderSide: BorderSide(color: colorScheme.outlineVariant, width: 1),
         ),
       ),
 
-      // 按钮主题
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: seedColor,
-          foregroundColor: Colors.white,
+          foregroundColor: _onPrimaryFor(seedColor),
+          disabledBackgroundColor: seedColor.withValues(alpha: 0.35),
           elevation: 0,
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 13),
+          textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
         ),
       ),
 
-      // 文字按钮主题
+      filledButtonTheme: FilledButtonThemeData(
+        style: FilledButton.styleFrom(
+          backgroundColor: seedColor,
+          foregroundColor: _onPrimaryFor(seedColor),
+          elevation: 0,
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 13),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+        ),
+      ),
+
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          foregroundColor: seedColor,
+          side: BorderSide(color: seedColor.withValues(alpha: 0.4)),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 13),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+        ),
+      ),
+
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
           foregroundColor: seedColor,
@@ -117,68 +146,93 @@ class AppTheme {
         ),
       ),
 
-      // 分割线主题
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: seedColor,
+        foregroundColor: _onPrimaryFor(seedColor),
+        elevation: 3,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      ),
+
       dividerTheme: const DividerThemeData(
         color: AppColors.divider,
         thickness: 1,
         space: 1,
       ),
 
-      // PopupMenuButton 主题
       popupMenuTheme: PopupMenuThemeData(
         color: Colors.white,
-        elevation: 8,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        elevation: 10,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
         textStyle: const TextStyle(color: AppColors.textPrimary, fontSize: 14),
       ),
 
-      // 下拉菜单主题（参考 CustomTextField 样式）
+      dialogTheme: DialogThemeData(
+        backgroundColor: Colors.white,
+        surfaceTintColor: Colors.transparent,
+        elevation: 12,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+      ),
+
+      bottomSheetTheme: BottomSheetThemeData(
+        backgroundColor: const Color(0xFFF7F8FC),
+        surfaceTintColor: Colors.transparent,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
+        ),
+      ),
+
+      snackBarTheme: SnackBarThemeData(
+        backgroundColor: const Color(0xFF2A2F3A),
+        contentTextStyle: const TextStyle(color: Colors.white, fontSize: 14, fontFamily: AppFonts.primary),
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+      ),
+
+      listTileTheme: ListTileThemeData(
+        iconColor: AppColors.textSecondary,
+        textColor: AppColors.textPrimary,
+        titleTextStyle: const TextStyle(
+          color: AppColors.textPrimary,
+          fontSize: 15,
+          fontWeight: FontWeight.w600,
+          fontFamily: AppFonts.primary,
+        ),
+        subtitleTextStyle: const TextStyle(color: AppColors.textSecondary, fontSize: 13, fontFamily: AppFonts.primary),
+      ),
+
+      progressIndicatorTheme: const ProgressIndicatorThemeData(color: AppColors.primary),
+
       dropdownMenuTheme: DropdownMenuThemeData(
-        textStyle: const TextStyle(fontSize: 16),
+        textStyle: const TextStyle(fontSize: 16, color: AppColors.textPrimary),
         inputDecorationTheme: InputDecorationTheme(
           filled: true,
-          fillColor: AppColors.surface,
-          // 默认边框
+          fillColor: Colors.white,
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(
-              color: Colors.grey.withValues(alpha: 0.3),
-              width: 1.5,
-            ),
+            borderRadius: BorderRadius.circular(14),
+            borderSide: BorderSide(color: colorScheme.outlineVariant, width: 1.2),
           ),
-          // 获得焦点时的边框
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: seedColor, width: 2),
+            borderRadius: BorderRadius.circular(14),
+            borderSide: BorderSide(color: seedColor, width: 1.8),
           ),
-          // 错误边框
           errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: Colors.red, width: 1.5),
+            borderRadius: BorderRadius.circular(14),
+            borderSide: const BorderSide(color: AppColors.error, width: 1.2),
           ),
-          // 错误且获得焦点时的边框
           focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: Colors.red, width: 2),
+            borderRadius: BorderRadius.circular(14),
+            borderSide: const BorderSide(color: AppColors.error, width: 1.8),
           ),
-          // 禁用时的边框
           disabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(
-              color: Colors.grey.withValues(alpha: 0.2),
-              width: 1.5,
-            ),
+            borderRadius: BorderRadius.circular(14),
+            borderSide: BorderSide(color: colorScheme.outlineVariant, width: 1),
           ),
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 16,
-          ),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         ),
         menuStyle: MenuStyle(
-          backgroundColor: WidgetStatePropertyAll(AppColors.surface),
-
+          backgroundColor: WidgetStatePropertyAll(Colors.white),
           shape: WidgetStateProperty.all(
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
           ),
         ),
       ),
@@ -187,106 +241,139 @@ class AppTheme {
 
   /// 暗色主题
   static ThemeData darkTheme(Color seedColor) {
+    final base = ColorScheme.fromSeed(
+      seedColor: seedColor,
+      brightness: Brightness.dark,
+    );
+
+    final colorScheme = base.copyWith(
+      primary: seedColor,
+      onPrimary: _onPrimaryFor(seedColor),
+      secondary: AppColors.secondary,
+      surface: AppColors.darkSurface,
+      onSurface: const Color(0xFFE6EAF2),
+      onSurfaceVariant: const Color(0xFFA0AABB),
+      surfaceContainerLowest: AppColors.darkBackground,
+      surfaceContainerLow: const Color(0xFF151920),
+      surfaceContainer: AppColors.darkSurfaceContainer,
+      surfaceContainerHigh: AppColors.darkSurfaceContainerHigh,
+      surfaceContainerHighest: AppColors.darkSurfaceContainerHighest,
+      outline: const Color(0xFF39414F),
+      outlineVariant: const Color(0xFF2A3140),
+    );
+
     return ThemeData(
       useMaterial3: true,
-      fontFamily: AppFonts.primary,
       brightness: Brightness.dark,
+      fontFamily: AppFonts.primary,
 
-      // 颜色方案
-      colorScheme: ColorScheme.fromSeed(
-        seedColor: seedColor,
-        brightness: Brightness.dark,
-        primary: seedColor,
-        primaryContainer: seedColor.withValues(alpha: 0.2),
-        onPrimaryContainer: seedColor,
-        secondary: AppColors.secondary,
-      ),
+      colorScheme: colorScheme,
+      scaffoldBackgroundColor: AppColors.darkBackground,
 
-      // FloatingActionButton主题
-      floatingActionButtonTheme: FloatingActionButtonThemeData(
-        backgroundColor: seedColor,
-        foregroundColor: Colors.black,
-        elevation: 2,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      ),
-
-      // 脚手架背景色
-      scaffoldBackgroundColor: const Color(0xFF121212),
-      // AppBar主题
-      appBarTheme: const AppBarTheme(
+      appBarTheme: AppBarTheme(
         centerTitle: true,
         elevation: 0,
+        scrolledUnderElevation: 2,
         surfaceTintColor: Colors.transparent,
-        backgroundColor: Color(0xFF121212),
-        foregroundColor: Colors.white,
+        backgroundColor: AppColors.darkBackground,
+        foregroundColor: const Color(0xFFE6EAF2),
+        titleTextStyle: const TextStyle(
+          color: Color(0xFFE6EAF2),
+          fontSize: 17,
+          fontWeight: FontWeight.w700,
+        ),
       ),
 
-      // 底部导航栏主题
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: const Color(0xFF1E1E1E),
+        backgroundColor: AppColors.darkSurface,
         selectedItemColor: seedColor,
-        unselectedItemColor: Colors.grey,
+        unselectedItemColor: const Color(0xFF6B7385),
         elevation: 0,
-        selectedLabelStyle: const TextStyle(fontSize: 12),
+        selectedLabelStyle: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700),
         unselectedLabelStyle: const TextStyle(fontSize: 12),
       ),
 
-      // 卡片主题
       cardTheme: CardThemeData(
-        color: const Color(0xFF1E1E1E),
+        color: AppColors.darkSurfaceContainer,
         elevation: 0,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        margin: EdgeInsets.zero,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),
 
-      // Chip主题
-      chipTheme: ChipThemeData(
-        backgroundColor: const Color(0xFF2C2C2C),
-        selectedColor: seedColor.withValues(alpha: 0.2),
-        disabledColor: const Color(0xFF1E1E1E),
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      chipTheme: chipThemeBase(seedColor).copyWith(
+        backgroundColor: AppColors.darkSurfaceContainer,
+        selectedColor: seedColor.withValues(alpha: 0.22),
+        disabledColor: AppColors.darkSurface,
         labelStyle: const TextStyle(
-          color: Colors.white70,
+          color: Color(0xFFE6EAF2),
           fontSize: 13,
           fontFamily: AppFonts.primary,
         ),
-        secondaryLabelStyle: TextStyle(
-          color: seedColor,
-          fontSize: 13,
-          fontWeight: FontWeight.bold,
-          fontFamily: AppFonts.primary,
-        ),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         side: BorderSide.none,
-        showCheckmark: false,
       ),
 
-      // 输入框主题
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: const Color(0xFF2C2C2C),
+        fillColor: AppColors.darkSurfaceContainer,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide.none,
+          borderRadius: BorderRadius.circular(14),
+          borderSide: BorderSide(color: colorScheme.outlineVariant, width: 1.2),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(14),
+          borderSide: BorderSide(color: colorScheme.outlineVariant, width: 1.2),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: seedColor, width: 2),
+          borderRadius: BorderRadius.circular(14),
+          borderSide: BorderSide(color: seedColor, width: 1.8),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(14),
+          borderSide: const BorderSide(color: AppColors.error, width: 1.2),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(14),
+          borderSide: const BorderSide(color: AppColors.error, width: 1.8),
+        ),
+        disabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(14),
+          borderSide: BorderSide(color: colorScheme.outlineVariant, width: 1),
         ),
       ),
 
-      // 按钮主题
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: seedColor,
-          foregroundColor: Colors.black,
+          foregroundColor: _onPrimaryFor(seedColor),
+          disabledBackgroundColor: seedColor.withValues(alpha: 0.35),
           elevation: 0,
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 13),
+          textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
         ),
       ),
 
-      // 文字按钮主题
+      filledButtonTheme: FilledButtonThemeData(
+        style: FilledButton.styleFrom(
+          backgroundColor: seedColor,
+          foregroundColor: _onPrimaryFor(seedColor),
+          elevation: 0,
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 13),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+        ),
+      ),
+
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          foregroundColor: seedColor,
+          side: BorderSide(color: seedColor.withValues(alpha: 0.45)),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 13),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+        ),
+      ),
+
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
           foregroundColor: seedColor,
@@ -294,71 +381,114 @@ class AppTheme {
         ),
       ),
 
-      // 分割线主题
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: seedColor,
+        foregroundColor: _onPrimaryFor(seedColor),
+        elevation: 3,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      ),
+
       dividerTheme: const DividerThemeData(
-        color: Color(0xFF2C2C2C),
+        color: Color(0xFF2A3140),
         thickness: 1,
         space: 1,
       ),
 
-      // PopupMenuButton 主题
       popupMenuTheme: PopupMenuThemeData(
-        color: const Color(0xFF2C2C2C),
-        elevation: 8,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        textStyle: const TextStyle(color: Colors.white, fontSize: 14),
+        color: AppColors.darkSurfaceContainer,
+        elevation: 10,
+        shadowColor: Colors.black,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+        textStyle: const TextStyle(color: Color(0xFFE6EAF2), fontSize: 14),
       ),
 
-      // 下拉菜单主题（参考 CustomTextField 样式）
+      dialogTheme: DialogThemeData(
+        backgroundColor: AppColors.darkSurfaceContainer,
+        surfaceTintColor: Colors.transparent,
+        elevation: 12,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+      ),
+
+      bottomSheetTheme: BottomSheetThemeData(
+        backgroundColor: AppColors.darkSurface,
+        surfaceTintColor: Colors.transparent,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
+        ),
+      ),
+
+      snackBarTheme: SnackBarThemeData(
+        backgroundColor: AppColors.darkSurfaceContainerHighest,
+        contentTextStyle: const TextStyle(color: Colors.white, fontSize: 14, fontFamily: AppFonts.primary),
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+      ),
+
+      listTileTheme: ListTileThemeData(
+        iconColor: const Color(0xFFA0AABB),
+        textColor: const Color(0xFFE6EAF2),
+        titleTextStyle: const TextStyle(
+          color: Color(0xFFE6EAF2),
+          fontSize: 15,
+          fontWeight: FontWeight.w600,
+          fontFamily: AppFonts.primary,
+        ),
+        subtitleTextStyle: const TextStyle(color: Color(0xFFA0AABB), fontSize: 13, fontFamily: AppFonts.primary),
+      ),
+
+      progressIndicatorTheme: ProgressIndicatorThemeData(color: seedColor),
+
       dropdownMenuTheme: DropdownMenuThemeData(
-        textStyle: const TextStyle(fontSize: 16, color: Colors.white),
+        textStyle: const TextStyle(fontSize: 16, color: Color(0xFFE6EAF2)),
         inputDecorationTheme: InputDecorationTheme(
           filled: true,
-          fillColor: const Color(0xFF2C2C2C),
-          // 默认边框
+          fillColor: AppColors.darkSurfaceContainer,
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(
-              color: Colors.grey.withValues(alpha: 0.3),
-              width: 1.5,
-            ),
+            borderRadius: BorderRadius.circular(14),
+            borderSide: BorderSide(color: colorScheme.outlineVariant, width: 1.2),
           ),
-          // 获得焦点时的边框
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: seedColor, width: 2),
+            borderRadius: BorderRadius.circular(14),
+            borderSide: BorderSide(color: seedColor, width: 1.8),
           ),
-          // 错误边框
           errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: Colors.red, width: 1.5),
+            borderRadius: BorderRadius.circular(14),
+            borderSide: const BorderSide(color: AppColors.error, width: 1.2),
           ),
-          // 错误且获得焦点时的边框
           focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: Colors.red, width: 2),
+            borderRadius: BorderRadius.circular(14),
+            borderSide: const BorderSide(color: AppColors.error, width: 1.8),
           ),
-          // 禁用时的边框
           disabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(
-              color: Colors.grey.withValues(alpha: 0.2),
-              width: 1.5,
-            ),
+            borderRadius: BorderRadius.circular(14),
+            borderSide: BorderSide(color: colorScheme.outlineVariant, width: 1),
           ),
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 16,
-          ),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         ),
         menuStyle: MenuStyle(
-          backgroundColor: WidgetStatePropertyAll(const Color(0xFF2C2C2C)),
-
+          backgroundColor: WidgetStatePropertyAll(AppColors.darkSurfaceContainer),
           shape: WidgetStateProperty.all(
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
           ),
         ),
       ),
+    );
+  }
+
+  static ChipThemeData chipThemeBase(Color seedColor) {
+    return ChipThemeData(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      selectedColor: seedColor.withValues(alpha: 0.16),
+      labelStyle: const TextStyle(fontSize: 13, fontFamily: AppFonts.primary),
+      secondaryLabelStyle: TextStyle(
+        color: seedColor,
+        fontSize: 13,
+        fontWeight: FontWeight.bold,
+        fontFamily: AppFonts.primary,
+      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      side: BorderSide.none,
+      showCheckmark: false,
     );
   }
 }

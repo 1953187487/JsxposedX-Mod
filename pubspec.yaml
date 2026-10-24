@@ -4,7 +4,7 @@ description: "基于 JsxposedX 的二次开发版本，无需 root、无需授�
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 
-version: 1.0.2-beta.1+102
+version: 1.0.2-beta.2+103
 
 environment:
   sdk: ^3.9.2

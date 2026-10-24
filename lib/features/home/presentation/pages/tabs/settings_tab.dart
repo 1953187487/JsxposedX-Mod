@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:JsxposedX/common/pages/toast.dart';
 import 'package:JsxposedX/common/widgets/cache_image.dart';
 import 'package:JsxposedX/common/widgets/custom_dIalog.dart';
@@ -10,10 +12,14 @@ import 'package:JsxposedX/core/utils/procedure_utils.dart';
 import 'package:JsxposedX/core/utils/url_helper.dart';
 import 'package:JsxposedX/features/ai/presentation/pages/ai_config_page.dart';
 import 'package:JsxposedX/features/dhizuku/presentation/widgets/dhizuku_settings_section.dart';
+import 'package:JsxposedX/features/home/presentation/providers/check_query_provider.dart';
+import 'package:JsxposedX/features/home/presentation/utils/update_check_helper.dart';
 import 'package:JsxposedX/features/home/presentation/widgets/settings_section.dart';
 import 'package:JsxposedX/features/home/presentation/widgets/settings_tile.dart';
 import 'package:JsxposedX/features/home/presentation/widgets/theme_color_picker.dart';
+import 'package:JsxposedX/features/home/presentation/widgets/update_check_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -28,6 +34,7 @@ class SettingsTab extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final bottomInset = MediaQuery.paddingOf(context).bottom;
     final bottomBarSpacing = 60.h + 10.h + bottomInset + 24.h;
+    final updateChecking = useState(false);
 
     return CustomScrollView(
       slivers: [
@@ -90,6 +97,17 @@ class SettingsTab extends HookConsumerWidget {
           child: SettingsSection(
             title: context.l10n.about,
             items: [
+              SettingsTile(
+                icon: Icons.system_update_alt_rounded,
+                title: context.l10n.desktopUpdateCheck,
+                subtitle: updateChecking.value
+                    ? context.l10n.desktopUpdateChecking
+                    : null,
+                onTap: updateChecking.value
+                    ? null
+                    : () => _checkForUpdate(context, ref, updateChecking),
+              ),
+              const SettingsDivider(),
               const _AboutSummaryTile(),
               const SettingsDivider(),
               SettingsTile(
@@ -118,6 +136,37 @@ class SettingsTab extends HookConsumerWidget {
         SliverToBoxAdapter(child: SizedBox(height: bottomBarSpacing)),
       ],
     );
+  }
+
+  Future<void> _checkForUpdate(
+    BuildContext context,
+    WidgetRef ref,
+    ValueNotifier<bool> updateChecking,
+  ) async {
+    if (updateChecking.value) return;
+    updateChecking.value = true;
+    try {
+      ref.invalidate(updateInfoProvider);
+      final localVersionName = await ProcedureUtils.getVersionName();
+      final update = await ref.read(updateInfoProvider.future);
+      if (!context.mounted) return;
+
+      if (shouldShowUpdateDialog(
+        update: update,
+        localVersionName: localVersionName,
+      )) {
+        await UpdateCheckDialog.show(context, update: update);
+      } else {
+        ToastMessage.show(context.l10n.desktopUpdateLatest);
+      }
+    } catch (error) {
+      debugPrint('Failed to check update from settings: $error');
+      if (context.mounted) {
+        ToastMessage.show(context.l10n.desktopUpdateCheckFailed);
+      }
+    } finally {
+      updateChecking.value = false;
+    }
   }
 
   Future<void> _showDisclaimerDialog(BuildContext context) {

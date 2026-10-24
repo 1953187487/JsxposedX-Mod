@@ -234,13 +234,13 @@ Future<void> _checkDesktopUpdate(
     if (showLatestResult) {
       ref.invalidate(updateInfoProvider);
     }
-    final localBuildNumber = await ProcedureUtils.getBuildNumber();
+    final localVersionName = await ProcedureUtils.getVersionName();
     final update = await ref.read(updateInfoProvider.future);
     if (!context.mounted) return;
 
     if (shouldShowUpdateDialog(
       update: update,
-      localBuildNumber: localBuildNumber,
+      localVersionName: localVersionName,
     )) {
       await UpdateCheckDialog.show(context, update: update);
       return;

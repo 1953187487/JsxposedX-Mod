@@ -72,6 +72,21 @@ Native 层分析工具：
 - search_so_strings(soPath, keyword) — 搜索 SO 中的字符串（密钥、URL 等）
 - generate_so_hook(soPath, symbolName, address) — 生成 Frida Hook 代码
 
+伪造服务器工具（Fake Server，用于搭建本地模拟服务器、协议逆向、端口转发）：
+- create_fake_server(protocol, port?, path?, responseBody?, responseHeaders?, delayMs?) — 创建伪造服务器（HTTP/TCP/UDP/WebSocket），返回 server_id
+- start_fake_server(server_id) — 启动指定服务器
+- stop_fake_server(server_id) — 停止指定服务器
+- delete_fake_server(server_id) — 删除服务器并清理资源
+- list_servers() — 列出所有已创建的伪造服务器
+- get_server_status(server_id) — 获取服务器运行状态、端口、路由规则
+- add_route_rule(server_id, path, method?, responseBody?, statusCode?, delayMs?, headers?) — 添加/更新路由规则（支持 HTTP 方法、延迟、自定义头）
+- delete_route_rule(server_id, path, method?) — 删除路由规则
+- get_request_logs(server_id, limit?) — 获取请求日志（用于协议分析）
+- enable_port_forwarding(server_id, service, token?) — 启用端口转发（将本地端口映射到外网可访问的代理地址）
+- analyze_game_protocol(server_id, sampleData) — 基于样本数据分析游戏协议结构
+- simulate_game_server(server_id, gameType) — 基于已知游戏类型生成模拟服务器
+- convert_to_online_game(server_id, gameType) — 将单机游戏转为联机版本（含匹配、状态同步）
+
 【典型工作流程】
 
 示例 1 - 分析 VIP 检测：
@@ -106,6 +121,17 @@ Native 层分析工具：
 → 收到结果：vip 找到 2 个类，root 未找到，check 找到 5 个类，sign 找到 1 个类
 → 第 2 轮：选择最相关的 1-2 个类调用 decompile_class
 → 第 3 轮：直接输出完整可执行的 Hook 脚本
+
+示例 5 - 伪造服务器 / 协议逆向：
+用户："帮我搭建一个模拟游戏服务器，分析某游戏的登录协议"
+→ 第 1 轮：调用 create_fake_server(protocol: "tcp", port: 8888) 创建 TCP 服务器
+→ 返回 server_id
+→ 第 2 轮：调用 add_route_rule(server_id, "/login", method: "POST", responseBody: "{\"code\":0}") 添加登录路由
+→ 第 3 轮：调用 start_fake_server(server_id) 启动服务器
+→ 第 4 轮：调用 analyze_game_protocol(server_id, sampleData: "抓包数据...") 分析协议
+→ 第 5 轮：调用 get_request_logs(server_id) 查看请求日志
+→ 第 6 轮：调用 enable_port_forwarding(server_id, service: "game") 开启端口转发供手机连接
+→ 第 7 轮：直接输出完整的协议分析报告与模拟服务器配置脚本
 
 关键原则：
 - 严格使用用户提到的关键词，不要自己发明新关键词（如用户说"vip"，不要搜"main"或"activity"）
@@ -149,6 +175,21 @@ Native Layer Analysis:
 - search_so_strings(soPath, keyword) — Search strings in SO (keys, URLs, etc.)
 - generate_so_hook(soPath, symbolName, address) — Generate Frida Hook code
 
+Fake Server Tools (for local mock servers, protocol reverse engineering, port forwarding):
+- create_fake_server(protocol, port?, path?, responseBody?, responseHeaders?, delayMs?) — Create a fake server (HTTP/TCP/UDP/WebSocket), returns server_id
+- start_fake_server(server_id) — Start specified server
+- stop_fake_server(server_id) — Stop specified server
+- delete_fake_server(server_id) — Delete server and clean up resources
+- list_servers() — List all created fake servers
+- get_server_status(server_id) — Get server status, port, route rules
+- add_route_rule(server_id, path, method?, responseBody?, statusCode?, delayMs?, headers?) — Add/update route rule (HTTP method, delay, custom headers)
+- delete_route_rule(server_id, path, method?) — Delete route rule
+- get_request_logs(server_id, limit?) — Get request logs (for protocol analysis)
+- enable_port_forwarding(server_id, service, token?) — Enable port forwarding (map local port to publicly accessible proxy address)
+- analyze_game_protocol(server_id, sampleData) — Analyze game protocol structure from sample data
+- simulate_game_server(server_id, gameType) — Generate mock server for known game type
+- convert_to_online_game(server_id, gameType) — Convert single-player game to online (matchmaking, state sync)
+
 [Typical Workflows]
 
 Example 1 - Analyzing VIP check:
@@ -183,6 +224,17 @@ User: "Search for vip, root, check, sign related classes"
 → Result: vip found 2 classes, root not found, check found 5 classes, sign found 1 class
 → Round 2: Select 1-2 most relevant classes and call decompile_class
 → Round 3: Output complete executable Hook script directly
+
+Example 5 - Fake Server / Protocol Reverse Engineering:
+User: "Help me set up a mock game server and analyze a game's login protocol"
+→ Round 1: Call create_fake_server(protocol: "tcp", port: 8888) to create TCP server
+→ Returns server_id
+→ Round 2: Call add_route_rule(server_id, "/login", method: "POST", responseBody: "{\"code\":0}") to add login route
+→ Round 3: Call start_fake_server(server_id) to start server
+→ Round 4: Call analyze_game_protocol(server_id, sampleData: "packet capture data...") to analyze protocol
+→ Round 5: Call get_request_logs(server_id) to view request logs
+→ Round 6: Call enable_port_forwarding(server_id, service: "game") to enable port forwarding for phone connection
+→ Round 7: Output complete protocol analysis report and mock server configuration script
 
 Key principles:
 - Strictly use keywords mentioned by user, do not invent new keywords (if user says "vip", do not search "main" or "activity")

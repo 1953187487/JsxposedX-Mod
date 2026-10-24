@@ -49,6 +49,9 @@ class AppLocalizationsEn extends AppLocalizations {
       'Failed to check for updates. Try again later.';
 
   @override
+  String get desktopUpdateChecking => 'Checking for updates…';
+
+  @override
   String get desktopConnectionConnected => 'Connected';
 
   @override
@@ -788,7 +791,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get projectListEmpty =>
-      'No projects yet, create one from the home page';
+      'No projects yet. Tap the + button below to pick an app and create one';
 
   @override
   String projectLoadFailed(Object error) {
@@ -803,6 +806,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get chatInputHint => 'Describe the problem, or type / for commands';
+
+  @override
+  String get switchProject => 'Switch project';
+
+  @override
+  String get repositoryEmpty => 'No releases yet';
 
   @override
   String get creatingProject => 'Creating project…';
