@@ -481,40 +481,41 @@ class _SegmentedBar extends StatelessWidget {
         decoration: BoxDecoration(
           color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
           borderRadius: BorderRadius.circular(14.r),
+          border: Border.all(
+            color: colorScheme.outlineVariant.withValues(alpha: 0.35),
+            width: 1,
+          ),
         ),
         child: Row(
           children: [
             for (var i = 0; i < labels.length; i++)
               Expanded(
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 200),
-                  curve: Curves.easeOutCubic,
-                  margin: const EdgeInsets.all(2),
-                  decoration: BoxDecoration(
-                    color: selected == i
-                        ? colorScheme.primary
-                        : Colors.transparent,
-                    borderRadius: BorderRadius.circular(12.r),
-                  ),
-                  child: Material(
-                    color: Colors.transparent,
-                    child: InkWell(
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(12.r),
+                  onTap: () => onChanged(i),
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 200),
+                    curve: Curves.easeOutCubic,
+                    margin: const EdgeInsets.all(2),
+                    decoration: BoxDecoration(
+                      color: selected == i
+                          ? colorScheme.primary.withValues(alpha: 0.15)
+                          : Colors.transparent,
                       borderRadius: BorderRadius.circular(12.r),
-                      onTap: () => onChanged(i),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 8.h),
-                        child: Center(
-                          child: Text(
-                            labels[i],
-                            style: TextStyle(
-                              fontSize: 13.sp,
-                              fontWeight: selected == i
-                                  ? FontWeight.w700
-                                  : FontWeight.w500,
-                              color: selected == i
-                                  ? colorScheme.onPrimary
-                                  : colorScheme.onSurface.withValues(alpha: 0.6),
-                            ),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 8.h),
+                      child: Center(
+                        child: Text(
+                          labels[i],
+                          style: TextStyle(
+                            fontSize: 13.sp,
+                            fontWeight: selected == i
+                                ? FontWeight.w700
+                                : FontWeight.w500,
+                            color: selected == i
+                                ? colorScheme.primary
+                                : colorScheme.onSurface.withValues(alpha: 0.6),
                           ),
                         ),
                       ),
